@@ -1,11 +1,25 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Kangaroo Species Population by Year",
+    "width": 580,
+    "height": 300,
     "background": "#fffaf0",
     "data": {
-        "url": "population_timeseries.csv"
+        "url": "population_yearly.csv"
     },
     "mark": "area",
+    "params": [
+        {
+            "name": "species",
+            "select": {
+                "type": "point",
+                "fields": [
+                    "series"
+                ]
+            },
+            "bind": "legend"
+        }
+    ],
     "encoding": {
         "x": {
             "timeUnit": "year",
@@ -31,6 +45,13 @@
             "scale": {
                 "scheme": "category20b"
             }
+        },
+        "opacity": {
+            "condition": {
+                "param": "species",
+                "value": 1
+            },
+            "value": 0.2
         }
     }
 }

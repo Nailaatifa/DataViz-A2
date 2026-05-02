@@ -1,0 +1,46 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "data": {
+        "url": "weight.csv"
+    },
+    "background": "#fffaf0",
+    "repeat": {
+        "layer": [
+            "Male Weight",
+            "Female Weight"
+        ]
+    },
+    "spec": {
+        "mark": "bar",
+        "encoding": {
+            "y": {
+                "field": "species",
+                "type": "nominal"
+            },
+            "x": {
+                "aggregate": "sum",
+                "field": {
+                    "repeat": "layer"
+                },
+                "type": "quantitative",
+                "title": "Weight (kg)"
+            },
+            "color": {
+                "datum": {
+                    "repeat": "layer"
+                },
+                "title": "Sex"
+            },
+            "yOffset": {
+                "datum": {
+                    "repeat": "layer"
+                }
+            }
+        }
+    },
+    "config": {
+        "mark": {
+            "invalid": null
+        }
+    }
+}
