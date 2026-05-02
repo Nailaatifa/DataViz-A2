@@ -1,0 +1,9 @@
+species,sex,metric,unit,min,max
+Red Kangaroo,Male,Body Weight,kg,22,92
+Red Kangaroo,Female,Body Weight,kg,17,39
+Western Grey Kangaroo,Male,Body Weight,kg,18,72
+Western Grey Kangaroo,Female,Body Weight,kg,17,39
+Red Kangaroo,Male,Tail Length,cm,71,100
+Red Kangaroo,Female,Tail Length,cm,64.5,90
+Western Grey Kangaroo,Male,Tail Length,cm,42.5,100
+Western Grey Kangaroo,Female,Tail Length,cm,44.3,81.5

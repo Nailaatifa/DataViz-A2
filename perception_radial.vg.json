@@ -1,0 +1,70 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Kangaroo population by Australian state (millions)",
+    "background": "#fffaf0",
+    "data": {
+        "url": "perception.csv"
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "arc",
+                "innerRadius": 20,
+                "stroke": "#fff",
+                "strokeWidth": 2
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "radiusOffset": 14,
+                "fontSize": 12,
+                "fontWeight": "bold"
+            },
+            "encoding": {
+                "text": {
+                    "field": "Percentage",
+                    "type": "quantitative",
+                    "format": ".1f"
+                }
+            }
+        }
+    ],
+    "encoding": {
+        "theta": {
+            "field": "Percentage",
+            "type": "quantitative",
+            "stack": true
+        },
+        "radius": {
+            "field": "Percentage",
+            "type": "quantitative",
+            "scale": {
+                "type": "sqrt",
+                "zero": true,
+                "rangeMin": 20
+            }
+        },
+        "color": {
+            "field": "Perception",
+            "type": "nominal",
+            "legend": {
+                "title": "Perception",
+                "orient": "right",
+                "labelFontSize": 12,
+                "titleFontSize": 12,
+                "symbolSize": 120
+            },
+            "scale": {
+                "range": [
+                    "#378ADD",
+                    "#85B7EB",
+                    "#1D9E75",
+                    "#5DCAA5",
+                    "#D85A30",
+                    "#B5D4F4"
+                ]
+            }
+        }
+    }
+}

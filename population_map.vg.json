@@ -1,0 +1,116 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Kangaroo Habitat across Australia",
+  "height": 360,
+  "width": 400,
+  "background": "#fffaf0",
+  "projection": {
+    "type": "mercator",
+    "center": [
+      134,
+      -27
+    ],
+    "scale": 520
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/australia.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#dfe9d8",
+        "stroke": "#4a7c5e",
+        "strokeWidth": 0.6
+      }
+    },
+    {
+      "data": {
+        "url": "../Data/kangaroo_population.csv"
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.78,
+        "stroke": "#5a3a1e",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "population",
+          "type": "quantitative",
+          "title": "Population",
+          "scale": {
+            "range": [
+              40,
+              800
+            ]
+          }
+        },
+        "color": {
+          "field": "population",
+          "type": "quantitative",
+          "scale": {
+            "range": [
+              "#c89060",
+              "#a07c4e",
+              "#6b4423",
+              "#5a3a1e"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "Region"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "population",
+            "type": "quantitative",
+            "title": "Population",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter"
+    },
+    "legend": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "titleFontWeight": 500
+    },
+    "title": {
+      "font": "Lora",
+      "fontSize": 15,
+      "fontWeight": 700,
+      "color": "#2d5a3d",
+      "anchor": "start"
+    }
+  }
+}

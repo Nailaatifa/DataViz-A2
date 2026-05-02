@@ -1,0 +1,31 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Kangaroo population by species per state, grouped by year",
+  "data": {
+    "url": "population_state.csv"
+  },
+  "mark": "bar",
+  "encoding": {
+    "column": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year"
+    },
+    "x": {
+      "field": "Population",
+      "type": "quantitative",
+      "aggregate": "sum",
+      "title": "Total Population"
+    },
+    "y": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State"
+    },
+    "color": {
+      "field": "Species",
+      "type": "nominal",
+      "title": "Species"
+    }
+  }
+}
