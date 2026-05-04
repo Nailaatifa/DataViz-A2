@@ -1,0 +1,209 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 680,
+    "height": 330,
+    "data": [
+        {
+            "name": "tree",
+            "url": "genus_tree.csv",
+            "format": {
+                "type": "csv",
+                "parse": {
+                    "id": "number",
+                    "parent": "number",
+                    "level": "number"
+                }
+            },
+            "transform": [
+                {
+                    "type": "stratify",
+                    "key": "id",
+                    "parentKey": "parent"
+                },
+                {
+                    "type": "tree",
+                    "method": "tidy",
+                    "size": [
+                        {
+                            "signal": "height"
+                        },
+                        {
+                            "signal": "width - 40"
+                        }
+                    ],
+                    "separation": false,
+                    "as": [
+                        "y",
+                        "x",
+                        "depth",
+                        "children"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "links",
+            "source": "tree",
+            "transform": [
+                {
+                    "type": "treelinks"
+                },
+                {
+                    "type": "linkpath",
+                    "orient": "vertical",
+                    "shape": "orthogonal"
+                }
+            ]
+        }
+    ],
+    "scales": [
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "range": [
+                "#1D9E75",
+                "#185FA5",
+                "#BA7517",
+                "#E24B4A"
+            ]
+        }
+    ],
+    "marks": [
+        {
+            "type": "path",
+            "from": {
+                "data": "links"
+            },
+            "encode": {
+                "update": {
+                    "path": {
+                        "field": "path"
+                    },
+                    "stroke": {
+                        "value": "#B4B2A9"
+                    },
+                    "strokeWidth": {
+                        "value": 1
+                    },
+                    "fill": {
+                        "value": "transparent"
+                    },
+                    "fillOpacity": {
+                        "value": 0
+                    }
+                }
+            }
+        },
+        {
+            "type": "symbol",
+            "from": {
+                "data": "tree"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "size": {
+                        "value": 220
+                    },
+                    "fill": {
+                        "scale": "color",
+                        "field": "level"
+                    },
+                    "stroke": {
+                        "value": "white"
+                    },
+                    "strokeWidth": {
+                        "value": 2
+                    }
+                },
+                "hover": {
+                    "size": {
+                        "value": 300
+                    },
+                    "cursor": {
+                        "value": "pointer"
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {
+                "data": "tree"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "dy": {
+                        "value": -14
+                    },
+                    "text": {
+                        "signal": "datum.level === 4 ? datum.actual_name : datum.name"
+                    },
+                    "align": {
+                        "value": "center"
+                    },
+                    "fontSize": {
+                        "value": 12
+                    },
+                    "fontWeight": {
+                        "value": "500"
+                    },
+                    "fontStyle": {
+                        "signal": "datum.level === 4 ? 'italic' : 'normal'"
+                    },
+                    "fill": {
+                        "signal": "datum.level === 1 ? '#085041' : datum.level === 2 ? '#0C447C' : datum.level === 3 ? '#633806' : '#791F1F'"
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {
+                "data": "tree"
+            },
+            "encode": {
+                "enter": {
+                    "x": {
+                        "field": "x"
+                    },
+                    "y": {
+                        "field": "y"
+                    },
+                    "dy": {
+                        "value": 22
+                    },
+                    "text": {
+                        "field": "rank"
+                    },
+                    "align": {
+                        "value": "center"
+                    },
+                    "fontSize": {
+                        "value": 10
+                    },
+                    "fill": {
+                        "value": "#888780"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -43,7 +43,24 @@
             "type": "nominal",
             "title": "Species",
             "scale": {
-                "scheme": "category20b"
+                "domain": [
+                    "Eastern Grey Kangaroo",
+                    "Euro",
+                    "Grey Kangaroo",
+                    "Red Kangaroo",
+                    "Tammar Wallaby",
+                    "Wallaroo",
+                    "Western Grey Kangaroo"
+                ],
+                "range": [
+                    "#e3891f",
+                    "#8c4f1f",
+                    "#c56a1a",
+                    "#f2b705",
+                    "#2e8b57",
+                    "#d4d83b",
+                    "#7fbf3f"
+                ]
             }
         },
         "opacity": {

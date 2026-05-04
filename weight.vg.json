@@ -29,7 +29,10 @@
                 "datum": {
                     "repeat": "layer"
                 },
-                "title": "Sex"
+                "title": "Sex",
+                "legend": {
+                    "orient": "bottom"
+                }
             },
             "yOffset": {
                 "datum": {

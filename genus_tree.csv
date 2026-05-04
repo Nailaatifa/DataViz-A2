@@ -1,0 +1,13 @@
+id,parent,name,actual_name,level,rank
+1,,Animalia,Animals,1,Kingdom
+2,1,Chordata,Chordates,1,Phylum
+3,2,Mammalia,Mammals,1,Class
+4,3,Diprotodontia,Diprotodonts,2,Order
+5,4,Macropodidae,Kangaroos and Wallabies,2,Family
+6,5,Osphranter,Osphranter,3,Genus
+7,5,Macropus,Macropus,3,Genus
+8,5,Notamacropus,Notamacropus,3,Genus
+9,6,O. rufus,Red Kangaroo,4,Species
+10,7,M. giganteus,Eastern Grey Kangaroo,4,Species
+11,7,M. fuliginosus,Western Grey Kangaroo,4,Species
+12,8,N. eugenii,Tammar Wallaby,4,Species

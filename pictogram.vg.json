@@ -1,86 +1,100 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Each icon = 5 million individuals",
-  "height": 50,
-  "width": 300,
   "background": "#fffaf0",
-  "data": {
-    "values": [
-      {
-        "group": "Kangaroos",
-        "icon": "🦘",
-        "count": 7
+  "vconcat": [
+    {
+      "height": 50,
+      "width": 300,
+      "data": {
+        "values": [
+          {
+            "group": "Kangaroos",
+            "icon": "🦘",
+            "count": 7
+          },
+          {
+            "group": "Humans",
+            "icon": "🧍",
+            "count": 5
+          }
+        ]
       },
-      {
-        "group": "Humans",
-        "icon": "🧍",
-        "count": 5
+      "transform": [
+        {
+          "calculate": "sequence(0, datum.count)",
+          "as": "seq"
+        },
+        {
+          "flatten": [
+            "seq"
+          ]
+        },
+        {
+          "calculate": "datum.seq % 10",
+          "as": "col"
+        },
+        {
+          "calculate": "floor(datum.seq / 10)",
+          "as": "row"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 28,
+        "baseline": "middle"
+      },
+      "encoding": {
+        "x": {
+          "field": "col",
+          "type": "ordinal",
+          "axis": null
+        },
+        "y": {
+          "field": "row",
+          "type": "ordinal",
+          "axis": null,
+          "sort": "descending"
+        },
+        "row": {
+          "field": "group",
+          "type": "nominal",
+          "header": {
+            "labelFont": "Lora",
+            "labelFontSize": 14,
+            "labelFontWeight": 700,
+            "labelColor": "#2d5a3d"
+          }
+        },
+        "text": {
+          "field": "icon"
+        }
       }
-    ]
-  },
-  "transform": [
-    {
-      "calculate": "sequence(0, datum.count)",
-      "as": "seq"
     },
     {
-      "flatten": [
-        "seq"
-      ]
-    },
-    {
-      "calculate": "datum.seq % 10",
-      "as": "col"
-    },
-    {
-      "calculate": "floor(datum.seq / 10)",
-      "as": "row"
+      "width": 0,
+      "data": {
+        "values": [
+          {
+            "note": "Each icon represents 5 million individuals"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "fontSize": 12,
+        "color": "#6b4423"
+      },
+      "encoding": {
+        "text": {
+          "field": "note"
+        }
+      }
     }
   ],
-  "mark": {
-    "type": "text",
-    "fontSize": 28,
-    "baseline": "middle"
-  },
-  "encoding": {
-    "x": {
-      "field": "col",
-      "type": "ordinal",
-      "axis": null
-    },
-    "y": {
-      "field": "row",
-      "type": "ordinal",
-      "axis": null,
-      "sort": "descending"
-    },
-    "row": {
-      "field": "group",
-      "type": "nominal",
-      "header": {
-        "labelFont": "Lora",
-        "labelFontSize": 14,
-        "labelFontWeight": 700,
-        "labelColor": "#2d5a3d",
-        "titleOrient": "top"
-      },
-      "title": null
-    },
-    "text": {
-      "field": "icon",
-      "type": "nominal"
-    }
-  },
   "config": {
     "view": {
       "stroke": null
-    },
-    "title": {
-      "font": "Inter",
-      "fontSize": 12,
-      "fontWeight": 400,
-      "color": "#6b4423",
-      "anchor": "start"
     }
   }
 }

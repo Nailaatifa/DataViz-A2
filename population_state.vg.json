@@ -2,31 +2,168 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Kangaroo population by species per state, grouped by year",
   "background": "#fffaf0",
-  "width": 180,
-  "data": {
-    "url": "population_state.csv"
-  },
-  "mark": "bar",
-  "encoding": {
-    "column": {
-      "field": "Year",
-      "type": "ordinal",
-      "title": "Year"
+  "vconcat": [
+    {
+      "width": 400,
+      "height": 300,
+      "data": {
+        "url": "population_state.csv"
+      },
+      "transform": [
+        {
+          "calculate": "datum.State == 'NSW' ? 'New South Wales' : datum.State == 'QLD' ? 'Queensland' : datum.State == 'SA' ? 'South Australia' : datum.State == 'VIC' ? 'Victoria' : datum.State == 'WA' ? 'Western Australia' : datum.State",
+          "as": "StateName"
+        }
+      ],
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "field": "State",
+          "type": "nominal",
+          "title": "State"
+        },
+        "y": {
+          "field": "Species",
+          "type": "nominal",
+          "title": "Species"
+        },
+        "color": {
+          "aggregate": "sum",
+          "field": "Population",
+          "type": "quantitative",
+          "title": "Population",
+          "scale": {
+            "scheme": "browns"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal"
+          },
+          {
+            "field": "StateName",
+            "type": "nominal",
+            "title": "State name"
+          },
+          {
+            "field": "Species",
+            "type": "nominal"
+          },
+          {
+            "aggregate": "sum",
+            "field": "Population",
+            "title": "Total Population"
+          }
+        ]
+      }
     },
-    "x": {
-      "field": "State",
-      "type": "nominal",
-      "title": "State"
-    },
-    "y": {
-      "field": "Population",
-      "type": "quantitative",
-      "title": "Population"
-    },
-    "color": {
-      "field": "Species",
-      "type": "nominal",
-      "title": "Species"
+    {
+      "width": 400,
+      "height": 72,
+      "layer": [
+        {
+          "data": {
+            "values": [
+              {
+                "label": "State abbreviations",
+                "x": 0,
+                "y": 8
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "font": "Inter",
+            "fontSize": 11,
+            "fontWeight": "bold",
+            "color": "#3d2c1a"
+          },
+          "encoding": {
+            "x": {
+              "field": "x",
+              "type": "quantitative",
+              "scale": null,
+              "axis": null
+            },
+            "y": {
+              "field": "y",
+              "type": "quantitative",
+              "scale": null,
+              "axis": null
+            },
+            "text": {
+              "field": "label",
+              "type": "nominal"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "label": "NSW = New South Wales",
+                "x": 0,
+                "y": 30
+              },
+              {
+                "label": "QLD = Queensland",
+                "x": 210,
+                "y": 30
+              },
+              {
+                "label": "SA = South Australia",
+                "x": 0,
+                "y": 50
+              },
+              {
+                "label": "VIC = Victoria",
+                "x": 210,
+                "y": 50
+              },
+              {
+                "label": "WA = Western Australia",
+                "x": 0,
+                "y": 66
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "font": "Inter",
+            "fontSize": 11,
+            "color": "#3d2c1a"
+          },
+          "encoding": {
+            "x": {
+              "field": "x",
+              "type": "quantitative",
+              "scale": null,
+              "axis": null
+            },
+            "y": {
+              "field": "y",
+              "type": "quantitative",
+              "scale": null,
+              "axis": null
+            },
+            "text": {
+              "field": "label",
+              "type": "nominal"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "spacing": 6,
+  "config": {
+    "view": {
+      "stroke": null
     }
   }
 }

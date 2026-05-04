@@ -1,0 +1,21 @@
+task,start,end
+Gestation (Red Kangaroo),0,1
+Gestation (Eastern Grey),0,1.5
+Gestation (Western Grey),0,1.5
+Gestation (Wallaroo),0,1.25
+Joey in pouch (Red Kangaroo),1,8
+Joey in pouch (Eastern Grey),1.5,11
+Joey in pouch (Western Grey),1.5,10
+Joey in pouch (Wallaroo),1.25,9
+Pouch exit to weaning (Red Kangaroo),8,12
+Pouch exit to weaning (Eastern Grey),11,18
+Pouch exit to weaning (Western Grey),10,15
+Pouch exit to weaning (Wallaroo),9,14
+Sexual maturity - Female (Red Kangaroo),15,20
+Sexual maturity - Female (Eastern Grey),17,28
+Sexual maturity - Female (Western Grey),14,20
+Sexual maturity - Female (Wallaroo),14,24
+Sexual maturity - Male (Red Kangaroo),20,24
+Sexual maturity - Male (Eastern Grey),25,36
+Sexual maturity - Male (Western Grey),20,28
+Sexual maturity - Male (Wallaroo),18,24
