@@ -1,5 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Species by State",
+    "anchor": "middle",
+    "fontSize": 22,
+    "color": "#2d5a3d",
+    "fontWeight": 700,
+    "font": "Lora, Times New Roman, serif",
+    "offset": 18
+  },
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "description": "Kangaroo population by species per state, grouped by year",
   "background": "#fffaf0",
   "vconcat": [

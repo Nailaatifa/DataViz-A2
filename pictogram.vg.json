@@ -1,5 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Kangaroos vs Humans (2024)",
+    "anchor": "middle",
+    "fontSize": 22,
+    "color": "#2d5a3d",
+    "fontWeight": 700,
+    "font": "Lora, Times New Roman, serif",
+    "offset": 18
+  },
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "background": "#fffaf0",
   "vconcat": [
     {
