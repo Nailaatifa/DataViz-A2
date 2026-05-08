@@ -1,74 +1,243 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Kangaroo Species Population by Year",
-    "width": 580,
-    "height": 300,
     "background": "#fffaf0",
     "data": {
         "url": "population_yearly.csv"
     },
-    "mark": "area",
-    "params": [
+    "vconcat": [
         {
-            "name": "species",
-            "select": {
-                "type": "point",
-                "fields": [
-                    "series"
-                ]
+            "width": 580,
+            "height": 300,
+            "encoding": {
+                "x": {
+                    "timeUnit": "year",
+                    "field": "date",
+                    "type": "temporal",
+                    "scale": {
+                        "domain": {
+                            "param": "brush"
+                        }
+                    },
+                    "axis": {
+                        "format": "%Y",
+                        "title": "Year"
+                    }
+                }
             },
-            "bind": "legend"
-        }
-    ],
-    "encoding": {
-        "x": {
-            "timeUnit": "year",
-            "field": "date",
-            "type": "temporal",
-            "axis": {
-                "format": "%Y",
-                "title": "Year"
-            }
+            "layer": [
+                {
+                    "mark": "area",
+                    "params": [
+                        {
+                            "name": "species",
+                            "select": {
+                                "type": "point",
+                                "fields": [
+                                    "series"
+                                ]
+                            },
+                            "bind": "legend"
+                        }
+                    ],
+                    "encoding": {
+                        "y": {
+                            "aggregate": "sum",
+                            "field": "count",
+                            "type": "quantitative",
+                            "axis": {
+                                "title": "Total Population"
+                            }
+                        },
+                        "color": {
+                            "field": "series",
+                            "type": "nominal",
+                            "title": "Species",
+                            "scale": {
+                                "domain": [
+                                    "Eastern Grey Kangaroo",
+                                    "Euro",
+                                    "Grey Kangaroo",
+                                    "Red Kangaroo",
+                                    "Tammar Wallaby",
+                                    "Wallaroo",
+                                    "Western Grey Kangaroo"
+                                ],
+                                "range": [
+                                    "#e3891f",
+                                    "#8c4f1f",
+                                    "#c56a1a",
+                                    "#f2b705",
+                                    "#2e8b57",
+                                    "#d4d83b",
+                                    "#7fbf3f"
+                                ]
+                            }
+                        },
+                        "opacity": {
+                            "condition": {
+                                "param": "species",
+                                "value": 1
+                            },
+                            "value": 0.2
+                        }
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {
+                                "date": "2014-01-01",
+                                "y": 55718542,
+                                "label": "Peak — ~56M",
+                                "sublabel": "favorable rainfall"
+                            },
+                            {
+                                "date": "2021-01-01",
+                                "y": 31527859,
+                                "label": "Sharp drop — −11M",
+                                "sublabel": "drought & 2019–20 bushfires"
+                            },
+                            {
+                                "date": "2023-01-01",
+                                "y": 36554240,
+                                "label": "Recovery",
+                                "sublabel": "stabilising"
+                            }
+                        ]
+                    },
+                    "layer": [
+                        {
+                            "mark": {
+                                "type": "rule",
+                                "color": "#5a3a1e",
+                                "strokeDash": [
+                                    3,
+                                    3
+                                ],
+                                "opacity": 0.55
+                            },
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "year"
+                                }
+                            }
+                        },
+                        {
+                            "mark": {
+                                "type": "point",
+                                "filled": true,
+                                "color": "#5a3a1e",
+                                "size": 55
+                            },
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "year"
+                                },
+                                "y": {
+                                    "field": "y",
+                                    "type": "quantitative"
+                                }
+                            }
+                        },
+                        {
+                            "mark": {
+                                "type": "text",
+                                "align": "center",
+                                "baseline": "bottom",
+                                "dy": -10,
+                                "fontSize": 12,
+                                "fontWeight": "bold",
+                                "color": "#3d2c1a"
+                            },
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "year"
+                                },
+                                "y": {
+                                    "field": "y",
+                                    "type": "quantitative"
+                                },
+                                "text": {
+                                    "field": "label"
+                                }
+                            }
+                        },
+                        {
+                            "mark": {
+                                "type": "text",
+                                "align": "center",
+                                "baseline": "bottom",
+                                "dy": 4,
+                                "fontSize": 10,
+                                "fontStyle": "italic",
+                                "color": "#6b4423"
+                            },
+                            "encoding": {
+                                "x": {
+                                    "field": "date",
+                                    "type": "temporal",
+                                    "timeUnit": "year"
+                                },
+                                "y": {
+                                    "field": "y",
+                                    "type": "quantitative"
+                                },
+                                "text": {
+                                    "field": "sublabel"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         },
-        "y": {
-            "aggregate": "sum",
-            "field": "count",
-            "type": "quantitative",
-            "axis": {
-                "title": "Total Population"
-            }
-        },
-        "color": {
-            "field": "series",
-            "type": "nominal",
-            "title": "Species",
-            "scale": {
-                "domain": [
-                    "Eastern Grey Kangaroo",
-                    "Euro",
-                    "Grey Kangaroo",
-                    "Red Kangaroo",
-                    "Tammar Wallaby",
-                    "Wallaroo",
-                    "Western Grey Kangaroo"
-                ],
-                "range": [
-                    "#e3891f",
-                    "#8c4f1f",
-                    "#c56a1a",
-                    "#f2b705",
-                    "#2e8b57",
-                    "#d4d83b",
-                    "#7fbf3f"
-                ]
-            }
-        },
-        "opacity": {
-            "condition": {
-                "param": "species",
-                "value": 1
+        {
+            "width": 580,
+            "height": 60,
+            "mark": {
+                "type": "area",
+                "color": "#a07c4e"
             },
-            "value": 0.2
+            "params": [
+                {
+                    "name": "brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "timeUnit": "year",
+                    "field": "date",
+                    "type": "temporal",
+                    "axis": {
+                        "format": "%Y",
+                        "title": "",
+                        "tickCount": 10
+                    }
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "count",
+                    "type": "quantitative",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false,
+                        "title": ""
+                    }
+                }
+            }
         }
-    }
+    ]
 }

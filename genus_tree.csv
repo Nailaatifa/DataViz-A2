@@ -8,6 +8,7 @@ id,parent,name,actual_name,level,rank
 7,5,Macropus,Macropus,3,Genus
 8,5,Notamacropus,Notamacropus,3,Genus
 9,6,O. rufus,Red Kangaroo,4,Species
+13,6,O. antilopinus,Antilopine Kangaroo,4,Species
 10,7,M. giganteus,Eastern Grey Kangaroo,4,Species
 11,7,M. fuliginosus,Western Grey Kangaroo,4,Species
 12,8,N. eugenii,Tammar Wallaby,4,Species

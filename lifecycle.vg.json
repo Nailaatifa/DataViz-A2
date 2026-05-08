@@ -9,191 +9,343 @@
     "concat": [
         {
             "title": "Red Kangaroo",
-            "mark": "bar",
-            "transform": [
+            "layer": [
                 {
-                    "filter": "indexof(datum.task, 'Red Kangaroo') >= 0"
+                    "mark": "bar",
+                    "transform": [
+                        {
+                            "filter": "indexof(datum.task, 'Red Kangaroo') >= 0"
+                        },
+                        {
+                            "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+                            "as": "stage"
+                        }
+                    ],
+                    "encoding": {
+                        "y": {
+                            "field": "stage",
+                            "type": "ordinal",
+                            "title": null,
+                            "axis": {
+                                "labelLimit": 200
+                            }
+                        },
+                        "x": {
+                            "field": "start",
+                            "type": "quantitative",
+                            "title": "Age (months)"
+                        },
+                        "x2": {
+                            "field": "end"
+                        },
+                        "color": {
+                            "field": "task",
+                            "type": "nominal",
+                            "title": "Stage",
+                            "legend": null
+                        },
+                        "tooltip": [
+                            {
+                                "field": "task",
+                                "title": "Stage"
+                            },
+                            {
+                                "field": "start",
+                                "title": "Start (months)"
+                            },
+                            {
+                                "field": "end",
+                                "title": "End (months)"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {}
+                        ]
+                    },
+                    "mark": {
+                        "type": "text",
+                        "align": "right",
+                        "baseline": "top",
+                        "fontSize": 10,
+                        "fontStyle": "italic",
+                        "color": "#555",
+                        "dx": -4,
+                        "dy": 4
+                    },
+                    "encoding": {
+                        "x": {
+                            "datum": 24,
+                            "type": "quantitative"
+                        },
+                        "y": {
+                            "datum": "Gestation",
+                            "type": "ordinal"
+                        },
+                        "text": {
+                            "value": "Shortest gestation — just ~1 month"
+                        }
+                    }
                 }
-            ],
-            "encoding": {
-                "y": {
-                    "field": "task",
-                    "type": "ordinal",
-                    "title": null,
-                    "axis": {
-                        "labelLimit": 200
-                    }
-                },
-                "x": {
-                    "field": "start",
-                    "type": "quantitative",
-                    "title": "Age (months)"
-                },
-                "x2": {
-                    "field": "end"
-                },
-                "color": {
-                    "field": "task",
-                    "type": "nominal",
-                    "title": "Stage",
-                    "legend": null
-                },
-                "tooltip": [
-                    {
-                        "field": "task",
-                        "title": "Stage"
-                    },
-                    {
-                        "field": "start",
-                        "title": "Start (months)"
-                    },
-                    {
-                        "field": "end",
-                        "title": "End (months)"
-                    }
-                ]
-            }
+            ]
         },
         {
             "title": "Eastern Grey Kangaroo",
-            "mark": "bar",
-            "transform": [
+            "layer": [
                 {
-                    "filter": "indexof(datum.task, 'Eastern Grey') >= 0"
+                    "mark": "bar",
+                    "transform": [
+                        {
+                            "filter": "indexof(datum.task, 'Eastern Grey') >= 0"
+                        },
+                        {
+                            "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+                            "as": "stage"
+                        }
+                    ],
+                    "encoding": {
+                        "y": {
+                            "field": "stage",
+                            "type": "ordinal",
+                            "title": null,
+                            "axis": {
+                                "labelLimit": 200
+                            }
+                        },
+                        "x": {
+                            "field": "start",
+                            "type": "quantitative",
+                            "title": "Age (months)"
+                        },
+                        "x2": {
+                            "field": "end"
+                        },
+                        "color": {
+                            "field": "task",
+                            "type": "nominal",
+                            "title": "Stage",
+                            "legend": null
+                        },
+                        "tooltip": [
+                            {
+                                "field": "task",
+                                "title": "Stage"
+                            },
+                            {
+                                "field": "start",
+                                "title": "Start (months)"
+                            },
+                            {
+                                "field": "end",
+                                "title": "End (months)"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {}
+                        ]
+                    },
+                    "mark": {
+                        "type": "text",
+                        "align": "right",
+                        "baseline": "top",
+                        "fontSize": 10,
+                        "fontStyle": "italic",
+                        "color": "#555",
+                        "dx": -4,
+                        "dy": 4
+                    },
+                    "encoding": {
+                        "x": {
+                            "datum": 36,
+                            "type": "quantitative"
+                        },
+                        "y": {
+                            "datum": "Gestation",
+                            "type": "ordinal"
+                        },
+                        "text": {
+                            "value": "Longest pouch life — up to 11 months"
+                        }
+                    }
                 }
-            ],
-            "encoding": {
-                "y": {
-                    "field": "task",
-                    "type": "ordinal",
-                    "title": null,
-                    "axis": {
-                        "labelLimit": 200
-                    }
-                },
-                "x": {
-                    "field": "start",
-                    "type": "quantitative",
-                    "title": "Age (months)"
-                },
-                "x2": {
-                    "field": "end"
-                },
-                "color": {
-                    "field": "task",
-                    "type": "nominal",
-                    "title": "Stage",
-                    "legend": null
-                },
-                "tooltip": [
-                    {
-                        "field": "task",
-                        "title": "Stage"
-                    },
-                    {
-                        "field": "start",
-                        "title": "Start (months)"
-                    },
-                    {
-                        "field": "end",
-                        "title": "End (months)"
-                    }
-                ]
-            }
+            ]
         },
         {
             "title": "Western Grey Kangaroo",
-            "mark": "bar",
-            "transform": [
+            "layer": [
                 {
-                    "filter": "indexof(datum.task, 'Western Grey') >= 0"
+                    "mark": "bar",
+                    "transform": [
+                        {
+                            "filter": "indexof(datum.task, 'Western Grey') >= 0"
+                        },
+                        {
+                            "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+                            "as": "stage"
+                        }
+                    ],
+                    "encoding": {
+                        "y": {
+                            "field": "stage",
+                            "type": "ordinal",
+                            "title": null,
+                            "axis": {
+                                "labelLimit": 200
+                            }
+                        },
+                        "x": {
+                            "field": "start",
+                            "type": "quantitative",
+                            "title": "Age (months)"
+                        },
+                        "x2": {
+                            "field": "end"
+                        },
+                        "color": {
+                            "field": "task",
+                            "type": "nominal",
+                            "title": "Stage",
+                            "legend": null
+                        },
+                        "tooltip": [
+                            {
+                                "field": "task",
+                                "title": "Stage"
+                            },
+                            {
+                                "field": "start",
+                                "title": "Start (months)"
+                            },
+                            {
+                                "field": "end",
+                                "title": "End (months)"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {}
+                        ]
+                    },
+                    "mark": {
+                        "type": "text",
+                        "align": "right",
+                        "baseline": "top",
+                        "fontSize": 10,
+                        "fontStyle": "italic",
+                        "color": "#555",
+                        "dx": -4,
+                        "dy": 4
+                    },
+                    "encoding": {
+                        "x": {
+                            "datum": 28,
+                            "type": "quantitative"
+                        },
+                        "y": {
+                            "datum": "Gestation",
+                            "type": "ordinal"
+                        },
+                        "text": {
+                            "value": "Females mature earliest — from ~14 months"
+                        }
+                    }
                 }
-            ],
-            "encoding": {
-                "y": {
-                    "field": "task",
-                    "type": "ordinal",
-                    "title": null,
-                    "axis": {
-                        "labelLimit": 200
-                    }
-                },
-                "x": {
-                    "field": "start",
-                    "type": "quantitative",
-                    "title": "Age (months)"
-                },
-                "x2": {
-                    "field": "end"
-                },
-                "color": {
-                    "field": "task",
-                    "type": "nominal",
-                    "title": "Stage",
-                    "legend": null
-                },
-                "tooltip": [
-                    {
-                        "field": "task",
-                        "title": "Stage"
-                    },
-                    {
-                        "field": "start",
-                        "title": "Start (months)"
-                    },
-                    {
-                        "field": "end",
-                        "title": "End (months)"
-                    }
-                ]
-            }
+            ]
         },
         {
             "title": "Wallaroo",
-            "mark": "bar",
-            "transform": [
+            "layer": [
                 {
-                    "filter": "indexof(datum.task, 'Wallaroo') >= 0"
+                    "mark": "bar",
+                    "transform": [
+                        {
+                            "filter": "indexof(datum.task, 'Wallaroo') >= 0"
+                        },
+                        {
+                            "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+                            "as": "stage"
+                        }
+                    ],
+                    "encoding": {
+                        "y": {
+                            "field": "stage",
+                            "type": "ordinal",
+                            "title": null,
+                            "axis": {
+                                "labelLimit": 200
+                            }
+                        },
+                        "x": {
+                            "field": "start",
+                            "type": "quantitative",
+                            "title": "Age (months)"
+                        },
+                        "x2": {
+                            "field": "end"
+                        },
+                        "color": {
+                            "field": "task",
+                            "type": "nominal",
+                            "title": "Stage",
+                            "legend": null
+                        },
+                        "tooltip": [
+                            {
+                                "field": "task",
+                                "title": "Stage"
+                            },
+                            {
+                                "field": "start",
+                                "title": "Start (months)"
+                            },
+                            {
+                                "field": "end",
+                                "title": "End (months)"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {}
+                        ]
+                    },
+                    "mark": {
+                        "type": "text",
+                        "align": "right",
+                        "baseline": "top",
+                        "fontSize": 10,
+                        "fontStyle": "italic",
+                        "color": "#555",
+                        "dx": -4,
+                        "dy": 4
+                    },
+                    "encoding": {
+                        "x": {
+                            "datum": 24,
+                            "type": "quantitative"
+                        },
+                        "y": {
+                            "datum": "Gestation",
+                            "type": "ordinal"
+                        },
+                        "text": {
+                            "value": "Compact lifecycle — males mature by 18 months"
+                        }
+                    }
                 }
-            ],
-            "encoding": {
-                "y": {
-                    "field": "task",
-                    "type": "ordinal",
-                    "title": null,
-                    "axis": {
-                        "labelLimit": 200
-                    }
-                },
-                "x": {
-                    "field": "start",
-                    "type": "quantitative",
-                    "title": "Age (months)"
-                },
-                "x2": {
-                    "field": "end"
-                },
-                "color": {
-                    "field": "task",
-                    "type": "nominal",
-                    "title": "Stage",
-                    "legend": null
-                },
-                "tooltip": [
-                    {
-                        "field": "task",
-                        "title": "Stage"
-                    },
-                    {
-                        "field": "start",
-                        "title": "Start (months)"
-                    },
-                    {
-                        "field": "end",
-                        "title": "End (months)"
-                    }
-                ]
-            }
+            ]
         }
     ]
 }
