@@ -38,9 +38,18 @@
           "Wallaroo",
           "Tammar Wallaby"
         ],
-        "range": ["#5a3a1e", "#a07c4e", "#8a6d3b", "#2d5a3d", "#6b9b7d"]
+        "range": ["#b54e1f", "#4a7c5e", "#d4a35c", "#3d2c1a", "#c2c43b"]
       },
-      "legend": {"orient": "right"}
+      "legend": {
+        "orient": "none",
+        "legendX": 10,
+        "legendY": 8,
+        "direction": "vertical",
+        "fillColor": "#fffaf0",
+        "strokeColor": "#e8d8b8",
+        "padding": 8,
+        "cornerRadius": 6
+      }
     },
     "shape": {
       "field": "sex",
@@ -50,7 +59,16 @@
         "domain": ["Male", "Female"],
         "range": ["circle", "triangle-up"]
       },
-      "legend": {"orient": "right"}
+      "legend": {
+        "orient": "none",
+        "legendX": 10,
+        "legendY": 130,
+        "direction": "vertical",
+        "fillColor": "#fffaf0",
+        "strokeColor": "#e8d8b8",
+        "padding": 8,
+        "cornerRadius": 6
+      }
     },
     "tooltip": [
       {"field": "species", "type": "nominal", "title": "Species"},

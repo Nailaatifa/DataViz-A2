@@ -1,0 +1,300 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Sankey diagram: State → Species → End-use of harvested kangaroos",
+  "width": 760,
+  "height": 420,
+  "padding": {"top": 16, "right": 110, "bottom": 16, "left": 70},
+  "background": "#fffaf0",
+
+  "config": {
+    "view": {"stroke": null}
+  },
+
+  "signals": [
+    {"name": "nodeWidth", "value": 14},
+    {"name": "stage0", "update": "0"},
+    {"name": "stage1", "update": "width / 2 - nodeWidth / 2"},
+    {"name": "stage2", "update": "width - nodeWidth"},
+    {
+      "name": "yearSel",
+      "value": 2024,
+      "bind": {
+        "input": "select",
+        "options": [2022, 2023, 2024],
+        "name": "Year:  "
+      }
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "stagex",
+      "type": "ordinal",
+      "domain": ["state", "species", "use"],
+      "range": [{"signal": "stage0"}, {"signal": "stage1"}, {"signal": "stage2"}]
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "NSW", "QLD", "SA", "VIC", "WA",
+        "Red Kangaroo", "Eastern Grey Kangaroo", "Western Grey Kangaroo", "Wallaroo", "Tammar Wallaby", "Unused Quota",
+        "Pet Food", "Meat", "Skins", "Damage Mitigation", "Unused"
+      ],
+      "range": [
+        "#5a3a1e", "#a07c4e", "#2d5a3d", "#6b9b7d", "#8a6d3b",
+        "#b54e1f", "#4a7c5e", "#d4a35c", "#3d2c1a", "#c2c43b", "#d8c79a",
+        "#5a3a1e", "#a07c4e", "#2d5a3d", "#8a6d3b", "#d8c79a"
+      ]
+    }
+  ],
+
+  "data": [
+    {
+      "name": "raw",
+      "url": "harvest_flow.csv",
+      "format": {"type": "csv", "parse": {"count": "number", "year": "number"}},
+      "transform": [
+        {"type": "filter", "expr": "datum.year === yearSel"}
+      ]
+    },
+
+    {
+      "name": "n_state",
+      "source": "raw",
+      "transform": [
+        {"type": "aggregate", "groupby": ["state"], "ops": ["sum"], "fields": ["count"], "as": ["value"]},
+        {"type": "collect", "sort": {"field": "value", "order": "descending"}},
+        {"type": "stack", "field": "value"},
+        {"type": "formula", "as": "x", "expr": "scale('stagex','state')"},
+        {"type": "formula", "as": "label", "expr": "datum.state"}
+      ]
+    },
+    {
+      "name": "n_species",
+      "source": "raw",
+      "transform": [
+        {"type": "aggregate", "groupby": ["species"], "ops": ["sum"], "fields": ["count"], "as": ["value"]},
+        {"type": "collect", "sort": {"field": "value", "order": "descending"}},
+        {"type": "stack", "field": "value"},
+        {"type": "formula", "as": "x", "expr": "scale('stagex','species')"},
+        {"type": "formula", "as": "label", "expr": "datum.species"}
+      ]
+    },
+    {
+      "name": "n_use",
+      "source": "raw",
+      "transform": [
+        {"type": "aggregate", "groupby": ["use"], "ops": ["sum"], "fields": ["count"], "as": ["value"]},
+        {"type": "collect", "sort": {"field": "value", "order": "descending"}},
+        {"type": "stack", "field": "value"},
+        {"type": "formula", "as": "x", "expr": "scale('stagex','use')"},
+        {"type": "formula", "as": "label", "expr": "datum.use"}
+      ]
+    },
+
+    {
+      "name": "totals",
+      "source": "raw",
+      "transform": [{"type": "aggregate", "ops": ["sum"], "fields": ["count"], "as": ["grand"]}]
+    },
+
+    {
+      "name": "links_state_species",
+      "source": "raw",
+      "transform": [
+        {"type": "aggregate", "groupby": ["state", "species"], "ops": ["sum"], "fields": ["count"], "as": ["value"]},
+        {"type": "lookup", "from": "n_state", "key": "state", "fields": ["state"], "values": ["y0", "y1", "value"], "as": ["src_y0", "src_y1", "src_total"]},
+        {"type": "lookup", "from": "n_species", "key": "species", "fields": ["species"], "values": ["y0", "y1", "value"], "as": ["tgt_y0", "tgt_y1", "tgt_total"]},
+        {"type": "collect", "sort": {"field": ["state", "value"], "order": ["ascending", "descending"]}},
+        {"type": "stack", "groupby": ["state"], "field": "value", "as": ["src_offset0", "src_offset1"]},
+        {"type": "collect", "sort": {"field": ["species", "value"], "order": ["ascending", "descending"]}},
+        {"type": "stack", "groupby": ["species"], "field": "value", "as": ["tgt_offset0", "tgt_offset1"]},
+        {"type": "formula", "as": "yScale", "expr": "height"},
+        {"type": "formula", "as": "grand", "expr": "data('totals')[0].grand"},
+        {"type": "formula", "as": "src_y", "expr": "(datum.src_y0 + datum.src_offset0) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "src_y2", "expr": "(datum.src_y0 + datum.src_offset1) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "tgt_y", "expr": "(datum.tgt_y0 + datum.tgt_offset0) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "tgt_y2", "expr": "(datum.tgt_y0 + datum.tgt_offset1) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "src_x", "expr": "scale('stagex','state') + nodeWidth"},
+        {"type": "formula", "as": "tgt_x", "expr": "scale('stagex','species')"}
+      ]
+    },
+
+    {
+      "name": "links_species_use",
+      "source": "raw",
+      "transform": [
+        {"type": "aggregate", "groupby": ["species", "use"], "ops": ["sum"], "fields": ["count"], "as": ["value"]},
+        {"type": "lookup", "from": "n_species", "key": "species", "fields": ["species"], "values": ["y0", "y1", "value"], "as": ["src_y0", "src_y1", "src_total"]},
+        {"type": "lookup", "from": "n_use", "key": "use", "fields": ["use"], "values": ["y0", "y1", "value"], "as": ["tgt_y0", "tgt_y1", "tgt_total"]},
+        {"type": "collect", "sort": {"field": ["species", "value"], "order": ["ascending", "descending"]}},
+        {"type": "stack", "groupby": ["species"], "field": "value", "as": ["src_offset0", "src_offset1"]},
+        {"type": "collect", "sort": {"field": ["use", "value"], "order": ["ascending", "descending"]}},
+        {"type": "stack", "groupby": ["use"], "field": "value", "as": ["tgt_offset0", "tgt_offset1"]},
+        {"type": "formula", "as": "yScale", "expr": "height"},
+        {"type": "formula", "as": "grand", "expr": "data('totals')[0].grand"},
+        {"type": "formula", "as": "src_y", "expr": "(datum.src_y0 + datum.src_offset0) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "src_y2", "expr": "(datum.src_y0 + datum.src_offset1) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "tgt_y", "expr": "(datum.tgt_y0 + datum.tgt_offset0) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "tgt_y2", "expr": "(datum.tgt_y0 + datum.tgt_offset1) / datum.grand * datum.yScale"},
+        {"type": "formula", "as": "src_x", "expr": "scale('stagex','species') + nodeWidth"},
+        {"type": "formula", "as": "tgt_x", "expr": "scale('stagex','use')"}
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "path",
+      "from": {"data": "links_state_species"},
+      "encode": {
+        "enter": {
+          "stroke": {"scale": "color", "field": "state"},
+          "strokeOpacity": {"value": 0.35},
+          "fill": {"value": null}
+        },
+        "update": {
+          "strokeWidth": {"signal": "(datum.src_y2 - datum.src_y)"},
+          "path": {
+            "signal": "'M ' + datum.src_x + ',' + ((datum.src_y + datum.src_y2)/2) + ' C ' + ((datum.src_x + datum.tgt_x)/2) + ',' + ((datum.src_y + datum.src_y2)/2) + ' ' + ((datum.src_x + datum.tgt_x)/2) + ',' + ((datum.tgt_y + datum.tgt_y2)/2) + ' ' + datum.tgt_x + ',' + ((datum.tgt_y + datum.tgt_y2)/2)"
+          }
+        },
+        "hover": {"strokeOpacity": {"value": 0.6}}
+      }
+    },
+    {
+      "type": "path",
+      "from": {"data": "links_species_use"},
+      "encode": {
+        "enter": {
+          "stroke": {"scale": "color", "field": "use"},
+          "strokeOpacity": {"value": 0.35},
+          "fill": {"value": null}
+        },
+        "update": {
+          "strokeWidth": {"signal": "(datum.src_y2 - datum.src_y)"},
+          "path": {
+            "signal": "'M ' + datum.src_x + ',' + ((datum.src_y + datum.src_y2)/2) + ' C ' + ((datum.src_x + datum.tgt_x)/2) + ',' + ((datum.src_y + datum.src_y2)/2) + ' ' + ((datum.src_x + datum.tgt_x)/2) + ',' + ((datum.tgt_y + datum.tgt_y2)/2) + ' ' + datum.tgt_x + ',' + ((datum.tgt_y + datum.tgt_y2)/2)"
+          }
+        },
+        "hover": {"strokeOpacity": {"value": 0.6}}
+      }
+    },
+
+    {
+      "type": "rect",
+      "from": {"data": "n_state"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x"},
+          "width": {"signal": "nodeWidth"},
+          "fill": {"scale": "color", "field": "state"},
+          "stroke": {"value": "#fff"},
+          "strokeWidth": {"value": 1},
+          "tooltip": {"signal": "{'State': datum.state, 'Total': format(datum.value, ',')}"}
+        },
+        "update": {
+          "y": {"signal": "datum.y0 / data('totals')[0].grand * height"},
+          "y2": {"signal": "datum.y1 / data('totals')[0].grand * height"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "n_species"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x"},
+          "width": {"signal": "nodeWidth"},
+          "fill": {"scale": "color", "field": "species"},
+          "stroke": {"value": "#fff"},
+          "strokeWidth": {"value": 1},
+          "tooltip": {"signal": "{'Species': datum.species, 'Total': format(datum.value, ',')}"}
+        },
+        "update": {
+          "y": {"signal": "datum.y0 / data('totals')[0].grand * height"},
+          "y2": {"signal": "datum.y1 / data('totals')[0].grand * height"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "n_use"},
+      "encode": {
+        "enter": {
+          "x": {"field": "x"},
+          "width": {"signal": "nodeWidth"},
+          "fill": {"scale": "color", "field": "use"},
+          "stroke": {"value": "#fff"},
+          "strokeWidth": {"value": 1},
+          "tooltip": {"signal": "{'End use': datum.use, 'Total': format(datum.value, ',')}"}
+        },
+        "update": {
+          "y": {"signal": "datum.y0 / data('totals')[0].grand * height"},
+          "y2": {"signal": "datum.y1 / data('totals')[0].grand * height"}
+        }
+      }
+    },
+
+    {
+      "type": "text",
+      "from": {"data": "n_state"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "#3d2c1a"},
+          "font": {"value": "Inter, sans-serif"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": 600},
+          "align": {"value": "right"},
+          "baseline": {"value": "middle"},
+          "dx": {"value": -8}
+        },
+        "update": {
+          "x": {"field": "x"},
+          "y": {"signal": "((datum.y0 + datum.y1) / 2) / data('totals')[0].grand * height"},
+          "text": {"field": "label"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "n_species"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "#3d2c1a"},
+          "font": {"value": "Inter, sans-serif"},
+          "fontSize": {"value": 11},
+          "align": {"value": "center"},
+          "baseline": {"value": "bottom"},
+          "dy": {"value": -4}
+        },
+        "update": {
+          "x": {"signal": "datum.x + nodeWidth/2"},
+          "y": {"signal": "(datum.y0 / data('totals')[0].grand * height)"},
+          "text": {"field": "label"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "n_use"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "#3d2c1a"},
+          "font": {"value": "Inter, sans-serif"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": 600},
+          "align": {"value": "left"},
+          "baseline": {"value": "middle"},
+          "dx": {"value": 8}
+        },
+        "update": {
+          "x": {"signal": "datum.x + nodeWidth"},
+          "y": {"signal": "((datum.y0 + datum.y1) / 2) / data('totals')[0].grand * height"},
+          "text": {"field": "label"}
+        }
+      }
+    }
+  ]
+}

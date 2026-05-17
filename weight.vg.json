@@ -1,14 +1,5 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-    "title": {
-        "text": "Body Weight by Species and Sex",
-        "anchor": "middle",
-        "fontSize": 22,
-        "color": "#2d5a3d",
-        "fontWeight": 700,
-        "font": "Lora, Times New Roman, serif",
-        "offset": 18
-    },
     "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
     "data": {
         "url": "weight.csv"
@@ -21,13 +12,15 @@
         ]
     },
     "spec": {
+        "width": 530,
+        "height": 280,
         "mark": "bar",
         "encoding": {
             "x": {
                 "field": "species",
                 "type": "nominal",
                 "axis": {
-                    "labelAngle": -35,
+                    "labelAngle": -10,
                     "labelAlign": "right",
                     "labelBaseline": "middle"
                 }
@@ -51,7 +44,7 @@
                 },
                 "legend": {
                     "orient": "none",
-                    "legendX": 20,
+                    "legendX": 300,
                     "legendY": 5,
                     "direction": "vertical",
                     "fillColor": "#fffaf0",

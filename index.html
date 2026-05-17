@@ -742,23 +742,23 @@
           <div class="pure-u-1-3">
             <div class="col-pad-r">
               <div class="panel-text">
-                <h3>Quota Utilisation by State</h3>
+                <h3>Capacity vs Actual Harvest</h3>
                 <p>
-                  Each year, state governments set a sustainable quota — a
-                  maximum legal harvest derived from population estimates. The
-                  chart tracks <em>utilisation</em>: the share of that quota
-                  actually used.
+                  Each <strong>State</strong> bar on the left represents its
+                  full <em>sustainable quota</em> — the capacity to harvest.
+                  Coloured ribbons trace the portion actually used through
+                  <strong>Species</strong> and on to <strong>End-use</strong>.
+                  The pale ribbon peeling off each state is the
+                  <em>unused quota</em>: capacity that was permitted but
+                  never harvested.
                 </p>
                 <p>
-                  Most states sit between <strong>20–35%</strong>, with
-                  <strong>SA</strong> consistently the highest user (40–50%)
-                  and <strong>VIC</strong> the lowest (under 20%). In 2020,
-                  utilisation crashed across the board as bushfires and COVID
-                  shrank both demand and field operations.
-                </p>
-                <p>
-                  The quota is a ceiling, not a target — actual harvest tracks
-                  demand and on-the-ground conditions.
+                  NSW and QLD have the largest quotas <em>and</em> the largest
+                  unused shares — only ~30–35% of what's permitted is
+                  taken. The Red and Eastern Grey carry most of the actual
+                  harvest, and the bulk of it flows into
+                  <strong>pet food</strong>, followed by meat and skins. A
+                  small share is harvested purely for damage mitigation.
                 </p>
               </div>
             </div>
@@ -791,7 +791,7 @@
         vis10: "body_height_tail.vg.json",
         vis11: "lifecycle.vg.json",
         vis12: "mortality.vg.json",
-        vis13: "harvested.vg.json",
+        vis13: "harvest_flow.vg.json",
       };
 
       Object.entries(specs).forEach(([id, url]) => {
