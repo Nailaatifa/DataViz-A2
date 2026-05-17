@@ -1,0 +1,97 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "padding": {"top": 0, "bottom": 0, "left": 50, "right": 50},
+  "background": "#fffaf0",
+  "width": 250,
+  "height": 250,
+  "data": {"url": "population_yearly.csv"},
+  "transform": [
+    {"calculate": "year(datum.date)", "as": "year"},
+    {"filter": "indexof([2020, 2021, 2022, 2023, 2024], datum.year) >= 0"},
+    {"joinaggregate": [{"op": "sum", "field": "count", "as": "year_total"}], "groupby": ["year"]},
+    {"calculate": "datum.count / datum.year_total", "as": "pct"}
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "stroke": "#fffaf0",
+        "strokeWidth": 1.5,
+        "padAngle": 0.004
+      },
+      "encoding": {
+        "theta": {
+          "field": "count",
+          "type": "quantitative",
+          "stack": "normalize"
+        },
+        "radius": {
+          "field": "year",
+          "type": "ordinal",
+          "scale": {
+            "type": "band",
+            "domain": [2020, 2021, 2022, 2023, 2024],
+            "range": [30, 115],
+            "paddingInner": 0.08
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "title": "Species",
+          "scale": {
+            "domain": [
+              "Eastern Grey Kangaroo",
+              "Grey Kangaroo",
+              "Red Kangaroo",
+              "Tammar Wallaby",
+              "Wallaroo",
+              "Western Grey Kangaroo"
+            ],
+            "range": ["#e3891f", "#c56a1a", "#f2b705", "#2e8b57", "#d4d83b", "#7fbf3f"]
+          },
+          "legend": {
+            "orient": "bottom",
+            "columns": 2,
+            "title": null,
+            "labelFontSize": 11,
+            "rowPadding": 4,
+            "columnPadding": 14,
+            "symbolSize": 120,
+            "offset": 18
+          }
+        },
+        "tooltip": [
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "series", "type": "nominal", "title": "Species"},
+          {"field": "count", "type": "quantitative", "title": "Count", "format": ","},
+          {"field": "pct", "type": "quantitative", "title": "Share", "format": ".1%"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"year": 2020, "r": 39},
+          {"year": 2021, "r": 56},
+          {"year": 2022, "r": 73},
+          {"year": 2023, "r": 90},
+          {"year": 2024, "r": 107}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "color": "#fffaf0"
+      },
+      "encoding": {
+        "theta": {"value": 0},
+        "radius": {"field": "r", "type": "quantitative", "scale": null},
+        "text": {"field": "year"}
+      }
+    }
+  ]
+}

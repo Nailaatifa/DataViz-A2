@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Kangaroos of Australia</title>
+    <title>Kangaroos in Australia</title>
     <!-- Vega & Vega-Lite -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -128,8 +128,40 @@
         padding: 8px 16px;
       }
 
+      .panel-text.tight-top {
+        padding-top: 0;
+        margin-top: -4px;
+      }
+      .panel-text.tight-top > *:first-child {
+        margin-top: 0;
+      }
+
+      .panel-text.tight-bottom {
+        padding-bottom: 0;
+      }
+      .panel-text.tight-bottom > *:last-child {
+        margin-bottom: 0;
+      }
+
+      .stack-gap > .no-top-gap {
+        margin-top: 0;
+      }
+
       .stack-gap > * + * {
         margin-top: 14px;
+      }
+
+      .pure-g.no-row-gap {
+        margin-bottom: 0;
+      }
+      .pure-g.no-row-gap-top {
+        margin-top: 0;
+      }
+
+      .vis-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .empty-space {
@@ -147,12 +179,26 @@
         margin: 6px 0 24px 0;
       }
 
-      .perception-box {
+      /* .perception-box {
         background-color: var(--cream);
         border: 1px solid var(--brown-light);
         border-radius: 10px;
         padding: 18px 18px;
         margin-bottom: 32px;
+      } */
+
+      .chart-card {
+        background-color: var(--cream);
+        border: 1px solid var(--brown-light);
+        border-radius: 10px;
+        padding: 10px 22px;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      .chart-card > h3 {
+        margin: 4px 0 14px 0;
+        padding: 6px 10px;
       }
 
       .stats-grid {
@@ -352,10 +398,10 @@
       <!-- Title -->
       <div class="pure-g">
         <div class="pure-u-1-1">
-          <h1>Kangaroos of Australia</h1>
+          <h1>Kangaroos in Australia</h1>
           <p class="subtitle">
-            An exploration of the iconic Australian marsupial — populations,
-            distributions, and it's incredible physical prowess.
+            An exploration of the Australian authentic animal; it's populations,
+            distributions, and physical prowess.
           </p>
           <div class="divider"></div>
         </div>
@@ -371,7 +417,7 @@
                   01 · Australian’s Perception of Kangaroo
                 </h2>
                 <p class="section-lead">
-                  Every story of the kangaroo begins here — in how the people
+                  Every story of the kangaroo begins by how the people
                   who share its land see it.
                 </p>
                 <p>
@@ -403,7 +449,7 @@
                   02 · One Family, Many Forms
                 </h2>
                 <p class="section-lead">
-                  “Kangaroo” is a colloquial term — biologically, there are
+                  “Kangaroo” is a colloquial term, biologically there are
                   many.
                 </p>
                 <p>
@@ -431,62 +477,83 @@
 
       <!-- ════════════ SECTION 3 · POPULATION ════════════ -->
       <section class="section-block">
-        <!-- Sub: yearly trend -->
+        <!-- Row 1: 1/3 title + text  |  2/3 yearly chart -->
         <div class="pure-g subsection">
           <div class="pure-u-1-3">
-            <div class="col-pad-l stack-gap">
+            <div class="col-pad-l">
               <div class="panel-text">
                 <h2 class="section-title section-title-sm">
                   03 · Population of Kangaroo
                 </h2>
                 <p class="section-lead">
-                  Just how many kangaroos are there — and how have their
+                  Just how many kangaroos are there and how have their
                   numbers shifted over time?
                 </p>
                 <h3>Population Over Time</h3>
                 <p>
-                  Over the past decade, kangaroo numbers tell a story of
-                  growth, disruption, and recovery. Eastern Grey and Red
-                  Kangaroos form the backbone of the population.
+                  Click any species in the legend to isolate its trajectory,
+                  or drag across the strip below the chart to focus on a
+                  shorter window.
                 </p>
+              
                 <p>
                   The line traces a rise from ~27 million in 2010 to a peak
                   above 50 million in the mid-2010s, before settling near 35
                   million by 2024 — a cycle of growth, disruption, and
                   adaptation.
                 </p>
+               
+
               </div>
             </div>
           </div>
           <div class="pure-u-2-3">
-            <div class="col-pad-r stack-gap">
+            <div class="col-pad-r">
               <div id="vis3" class="vis-container"></div>
             </div>
           </div>
         </div>
 
-        <!-- Sub: pictogram vs humans -->
+        <!-- Row 2: 1/3 donut  |  1/3 donut text  |  1/3 pictogram + text -->
         <div class="pure-g subsection">
-          <div class="pure-u-1-2">
+          <div class="pure-u-1-3">
             <div class="col-pad-l">
-              <div id="vis4" class="vis-container"></div>
+              <div id="vis5" class="vis-container"></div>
             </div>
           </div>
-          <div class="pure-u-1-2">
-            <div class="col-pad-r">
+          <div class="pure-u-1-3">
+            <div class="col-pad-m">
               <div class="panel-text">
-                <h3>They Outnumber Us</h3>
+                <h3>Species Share, 2020–2024</h3>
                 <p>
-                  In 2024, Australia is home to roughly 23 million people —
-                  and around 35 million kangaroos. Each icon above represents
-                  about 5 million individuals. Kangaroos quietly outpace
-                  humans by almost 1.5 to 1.
+                  Hover any slice to see its exact
+                  share.
                 </p>
                 <p>
-                  This abundance is no accident: kangaroos are exceptionally
-                  adapted to Australia’s dry, open country, and a single
-                  mother can carry multiple joeys at different stages of
-                  development at the same time.
+                  Eastern Grey Kangaroos consistently hold the largest slice,
+                  but Red Kangaroos have widened their share through the
+                  recovery years. Western Greys hold a steady mid-sized presence,
+                  while Wallaroos and Tammar Wallabies barely take part of the population.
+                </p>
+                <p>
+                  Looking across the rings, the overall mix is remarkably
+                  stable from year to year. Major shifts in total
+                  population (see the line chart above) come from
+                  <em>all</em> species fluctuating together, not from one
+                  species replacing another.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pure-u-1-3">
+            <div class="col-pad-r stack-gap">
+              <div id="vis4" class="vis-container"></div>
+              <div class="panel-text tight-top">
+                <h3>They Outnumber Us</h3>
+                <p>
+                  In 2024, Australia is home to roughly <bold>23 million people</bold> 
+                  and around <bold>35 million kangaroos</bold>. Kangaroos outpace humans by
+                  almost 1.5 to 1. This trend has been persistent since 2010, despite lower difference of 22.3 million people and 30 million kangaroos.
                 </p>
               </div>
             </div>
@@ -505,7 +572,7 @@
                   04 · Habitat &amp; Distribution
                 </h2>
                 <p class="section-lead">
-                  Where do all those kangaroos actually live — and why there?
+                  Where do all those kangaroos actually live
                 </p>
                 <h3>Where the Kangaroos Live</h3>
                 <p>
@@ -558,14 +625,14 @@
 
       <!-- ════════════ SECTION 5 · BUILT FOR THE OUTBACK ════════════ -->
       <section class="section-block">
-        <h2 class="section-title">05 · Characteristics</h2>
+        <h2 class="section-title section-title-sm">05 · Characteristics</h2>
         <p class="section-lead">
-          Bodies tuned for speed, distance, and endurance — built for the
+          Bodies tuned for speed, distance, and endurance; they built for the
           outback.
         </p>
 
         <!-- Row of charts: weight | height-tail | hopping -->
-        <div class="pure-g subsection">
+        <div class="pure-g subsection no-row-gap">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
               <div id="vis8" class="vis-container"></div>
@@ -584,17 +651,13 @@
         </div>
 
         <!-- Row of texts: weight | height-tail | hopping -->
-        <div class="pure-g subsection">
+        <div class="pure-g no-row-gap-top">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
               <div class="panel-text">
                 <h3>Body Weight</h3>
                 <p>
-                  Males are about twice the size of females — a sexual
-                  dimorphism that pays off in mate competition. The Red
-                  Kangaroo tops out at ~90 kg for males and ~35 kg for
-                  females, while wallabies and wallaroos sit far lower on
-                  the scale.
+                  Males are about twice the size of females for every species. The weight varies widely between Red Kangaroo, known as the biggest kangaroo, and wallaby, 
                 </p>
               </div>
             </div>
@@ -617,11 +680,7 @@
               <div class="panel-text">
                 <h3>Jumping &amp; Hopping</h3>
                 <p>
-                  Each species sits between two dots: the green marker is
-                  its vertical jump height, the brown marker is its
-                  horizontal hop distance. The gap between them tells the
-                  story — Reds clear 9 m forward but only ~3 m up, a
-                  signature of long-range cruising over leaping.
+                  Comparing Kangaroo's physical ability to human, especially their ability to hop around, even the smallest type Kangaroo, Tammar Wallaby, still hops 1.5 times better than human. While the biggest species of kangaroo hops 4 times further than human.
                 </p>
               </div>
             </div>
@@ -640,9 +699,8 @@
                   06 · Lifecycle &amp; Survival
                 </h2>
                 <p class="section-lead">
-                  A reproductive strategy as unusual as the animal itself.
+                  An unique reproductive ability
                 </p>
-                <h3>A Unique Reproductive Process</h3>
                 <p>
                   A short, 30–36 day gestation produces a tiny, underdeveloped
                   joey. It crawls into its mother’s pouch and continues to
@@ -650,9 +708,12 @@
                 </p>
                 <p>
                   A mother can have a joey in the pouch and another at-foot
-                  at the same time — and pause embryonic development entirely
+                  at the same time by pausing embryonic development entirely
                   if drought strikes. It’s reproduction tuned for a harsh,
                   unpredictable continent.
+                </p>
+                <p>
+                  [Joey is ....]
                 </p>
               </div>
             </div>
@@ -666,12 +727,12 @@
 
         <!-- Sub: mortality -->
         <div class="pure-g subsection">
-          <div class="pure-u-2-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-l">
               <div id="vis12" class="vis-container"></div>
             </div>
           </div>
-          <div class="pure-u-1-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-r">
               <div class="panel-text">
                 <h3>Mortality by Life Stage</h3>
@@ -696,13 +757,14 @@
       <section class="section-block">
         <h2 class="section-title">07 · Kangaroo Management</h2>
         <p class="section-lead">
-          Abundance brings responsibility — Australia’s regulated harvest is
+          Abundance doesn't mean carelessly hunted. Australia’s regulated harvest is
           a balancing act between population control and animal welfare.
         </p>
 
         <div class="pure-g">
           <div class="pure-u-2-3">
             <div class="col-pad-l">
+              <div id="vis13" class="vis-container"></div>
             </div>
           </div>
           <div class="pure-u-1-3">
@@ -750,6 +812,7 @@
         vis2: "population_map.vg.json",
         vis3: "population_yearly.vg.json",
         vis4: "pictogram.vg.json",
+        vis5: "population_donut.vg.json",
         vis6: "genus_tree.vg.json",
         vis7: "population_state.vg.json",
         vis8: "weight.vg.json",

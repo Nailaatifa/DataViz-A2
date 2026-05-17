@@ -3,42 +3,85 @@
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "background": "#fffaf0",
   "width": 500,
-  "height": 260,
+  "height": 130,
   "data": {"url": "mortality.csv"},
+  "transform": [
+    {"calculate": "100 - datum.mortality_rate", "as": "survival_rate"},
+    {"fold": ["mortality_rate", "survival_rate"], "as": ["category_raw", "value"]},
+    {
+      "calculate": "datum.category_raw === 'mortality_rate' ? 'Mortality' : 'Survival'",
+      "as": "category"
+    }
+  ],
   "layer": [
     {
-      "mark": {"type": "bar", "cornerRadiusEnd": 4},
+      "mark": {"type": "bar"},
       "encoding": {
-        "x": {
+        "y": {
           "field": "stage",
           "type": "ordinal",
-          "title": "Life stage",
-          "axis": {"labelAngle": -25, "labelAlign": "right", "labelBaseline": "middle"}
+          "title": null,
+          "axis": {"labelFontSize": 11, "labelColor": "#3d2c1a", "labelPadding": 6}
         },
-        "y": {
-          "field": "mortality_rate",
+        "x": {
+          "field": "value",
           "type": "quantitative",
-          "title": "Mortality rate (%)"
+          "title": "Share (%)",
+          "stack": "normalize",
+          "axis": {"format": ".0%"}
         },
         "color": {
-          "field": "mortality_rate",
-          "type": "quantitative",
-          "scale": {"scheme": "browns"},
-          "legend": null
+          "field": "category",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Mortality", "Survival"],
+            "range": ["#c56a1a", "#f2b705"]
+          },
+          "legend": {
+            "orient": "top",
+            "labelFontSize": 11,
+            "symbolSize": 120
+          }
+        },
+        "order": {
+          "field": "category_raw",
+          "sort": "ascending"
         },
         "tooltip": [
           {"field": "stage", "type": "nominal", "title": "Stage"},
           {"field": "description", "type": "nominal", "title": "Period"},
-          {"field": "mortality_rate", "type": "quantitative", "title": "Mortality (%)"}
+          {"field": "category", "type": "nominal", "title": "Outcome"},
+          {"field": "value", "type": "quantitative", "title": "Rate (%)", "format": ".0f"}
         ]
       }
     },
     {
-      "mark": {"type": "text", "dy": -6, "fontWeight": "bold", "color": "#3d2c1a"},
+      "transform": [
+        {"filter": "datum.category === 'Mortality'"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "color": "#fffaf0",
+        "fontWeight": 700,
+        "fontSize": 11,
+        "dx": 6
+      },
       "encoding": {
-        "x": {"field": "stage", "type": "ordinal"},
-        "y": {"field": "mortality_rate", "type": "quantitative"},
-        "text": {"field": "mortality_rate", "type": "quantitative", "format": ".0f"}
+        "y": {"field": "stage", "type": "ordinal"},
+        "x": {
+          "field": "value",
+          "type": "quantitative",
+          "stack": "normalize",
+          "bandPosition": 0
+        },
+        "text": {
+          "field": "value",
+          "type": "quantitative",
+          "format": ".0f"
+        }
       }
     }
   ]

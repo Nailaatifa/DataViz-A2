@@ -1,102 +1,74 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "padding": 0,
   "background": "#fffaf0",
   "width": 300,
   "height": 300,
   "data": {"url": "hopping.csv"},
   "transform": [
-    {"calculate": "datum.max_hop_m - datum.max_jump_m", "as": "gap"}
+    {"calculate": "2", "as": "human_hop"},
+    {"calculate": "datum.max_hop_m - 2", "as": "gap_vs_human"}
   ],
   "layer": [
     {
-      "mark": {"type": "rule", "stroke": "#c9a96e", "strokeWidth": 4, "opacity": 0.7},
+      "mark": {"type": "rule", "stroke": "#c9a96e", "strokeWidth": 3, "opacity": 0.75},
       "encoding": {
-        "x": {
+        "y": {
           "field": "species",
           "type": "nominal",
           "sort": {"field": "max_hop_m", "order": "descending"},
           "title": null,
           "axis": {
-            "labelAngle": -30,
-            "labelAlign": "right",
-            "labelBaseline": "middle",
             "labelFontSize": 11,
-            "labelColor": "#3d2c1a"
+            "labelColor": "#3d2c1a",
+            "labelPadding": 6,
+            "labelLineHeight": 12,
+            "labelExpr": "test(/ Kangaroo$/, datum.value) ? [replace(datum.value, ' Kangaroo', ''), 'Kangaroo'] : (test(/ Wallaby$/, datum.value) ? [replace(datum.value, ' Wallaby', ''), 'Wallaby'] : datum.value)"
           }
         },
-        "y": {
-          "field": "max_jump_m",
+        "x": {
+          "field": "human_hop",
           "type": "quantitative",
-          "title": "Distance (m)",
+          "title": "Horizontal hop (m)",
           "scale": {"domain": [0, 10]},
           "axis": {"grid": true, "gridColor": "#efe3c8", "gridDash": [2, 4]}
         },
-        "y2": {"field": "max_hop_m"},
+        "x2": {"field": "max_hop_m"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 220, "color": "#b54e1f", "stroke": "#fffaf0", "strokeWidth": 2},
+      "encoding": {
+        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
+        "x": {"field": "max_hop_m", "type": "quantitative"},
         "tooltip": [
           {"field": "species", "type": "nominal", "title": "Species"},
-          {"field": "max_jump_m", "type": "quantitative", "title": "Vertical jump (m)"},
           {"field": "max_hop_m", "type": "quantitative", "title": "Horizontal hop (m)"},
-          {"field": "gap", "type": "quantitative", "title": "Gap (m)"}
+          {"field": "gap_vs_human", "type": "quantitative", "title": "Gap vs human (m)"}
         ]
       }
     },
     {
-      "transform": [
-        {"fold": ["max_jump_m", "max_hop_m"], "as": ["metric", "distance"]},
-        {"calculate": "datum.metric === 'max_jump_m' ? 'Vertical jump' : 'Horizontal hop'", "as": "metric_label"}
-      ],
-      "mark": {"type": "point", "size": 200, "filled": true, "stroke": "#fffaf0", "strokeWidth": 2},
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 10, "fontWeight": 600, "color": "#b54e1f"},
       "encoding": {
-        "x": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
-        "y": {"field": "distance", "type": "quantitative"},
-        "color": {
-          "field": "metric_label",
-          "type": "nominal",
-          "title": null,
-          "scale": {
-            "domain": ["Vertical jump", "Horizontal hop"],
-            "range": ["#4a7c5e", "#b54e1f"]
-          },
-          "legend": {
-            "orient": "none",
-            "legendX": 170,
-            "legendY": 8,
-            "direction": "vertical",
-            "fillColor": "#fffaf0",
-            "strokeColor": "#e8d8b8",
-            "padding": 8,
-            "cornerRadius": 6,
-            "labelFontSize": 10,
-            "symbolSize": 140
-          }
-        },
-        "tooltip": [
-          {"field": "species", "type": "nominal", "title": "Species"},
-          {"field": "metric_label", "type": "nominal", "title": "Metric"},
-          {"field": "distance", "type": "quantitative", "title": "Distance (m)"}
-        ]
+        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
+        "x": {"field": "max_hop_m", "type": "quantitative"},
+        "text": {"field": "max_hop_m", "type": "quantitative", "format": ".1f"}
       }
     },
     {
-      "transform": [
-        {"fold": ["max_jump_m", "max_hop_m"], "as": ["metric", "distance"]},
-        {"calculate": "datum.metric === 'max_jump_m' ? 'Vertical jump' : 'Horizontal hop'", "as": "metric_label"}
-      ],
-      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 10, "fontWeight": 600},
+      "data": {"values": [{"x": 2}]},
+      "mark": {"type": "rule", "stroke": "#3d2c1a", "strokeDash": [4, 4], "strokeWidth": 1.5, "opacity": 0.7},
       "encoding": {
-        "x": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
-        "y": {"field": "distance", "type": "quantitative"},
-        "text": {"field": "distance", "type": "quantitative", "format": ".1f"},
-        "color": {
-          "field": "metric_label",
-          "type": "nominal",
-          "scale": {
-            "domain": ["Vertical jump", "Horizontal hop"],
-            "range": ["#4a7c5e", "#b54e1f"]
-          },
-          "legend": null
-        }
+        "x": {"field": "x", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {"values": [{"x": 2, "y_pos": -1, "label": "Human ~2 m"}]},
+      "mark": {"type": "text", "color": "#3d2c1a", "fontSize": 10, "fontWeight": 700, "align": "left", "baseline": "bottom", "dx": 4, "dy": -2},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "text": {"field": "label"}
       }
     }
   ],

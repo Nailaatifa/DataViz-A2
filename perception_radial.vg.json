@@ -7,7 +7,7 @@
         "right": 12
     },
     "description": "Kangaroo population by Australian state (millions)",
-    "background": "#f4ead5",
+    "background": "#fffaf0",
     "width": 250,
     "data": {
         "url": "perception.csv"

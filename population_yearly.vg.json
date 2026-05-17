@@ -1,14 +1,14 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+    "padding": {"top": 0, "bottom": 12, "left": 12, "right": 12},
     "background": "#fffaf0",
     "data": {
         "url": "population_yearly.csv"
     },
     "vconcat": [
         {
-            "width": 580,
-            "height": 400,
+            "width": 700,
+            "height": 360,
             "encoding": {
                 "x": {
                     "timeUnit": "year",
@@ -70,6 +70,19 @@
                                     "#d4d83b",
                                     "#7fbf3f"
                                 ]
+                            },
+                            "legend": {
+                                "orient": "none",
+                                "legendX": 548,
+                                "legendY": 0,
+                                "direction": "vertical",
+                                "fillColor": "#fffaf0",
+                                "strokeColor": "#e8d8b8",
+                                "padding": 8,
+                                "cornerRadius": 6,
+                                "labelFontSize": 11,
+                                "titleFontSize": 12,
+                                "symbolSize": 120
                             }
                         },
                         "opacity": {
@@ -194,7 +207,7 @@
             ]
         },
         {
-            "width": 580,
+            "width": 700,
             "height": 60,
             "mark": {
                 "type": "area",
