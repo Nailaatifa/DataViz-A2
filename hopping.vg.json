@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "background": "#fffaf0",
+  "width": 500,
+  "height": 280,
+  "data": {"url": "hopping.csv"},
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": "#6b4423"},
+      "encoding": {
+        "x": {
+          "field": "species",
+          "type": "nominal",
+          "sort": "-y",
+          "title": null,
+          "axis": {"labelAngle": -35, "labelAlign": "right", "labelBaseline": "middle"}
+        },
+        "y": {
+          "field": "max_hop_m",
+          "type": "quantitative",
+          "title": "Max hop distance (m)"
+        },
+        "tooltip": [
+          {"field": "species", "type": "nominal", "title": "Species"},
+          {"field": "max_hop_m", "type": "quantitative", "title": "Max hop (m)"},
+          {"field": "top_speed_kmh", "type": "quantitative", "title": "Top speed (km/h)"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "dy": -8, "fontWeight": "bold", "color": "#3d2c1a"},
+      "encoding": {
+        "x": {"field": "species", "type": "nominal", "sort": "-y"},
+        "y": {"field": "max_hop_m", "type": "quantitative"},
+        "text": {"field": "top_speed_kmh", "type": "quantitative", "format": ".0f"}
+      }
+    }
+  ]
+}

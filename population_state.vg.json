@@ -12,7 +12,7 @@
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "description": "Kangaroo population by species per state, grouped by year",
   "background": "#fffaf0",
-  "vconcat": [
+  "hconcat": [
     {
       "width": 400,
       "height": 300,
@@ -44,7 +44,8 @@
           "title": "Population",
           "scale": {
             "scheme": "browns"
-          }
+          },
+          "legend": null
         },
         "tooltip": [
           {
@@ -68,107 +69,6 @@
         ]
       }
     },
-    {
-      "width": 400,
-      "height": 72,
-      "layer": [
-        {
-          "data": {
-            "values": [
-              {
-                "label": "State abbreviations",
-                "x": 0,
-                "y": 8
-              }
-            ]
-          },
-          "mark": {
-            "type": "text",
-            "align": "left",
-            "baseline": "middle",
-            "font": "Inter",
-            "fontSize": 11,
-            "fontWeight": "bold",
-            "color": "#3d2c1a"
-          },
-          "encoding": {
-            "x": {
-              "field": "x",
-              "type": "quantitative",
-              "scale": null,
-              "axis": null
-            },
-            "y": {
-              "field": "y",
-              "type": "quantitative",
-              "scale": null,
-              "axis": null
-            },
-            "text": {
-              "field": "label",
-              "type": "nominal"
-            }
-          }
-        },
-        {
-          "data": {
-            "values": [
-              {
-                "label": "NSW = New South Wales",
-                "x": 0,
-                "y": 30
-              },
-              {
-                "label": "QLD = Queensland",
-                "x": 210,
-                "y": 30
-              },
-              {
-                "label": "SA = South Australia",
-                "x": 0,
-                "y": 50
-              },
-              {
-                "label": "VIC = Victoria",
-                "x": 210,
-                "y": 50
-              },
-              {
-                "label": "WA = Western Australia",
-                "x": 0,
-                "y": 66
-              }
-            ]
-          },
-          "mark": {
-            "type": "text",
-            "align": "left",
-            "baseline": "middle",
-            "font": "Inter",
-            "fontSize": 11,
-            "color": "#3d2c1a"
-          },
-          "encoding": {
-            "x": {
-              "field": "x",
-              "type": "quantitative",
-              "scale": null,
-              "axis": null
-            },
-            "y": {
-              "field": "y",
-              "type": "quantitative",
-              "scale": null,
-              "axis": null
-            },
-            "text": {
-              "field": "label",
-              "type": "nominal"
-            }
-          }
-        }
-      ]
-    }
   ],
   "spacing": 6,
   "config": {

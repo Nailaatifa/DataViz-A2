@@ -68,12 +68,7 @@
         "row": {
           "field": "group",
           "type": "nominal",
-          "header": {
-            "labelFont": "Lora",
-            "labelFontSize": 14,
-            "labelFontWeight": 700,
-            "labelColor": "#2d5a3d"
-          }
+          "header": null
         },
         "text": {
           "field": "icon"

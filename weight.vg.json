@@ -23,11 +23,16 @@
     "spec": {
         "mark": "bar",
         "encoding": {
-            "y": {
-                "field": "species",
-                "type": "nominal"
-            },
             "x": {
+                "field": "species",
+                "type": "nominal",
+                "axis": {
+                    "labelAngle": -35,
+                    "labelAlign": "right",
+                    "labelBaseline": "middle"
+                }
+            },
+            "y": {
                 "aggregate": "sum",
                 "field": {
                     "repeat": "layer"
@@ -39,12 +44,23 @@
                 "datum": {
                     "repeat": "layer"
                 },
-                "title": "Sex",
+                "title": null,
+                "scale": {
+                    "domain": ["Male Weight", "Female Weight"],
+                    "range": ["#6b4423", "#4a7c5e"]
+                },
                 "legend": {
-                    "orient": "bottom"
+                    "orient": "none",
+                    "legendX": 20,
+                    "legendY": 5,
+                    "direction": "vertical",
+                    "fillColor": "#fffaf0",
+                    "strokeColor": "#e8d8b8",
+                    "padding": 8,
+                    "cornerRadius": 6
                 }
             },
-            "yOffset": {
+            "xOffset": {
                 "datum": {
                     "repeat": "layer"
                 }

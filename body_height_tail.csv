@@ -1,0 +1,25 @@
+species,sex,metric,value_cm
+Red Kangaroo,Male,Height,150
+Red Kangaroo,Male,Tail,100
+Red Kangaroo,Female,Height,105
+Red Kangaroo,Female,Tail,80
+Eastern Grey Kangaroo,Male,Height,130
+Eastern Grey Kangaroo,Male,Tail,90
+Eastern Grey Kangaroo,Female,Height,100
+Eastern Grey Kangaroo,Female,Tail,75
+Western Grey Kangaroo,Male,Height,120
+Western Grey Kangaroo,Male,Tail,85
+Western Grey Kangaroo,Female,Height,95
+Western Grey Kangaroo,Female,Tail,70
+Antilopine Kangaroo,Male,Height,130
+Antilopine Kangaroo,Male,Tail,85
+Antilopine Kangaroo,Female,Height,95
+Antilopine Kangaroo,Female,Tail,70
+Wallaroo,Male,Height,110
+Wallaroo,Male,Tail,70
+Wallaroo,Female,Height,85
+Wallaroo,Female,Tail,60
+Tammar Wallaby,Male,Height,60
+Tammar Wallaby,Male,Tail,40
+Tammar Wallaby,Female,Height,50
+Tammar Wallaby,Female,Tail,35

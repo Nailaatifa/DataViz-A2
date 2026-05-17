@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "background": "#fffaf0",
+  "width": 500,
+  "height": 260,
+  "data": {"url": "mortality.csv"},
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 4},
+      "encoding": {
+        "x": {
+          "field": "stage",
+          "type": "ordinal",
+          "title": "Life stage",
+          "axis": {"labelAngle": -25, "labelAlign": "right", "labelBaseline": "middle"}
+        },
+        "y": {
+          "field": "mortality_rate",
+          "type": "quantitative",
+          "title": "Mortality rate (%)"
+        },
+        "color": {
+          "field": "mortality_rate",
+          "type": "quantitative",
+          "scale": {"scheme": "browns"},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "stage", "type": "nominal", "title": "Stage"},
+          {"field": "description", "type": "nominal", "title": "Period"},
+          {"field": "mortality_rate", "type": "quantitative", "title": "Mortality (%)"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "dy": -6, "fontWeight": "bold", "color": "#3d2c1a"},
+      "encoding": {
+        "x": {"field": "stage", "type": "ordinal"},
+        "y": {"field": "mortality_rate", "type": "quantitative"},
+        "text": {"field": "mortality_rate", "type": "quantitative", "format": ".0f"}
+      }
+    }
+  ]
+}

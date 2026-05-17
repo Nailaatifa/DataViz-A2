@@ -1,0 +1,46 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "background": "#fffaf0",
+  "data": {"url": "body_height_tail.csv"},
+  "facet": {
+    "field": "metric",
+    "type": "nominal",
+    "title": null,
+    "header": {
+      "labelFont": "Lora",
+      "labelFontSize": 14,
+      "labelFontWeight": 700,
+      "labelColor": "#2d5a3d"
+    }
+  },
+  "columns": 2,
+  "spacing": 24,
+  "spec": {
+    "width": 240,
+    "height": 220,
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "species",
+        "type": "nominal",
+        "title": null,
+        "axis": {"labelAngle": -35, "labelAlign": "right", "labelBaseline": "middle"}
+      },
+      "y": {
+        "field": "value_cm",
+        "type": "quantitative",
+        "title": "cm"
+      },
+      "color": {
+        "field": "sex",
+        "type": "nominal",
+        "scale": {"domain": ["Male", "Female"], "range": ["#6b4423", "#4a7c5e"]},
+        "title": null,
+        "legend": {"orient": "bottom"}
+      },
+      "xOffset": {"field": "sex"}
+    }
+  },
+  "resolve": {"scale": {"y": "shared"}}
+}
