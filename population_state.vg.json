@@ -12,65 +12,49 @@
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "description": "Kangaroo population by species per state, grouped by year",
   "background": "#fffaf0",
-  "hconcat": [
+  "width": 400,
+  "height": 300,
+  "data": {
+    "url": "population_state.csv"
+  },
+  "transform": [
     {
-      "width": 400,
-      "height": 300,
-      "data": {
-        "url": "population_state.csv"
-      },
-      "transform": [
-        {
-          "calculate": "datum.State == 'NSW' ? 'New South Wales' : datum.State == 'QLD' ? 'Queensland' : datum.State == 'SA' ? 'South Australia' : datum.State == 'VIC' ? 'Victoria' : datum.State == 'WA' ? 'Western Australia' : datum.State",
-          "as": "StateName"
-        }
-      ],
-      "mark": "rect",
-      "encoding": {
-        "x": {
-          "field": "State",
-          "type": "nominal",
-          "title": "State"
-        },
-        "y": {
-          "field": "Species",
-          "type": "nominal",
-          "title": "Species"
-        },
-        "color": {
-          "aggregate": "sum",
-          "field": "Population",
-          "type": "quantitative",
-          "title": "Population",
-          "scale": {
-            "scheme": "browns"
-          },
-          "legend": null
-        },
-        "tooltip": [
-          {
-            "field": "State",
-            "type": "nominal"
-          },
-          {
-            "field": "StateName",
-            "type": "nominal",
-            "title": "State name"
-          },
-          {
-            "field": "Species",
-            "type": "nominal"
-          },
-          {
-            "aggregate": "sum",
-            "field": "Population",
-            "title": "Total Population"
-          }
-        ]
+      "calculate": "datum.State == 'NSW' ? 'New South Wales' : datum.State == 'QLD' ? 'Queensland' : datum.State == 'SA' ? 'South Australia' : datum.State == 'VIC' ? 'Victoria' : datum.State == 'WA' ? 'Western Australia' : datum.State",
+      "as": "StateName"
+    }
+  ],
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State"
+    },
+    "y": {
+      "field": "Species",
+      "type": "nominal",
+      "title": "Species"
+    },
+    "color": {
+      "aggregate": "sum",
+      "field": "Population",
+      "type": "quantitative",
+      "title": "Population",
+      "scale": {
+        "scheme": "browns"
       }
     },
-  ],
-  "spacing": 6,
+    "tooltip": [
+      {"field": "State", "type": "nominal"},
+      {"field": "StateName", "type": "nominal", "title": "State name"},
+      {"field": "Species", "type": "nominal"},
+      {
+        "aggregate": "sum",
+        "field": "Population",
+        "title": "Total Population"
+      }
+    ]
+  },
   "config": {
     "view": {
       "stroke": null
