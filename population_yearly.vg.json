@@ -56,7 +56,6 @@
                             "scale": {
                                 "domain": [
                                     "Eastern Grey Kangaroo",
-                                    "Euro",
                                     "Grey Kangaroo",
                                     "Red Kangaroo",
                                     "Tammar Wallaby",
@@ -65,7 +64,6 @@
                                 ],
                                 "range": [
                                     "#e3891f",
-                                    "#8c4f1f",
                                     "#c56a1a",
                                     "#f2b705",
                                     "#2e8b57",

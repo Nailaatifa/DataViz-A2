@@ -2,45 +2,61 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "background": "#fffaf0",
+  "width": 400,
+  "height": 320,
   "data": {"url": "body_height_tail.csv"},
-  "facet": {
-    "field": "metric",
-    "type": "nominal",
-    "title": null,
-    "header": {
-      "labelFont": "Lora",
-      "labelFontSize": 14,
-      "labelFontWeight": 700,
-      "labelColor": "#2d5a3d"
+  "transform": [
+    {
+      "pivot": "metric",
+      "value": "value_cm",
+      "groupby": ["species", "sex"]
     }
-  },
-  "columns": 2,
-  "spacing": 24,
-  "spec": {
-    "width": 240,
-    "height": 220,
-    "mark": "bar",
-    "encoding": {
-      "x": {
-        "field": "species",
-        "type": "nominal",
-        "title": null,
-        "axis": {"labelAngle": -35, "labelAlign": "right", "labelBaseline": "middle"}
+  ],
+  "mark": {"type": "point", "filled": true, "size": 140, "opacity": 0.85},
+  "encoding": {
+    "x": {
+      "field": "Height",
+      "type": "quantitative",
+      "title": "Standing height (cm)",
+      "scale": {"zero": false, "padding": 10}
+    },
+    "y": {
+      "field": "Tail",
+      "type": "quantitative",
+      "title": "Tail length (cm)",
+      "scale": {"zero": false, "padding": 10}
+    },
+    "color": {
+      "field": "species",
+      "type": "nominal",
+      "title": "Species",
+      "scale": {
+        "domain": [
+          "Red Kangaroo",
+          "Eastern Grey Kangaroo",
+          "Western Grey Kangaroo",
+          "Wallaroo",
+          "Tammar Wallaby"
+        ],
+        "range": ["#5a3a1e", "#a07c4e", "#8a6d3b", "#2d5a3d", "#6b9b7d"]
       },
-      "y": {
-        "field": "value_cm",
-        "type": "quantitative",
-        "title": "cm"
+      "legend": {"orient": "right"}
+    },
+    "shape": {
+      "field": "sex",
+      "type": "nominal",
+      "title": "Sex",
+      "scale": {
+        "domain": ["Male", "Female"],
+        "range": ["circle", "triangle-up"]
       },
-      "color": {
-        "field": "sex",
-        "type": "nominal",
-        "scale": {"domain": ["Male", "Female"], "range": ["#6b4423", "#4a7c5e"]},
-        "title": null,
-        "legend": {"orient": "bottom"}
-      },
-      "xOffset": {"field": "sex"}
-    }
-  },
-  "resolve": {"scale": {"y": "shared"}}
+      "legend": {"orient": "right"}
+    },
+    "tooltip": [
+      {"field": "species", "type": "nominal", "title": "Species"},
+      {"field": "sex", "type": "nominal", "title": "Sex"},
+      {"field": "Height", "type": "quantitative", "title": "Height (cm)"},
+      {"field": "Tail", "type": "quantitative", "title": "Tail (cm)"}
+    ]
+  }
 }

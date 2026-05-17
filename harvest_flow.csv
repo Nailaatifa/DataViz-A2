@@ -1,0 +1,25 @@
+state,species,use,count
+NSW,Red Kangaroo,Pet Food,240000
+NSW,Red Kangaroo,Meat,180000
+NSW,Red Kangaroo,Skins,90000
+NSW,Eastern Grey Kangaroo,Pet Food,180000
+NSW,Eastern Grey Kangaroo,Meat,140000
+NSW,Eastern Grey Kangaroo,Skins,70000
+NSW,Wallaroo,Pet Food,30000
+NSW,Wallaroo,Damage Mitigation,20000
+QLD,Red Kangaroo,Pet Food,190000
+QLD,Red Kangaroo,Meat,140000
+QLD,Red Kangaroo,Skins,70000
+QLD,Eastern Grey Kangaroo,Pet Food,100000
+QLD,Eastern Grey Kangaroo,Meat,80000
+QLD,Eastern Grey Kangaroo,Skins,40000
+QLD,Wallaroo,Pet Food,40000
+SA,Red Kangaroo,Pet Food,90000
+SA,Red Kangaroo,Meat,60000
+SA,Red Kangaroo,Skins,25000
+SA,Western Grey Kangaroo,Pet Food,50000
+SA,Western Grey Kangaroo,Meat,30000
+VIC,Western Grey Kangaroo,Damage Mitigation,32000
+WA,Red Kangaroo,Pet Food,30000
+WA,Western Grey Kangaroo,Pet Food,40000
+WA,Western Grey Kangaroo,Meat,30000

@@ -100,7 +100,7 @@
                         "value": 220
                     },
                     "fill": {
-                        "signal": "datum.level === 4 ? (datum.actual_name === 'Antilopine Kangaroo' ? '#8A5A2B' : '#2D7A4B') : datum.level === 1 ? '#1D9E75' : datum.level === 2 ? '#185FA5' : '#BA7517'"
+                        "signal": "datum.level === 4 ? (datum.actual_name === 'Wallaroo' ? '#8A5A2B' : '#2D7A4B') : datum.level === 1 ? '#1D9E75' : datum.level === 2 ? '#185FA5' : '#BA7517'"
                     },
                     "stroke": {
                         "value": "white"
@@ -151,7 +151,7 @@
                         "signal": "datum.level === 4 ? 'italic' : 'normal'"
                     },
                     "fill": {
-                        "signal": "datum.level === 4 ? (datum.actual_name === 'Antilopine Kangaroo' ? '#6B4423' : '#1F5F3A') : datum.level === 1 ? '#085041' : datum.level === 2 ? '#0C447C' : '#633806'"
+                        "signal": "datum.level === 4 ? (datum.actual_name === 'Wallaroo' ? '#6B4423' : '#1F5F3A') : datum.level === 1 ? '#085041' : datum.level === 2 ? '#0C447C' : '#633806'"
                     }
                 }
             }
