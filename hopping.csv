@@ -1,6 +1,6 @@
-species,max_hop_m,top_speed_kmh
-Red Kangaroo,9.0,70
-Eastern Grey Kangaroo,8.0,64
-Western Grey Kangaroo,7.5,60
-Wallaroo,5.0,48
-Tammar Wallaby,3.0,35
+species,max_hop_m,max_jump_m,top_speed_kmh
+Red Kangaroo,9.0,3.0,70
+Eastern Grey Kangaroo,8.0,2.5,64
+Western Grey Kangaroo,7.5,2.2,60
+Wallaroo,5.0,1.8,48
+Tammar Wallaby,3.0,1.0,35

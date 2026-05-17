@@ -2,8 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "background": "#fffaf0",
-  "width": 400,
-  "height": 320,
+  "width": 300,
+  "height": 300,
   "data": {"url": "body_height_tail.csv"},
   "transform": [
     {
@@ -47,8 +47,9 @@
         "direction": "vertical",
         "fillColor": "#fffaf0",
         "strokeColor": "#e8d8b8",
-        "padding": 8,
-        "cornerRadius": 6
+        "padding": 6,
+        "cornerRadius": 6,
+        "labelFontSize": 10
       }
     },
     "shape": {
@@ -62,12 +63,13 @@
       "legend": {
         "orient": "none",
         "legendX": 10,
-        "legendY": 130,
+        "legendY": 120,
         "direction": "vertical",
         "fillColor": "#fffaf0",
         "strokeColor": "#e8d8b8",
-        "padding": 8,
-        "cornerRadius": 6
+        "padding": 6,
+        "cornerRadius": 6,
+        "labelFontSize": 10
       }
     },
     "tooltip": [

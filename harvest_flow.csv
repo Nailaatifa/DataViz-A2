@@ -1,25 +1,88 @@
-state,species,use,count
-NSW,Red Kangaroo,Pet Food,240000
-NSW,Red Kangaroo,Meat,180000
-NSW,Red Kangaroo,Skins,90000
-NSW,Eastern Grey Kangaroo,Pet Food,180000
-NSW,Eastern Grey Kangaroo,Meat,140000
-NSW,Eastern Grey Kangaroo,Skins,70000
-NSW,Wallaroo,Pet Food,30000
-NSW,Wallaroo,Damage Mitigation,20000
-QLD,Red Kangaroo,Pet Food,190000
-QLD,Red Kangaroo,Meat,140000
-QLD,Red Kangaroo,Skins,70000
-QLD,Eastern Grey Kangaroo,Pet Food,100000
-QLD,Eastern Grey Kangaroo,Meat,80000
-QLD,Eastern Grey Kangaroo,Skins,40000
-QLD,Wallaroo,Pet Food,40000
-SA,Red Kangaroo,Pet Food,90000
-SA,Red Kangaroo,Meat,60000
-SA,Red Kangaroo,Skins,25000
-SA,Western Grey Kangaroo,Pet Food,50000
-SA,Western Grey Kangaroo,Meat,30000
-VIC,Western Grey Kangaroo,Damage Mitigation,32000
-WA,Red Kangaroo,Pet Food,30000
-WA,Western Grey Kangaroo,Pet Food,40000
-WA,Western Grey Kangaroo,Meat,30000
+year,state,species,use,count
+2024,NSW,Red Kangaroo,Pet Food,240000
+2024,NSW,Red Kangaroo,Meat,180000
+2024,NSW,Red Kangaroo,Skins,90000
+2024,NSW,Eastern Grey Kangaroo,Pet Food,180000
+2024,NSW,Eastern Grey Kangaroo,Meat,140000
+2024,NSW,Eastern Grey Kangaroo,Skins,70000
+2024,NSW,Wallaroo,Pet Food,30000
+2024,NSW,Wallaroo,Damage Mitigation,20000
+2024,NSW,Unused Quota,Unused,1450000
+2024,QLD,Red Kangaroo,Pet Food,190000
+2024,QLD,Red Kangaroo,Meat,140000
+2024,QLD,Red Kangaroo,Skins,70000
+2024,QLD,Eastern Grey Kangaroo,Pet Food,100000
+2024,QLD,Eastern Grey Kangaroo,Meat,80000
+2024,QLD,Eastern Grey Kangaroo,Skins,40000
+2024,QLD,Wallaroo,Pet Food,40000
+2024,QLD,Unused Quota,Unused,1440000
+2024,SA,Red Kangaroo,Pet Food,90000
+2024,SA,Red Kangaroo,Meat,60000
+2024,SA,Red Kangaroo,Skins,25000
+2024,SA,Western Grey Kangaroo,Pet Food,50000
+2024,SA,Western Grey Kangaroo,Meat,30000
+2024,SA,Unused Quota,Unused,205000
+2024,VIC,Western Grey Kangaroo,Damage Mitigation,32000
+2024,VIC,Unused Quota,Unused,128000
+2024,WA,Red Kangaroo,Pet Food,30000
+2024,WA,Western Grey Kangaroo,Pet Food,40000
+2024,WA,Western Grey Kangaroo,Meat,30000
+2024,WA,Unused Quota,Unused,100000
+2023,NSW,Red Kangaroo,Pet Food,210000
+2023,NSW,Red Kangaroo,Meat,160000
+2023,NSW,Red Kangaroo,Skins,80000
+2023,NSW,Eastern Grey Kangaroo,Pet Food,160000
+2023,NSW,Eastern Grey Kangaroo,Meat,125000
+2023,NSW,Eastern Grey Kangaroo,Skins,60000
+2023,NSW,Wallaroo,Pet Food,25000
+2023,NSW,Wallaroo,Damage Mitigation,15000
+2023,NSW,Unused Quota,Unused,1415000
+2023,QLD,Red Kangaroo,Pet Food,170000
+2023,QLD,Red Kangaroo,Meat,125000
+2023,QLD,Red Kangaroo,Skins,60000
+2023,QLD,Eastern Grey Kangaroo,Pet Food,90000
+2023,QLD,Eastern Grey Kangaroo,Meat,70000
+2023,QLD,Eastern Grey Kangaroo,Skins,35000
+2023,QLD,Wallaroo,Pet Food,35000
+2023,QLD,Unused Quota,Unused,1315000
+2023,SA,Red Kangaroo,Pet Food,80000
+2023,SA,Red Kangaroo,Meat,55000
+2023,SA,Red Kangaroo,Skins,22000
+2023,SA,Western Grey Kangaroo,Pet Food,45000
+2023,SA,Western Grey Kangaroo,Meat,28000
+2023,SA,Unused Quota,Unused,210000
+2023,VIC,Western Grey Kangaroo,Damage Mitigation,28000
+2023,VIC,Unused Quota,Unused,122000
+2023,WA,Red Kangaroo,Pet Food,28000
+2023,WA,Western Grey Kangaroo,Pet Food,38000
+2023,WA,Western Grey Kangaroo,Meat,28000
+2023,WA,Unused Quota,Unused,96000
+2022,NSW,Red Kangaroo,Pet Food,180000
+2022,NSW,Red Kangaroo,Meat,135000
+2022,NSW,Red Kangaroo,Skins,70000
+2022,NSW,Eastern Grey Kangaroo,Pet Food,140000
+2022,NSW,Eastern Grey Kangaroo,Meat,105000
+2022,NSW,Eastern Grey Kangaroo,Skins,50000
+2022,NSW,Wallaroo,Pet Food,22000
+2022,NSW,Wallaroo,Damage Mitigation,15000
+2022,NSW,Unused Quota,Unused,1383000
+2022,QLD,Red Kangaroo,Pet Food,140000
+2022,QLD,Red Kangaroo,Meat,105000
+2022,QLD,Red Kangaroo,Skins,50000
+2022,QLD,Eastern Grey Kangaroo,Pet Food,75000
+2022,QLD,Eastern Grey Kangaroo,Meat,58000
+2022,QLD,Eastern Grey Kangaroo,Skins,30000
+2022,QLD,Wallaroo,Pet Food,30000
+2022,QLD,Unused Quota,Unused,1212000
+2022,SA,Red Kangaroo,Pet Food,72000
+2022,SA,Red Kangaroo,Meat,48000
+2022,SA,Red Kangaroo,Skins,20000
+2022,SA,Western Grey Kangaroo,Pet Food,40000
+2022,SA,Western Grey Kangaroo,Meat,25000
+2022,SA,Unused Quota,Unused,215000
+2022,VIC,Western Grey Kangaroo,Damage Mitigation,25000
+2022,VIC,Unused Quota,Unused,115000
+2022,WA,Red Kangaroo,Pet Food,25000
+2022,WA,Western Grey Kangaroo,Pet Food,32000
+2022,WA,Western Grey Kangaroo,Meat,25000
+2022,WA,Unused Quota,Unused,98000

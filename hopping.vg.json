@@ -2,39 +2,105 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "background": "#fffaf0",
-  "width": 500,
-  "height": 280,
+  "width": 300,
+  "height": 300,
   "data": {"url": "hopping.csv"},
+  "transform": [
+    {"calculate": "datum.max_hop_m - datum.max_jump_m", "as": "gap"}
+  ],
   "layer": [
     {
-      "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": "#6b4423"},
+      "mark": {"type": "rule", "stroke": "#c9a96e", "strokeWidth": 4, "opacity": 0.7},
       "encoding": {
         "x": {
           "field": "species",
           "type": "nominal",
-          "sort": "-y",
+          "sort": {"field": "max_hop_m", "order": "descending"},
           "title": null,
-          "axis": {"labelAngle": -35, "labelAlign": "right", "labelBaseline": "middle"}
+          "axis": {
+            "labelAngle": -30,
+            "labelAlign": "right",
+            "labelBaseline": "middle",
+            "labelFontSize": 11,
+            "labelColor": "#3d2c1a"
+          }
         },
         "y": {
-          "field": "max_hop_m",
+          "field": "max_jump_m",
           "type": "quantitative",
-          "title": "Max hop distance (m)"
+          "title": "Distance (m)",
+          "scale": {"domain": [0, 10]},
+          "axis": {"grid": true, "gridColor": "#efe3c8", "gridDash": [2, 4]}
         },
+        "y2": {"field": "max_hop_m"},
         "tooltip": [
           {"field": "species", "type": "nominal", "title": "Species"},
-          {"field": "max_hop_m", "type": "quantitative", "title": "Max hop (m)"},
-          {"field": "top_speed_kmh", "type": "quantitative", "title": "Top speed (km/h)"}
+          {"field": "max_jump_m", "type": "quantitative", "title": "Vertical jump (m)"},
+          {"field": "max_hop_m", "type": "quantitative", "title": "Horizontal hop (m)"},
+          {"field": "gap", "type": "quantitative", "title": "Gap (m)"}
         ]
       }
     },
     {
-      "mark": {"type": "text", "dy": -8, "fontWeight": "bold", "color": "#3d2c1a"},
+      "transform": [
+        {"fold": ["max_jump_m", "max_hop_m"], "as": ["metric", "distance"]},
+        {"calculate": "datum.metric === 'max_jump_m' ? 'Vertical jump' : 'Horizontal hop'", "as": "metric_label"}
+      ],
+      "mark": {"type": "point", "size": 200, "filled": true, "stroke": "#fffaf0", "strokeWidth": 2},
       "encoding": {
-        "x": {"field": "species", "type": "nominal", "sort": "-y"},
-        "y": {"field": "max_hop_m", "type": "quantitative"},
-        "text": {"field": "top_speed_kmh", "type": "quantitative", "format": ".0f"}
+        "x": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
+        "y": {"field": "distance", "type": "quantitative"},
+        "color": {
+          "field": "metric_label",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Vertical jump", "Horizontal hop"],
+            "range": ["#4a7c5e", "#b54e1f"]
+          },
+          "legend": {
+            "orient": "none",
+            "legendX": 170,
+            "legendY": 8,
+            "direction": "vertical",
+            "fillColor": "#fffaf0",
+            "strokeColor": "#e8d8b8",
+            "padding": 8,
+            "cornerRadius": 6,
+            "labelFontSize": 10,
+            "symbolSize": 140
+          }
+        },
+        "tooltip": [
+          {"field": "species", "type": "nominal", "title": "Species"},
+          {"field": "metric_label", "type": "nominal", "title": "Metric"},
+          {"field": "distance", "type": "quantitative", "title": "Distance (m)"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {"fold": ["max_jump_m", "max_hop_m"], "as": ["metric", "distance"]},
+        {"calculate": "datum.metric === 'max_jump_m' ? 'Vertical jump' : 'Horizontal hop'", "as": "metric_label"}
+      ],
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 10, "fontWeight": 600},
+      "encoding": {
+        "x": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
+        "y": {"field": "distance", "type": "quantitative"},
+        "text": {"field": "distance", "type": "quantitative", "format": ".1f"},
+        "color": {
+          "field": "metric_label",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Vertical jump", "Horizontal hop"],
+            "range": ["#4a7c5e", "#b54e1f"]
+          },
+          "legend": null
+        }
       }
     }
-  ]
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
 }
