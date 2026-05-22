@@ -30,63 +30,80 @@
     },
     {
       "data": {
-        "url": "../Data/kangaroo_population.csv"
+        "url": "https://biocache-ws.ala.org.au/ws/occurrences/search?q=lsid:https://biodiversity.org.au/afd/taxa/7e6e134b-2bc7-43c4-b23a-6e3f420f57ad%20OR%20lsid:https://biodiversity.org.au/afd/taxa/f2f43ef9-89fd-4f89-8b06-0842e86cfe06%20OR%20lsid:https://biodiversity.org.au/afd/taxa/e9b141fb-9c47-46a3-b631-39b175a2cd74%20OR%20lsid:https://biodiversity.org.au/afd/taxa/e29ab738-af2b-438a-80cf-675a37616ba9%20OR%20lsid:https://biodiversity.org.au/afd/taxa/b9d06f62-63da-4649-80ba-33986ea058e1&pageSize=1000&fl=decimalLatitude,decimalLongitude,vernacularName,scientificName",
+        "format": {"type": "json", "property": "occurrences"}
       },
+      "transform": [
+        {"filter": "datum.decimalLatitude != null && datum.decimalLongitude != null"},
+        {
+          "calculate": "indexof(datum.scientificName, 'Osphranter rufus') >= 0 ? 'Red Kangaroo' : (indexof(datum.scientificName, 'Macropus giganteus') >= 0 ? 'Eastern Grey Kangaroo' : (indexof(datum.scientificName, 'Macropus fuliginosus') >= 0 ? 'Western Grey Kangaroo' : (indexof(datum.scientificName, 'Osphranter robustus') >= 0 ? 'Common Wallaroo' : (indexof(datum.scientificName, 'Notamacropus eugenii') >= 0 ? 'Tammar Wallaby' : datum.vernacularName))))",
+          "as": "speciesGroup"
+        }
+      ],
       "mark": {
         "type": "circle",
-        "opacity": 0.78,
-        "stroke": "#5a3a1e",
-        "strokeWidth": 0.5
+        "opacity": 0.7,
+        "size": 28,
+        "stroke": null
       },
       "encoding": {
         "longitude": {
-          "field": "longitude",
+          "field": "decimalLongitude",
           "type": "quantitative"
         },
         "latitude": {
-          "field": "latitude",
+          "field": "decimalLatitude",
           "type": "quantitative"
         },
-        "size": {
-          "field": "population",
-          "type": "quantitative",
-          "title": "Population",
-          "scale": {
-            "range": [
-              40,
-              800
-            ]
-          }
-        },
         "color": {
-          "field": "population",
-          "type": "quantitative",
+          "field": "speciesGroup",
+          "type": "nominal",
+          "title": "Species",
           "scale": {
-            "range": [
-              "#c89060",
-              "#a07c4e",
-              "#6b4423",
-              "#5a3a1e"
-            ]
+            "domain": [
+              "Red Kangaroo",
+              "Eastern Grey Kangaroo",
+              "Western Grey Kangaroo",
+              "Common Wallaroo",
+              "Tammar Wallaby"
+            ],
+            "range": ["#b54e1f", "#4a7c5e", "#d4a35c", "#3d2c1a", "#c2c43b"]
           },
-          "legend": null
+          "legend": {
+            "orient": "none",
+            "legendX": 10,
+            "legendY": 10,
+            "direction": "vertical",
+            "fillColor": "#fffaf0",
+            "strokeColor": "#e8d8b8",
+            "padding": 8,
+            "cornerRadius": 6,
+            "labelFontSize": 11,
+            "titleFontSize": 12
+          }
         },
         "tooltip": [
           {
-            "field": "region",
+            "field": "speciesGroup",
             "type": "nominal",
-            "title": "Region"
+            "title": "Species"
           },
           {
-            "field": "state",
+            "field": "scientificName",
             "type": "nominal",
-            "title": "State"
+            "title": "Scientific name"
           },
           {
-            "field": "population",
+            "field": "decimalLatitude",
             "type": "quantitative",
-            "title": "Population",
-            "format": ","
+            "title": "Latitude",
+            "format": ".3f"
+          },
+          {
+            "field": "decimalLongitude",
+            "type": "quantitative",
+            "title": "Longitude",
+            "format": ".3f"
           }
         ]
       }
