@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
-  "height": 360,
+  "padding": {"top": 10, "bottom": 0, "left": 12, "right": 12},
+  "height": 320,
   "width": 400,
   "background": "#fffaf0",
   "projection": {
@@ -12,6 +12,9 @@
     ],
     "scale": 520
   },
+  "params": [
+    {"name": "speciesFilter", "value": "all"}
+  ],
   "layer": [
     {
       "data": {
@@ -21,28 +24,36 @@
           "property": "features"
         }
       },
+      "transform": [
+        {"filter": "datum.properties.name != 'Tasmania'"}
+      ],
       "mark": {
         "type": "geoshape",
-        "fill": "#dfe9d8",
-        "stroke": "#4a7c5e",
+        "fill": "#5a3a1e",
+        "stroke": "#a07c4e",
         "strokeWidth": 0.6
       }
     },
     {
       "data": {
-        "url": "https://biocache-ws.ala.org.au/ws/occurrences/search?q=lsid:https://biodiversity.org.au/afd/taxa/7e6e134b-2bc7-43c4-b23a-6e3f420f57ad%20OR%20lsid:https://biodiversity.org.au/afd/taxa/f2f43ef9-89fd-4f89-8b06-0842e86cfe06%20OR%20lsid:https://biodiversity.org.au/afd/taxa/e9b141fb-9c47-46a3-b631-39b175a2cd74%20OR%20lsid:https://biodiversity.org.au/afd/taxa/e29ab738-af2b-438a-80cf-675a37616ba9%20OR%20lsid:https://biodiversity.org.au/afd/taxa/b9d06f62-63da-4649-80ba-33986ea058e1&pageSize=1000&fl=decimalLatitude,decimalLongitude,vernacularName,scientificName",
-        "format": {"type": "json", "property": "occurrences"}
+        "url": "kangaroo_occurrences.json",
+        "format": {"type": "json"}
       },
       "transform": [
-        {"filter": "datum.decimalLatitude != null && datum.decimalLongitude != null"},
         {
-          "calculate": "indexof(datum.scientificName, 'Osphranter rufus') >= 0 ? 'Red Kangaroo' : (indexof(datum.scientificName, 'Macropus giganteus') >= 0 ? 'Eastern Grey Kangaroo' : (indexof(datum.scientificName, 'Macropus fuliginosus') >= 0 ? 'Western Grey Kangaroo' : (indexof(datum.scientificName, 'Osphranter robustus') >= 0 ? 'Common Wallaroo' : (indexof(datum.scientificName, 'Notamacropus eugenii') >= 0 ? 'Tammar Wallaby' : datum.vernacularName))))",
+          "calculate": "indexof(datum.scientificName, 'Osphranter rufus') >= 0 ? 'Red Kangaroo' : (indexof(datum.scientificName, 'Macropus giganteus') >= 0 ? 'Eastern Grey Kangaroo' : (indexof(datum.scientificName, 'Macropus fuliginosus') >= 0 ? 'Western Grey Kangaroo' : (indexof(datum.scientificName, 'Osphranter robustus') >= 0 ? 'Wallaroo' : (indexof(datum.scientificName, 'Notamacropus eugenii') >= 0 ? 'Tammar Wallaby' : datum.vernacularName))))",
           "as": "speciesGroup"
+        }
+      ],
+      "params": [
+        {
+          "name": "speciesSel",
+          "select": {"type": "point", "fields": ["speciesGroup"]},
+          "bind": "legend"
         }
       ],
       "mark": {
         "type": "circle",
-        "opacity": 0.7,
         "size": 28,
         "stroke": null
       },
@@ -55,31 +66,44 @@
           "field": "decimalLatitude",
           "type": "quantitative"
         },
+        "opacity": {
+          "condition": {
+            "test": "speciesFilter == 'all' || datum.speciesGroup == speciesFilter",
+            "value": 0.85
+          },
+          "value": 0.12
+        },
         "color": {
           "field": "speciesGroup",
           "type": "nominal",
           "title": "Species",
           "scale": {
-            "domain": [
-              "Red Kangaroo",
-              "Eastern Grey Kangaroo",
-              "Western Grey Kangaroo",
-              "Common Wallaroo",
-              "Tammar Wallaby"
-            ],
-            "range": ["#b54e1f", "#4a7c5e", "#d4a35c", "#3d2c1a", "#c2c43b"]
+           "domain": [
+                                    "Eastern Grey Kangaroo",
+                                    "Red Kangaroo",
+                                    "Tammar Wallaby",
+                                    "Wallaroo",
+                                    "Western Grey Kangaroo"
+                                ],
+                                "range": [
+                                    "#e3891f",
+                                    "#f2b705",
+                                    "#2e8b57",
+                                    "#d4d83b",
+                                    "#7fbf3f"
+                                ]
           },
           "legend": {
-            "orient": "none",
-            "legendX": 10,
-            "legendY": 10,
+            "orient": "right",
             "direction": "vertical",
             "fillColor": "#fffaf0",
             "strokeColor": "#e8d8b8",
-            "padding": 8,
+            "padding": 10,
             "cornerRadius": 6,
             "labelFontSize": 11,
-            "titleFontSize": 12
+            "titleFontSize": 12,
+            "symbolSize": 120,
+            "offset": 16
           }
         },
         "tooltip": [
@@ -121,13 +145,6 @@
       "labelFont": "Inter",
       "titleFont": "Inter",
       "titleFontWeight": 500
-    },
-    "title": {
-      "font": "Lora",
-      "fontSize": 15,
-      "fontWeight": 700,
-      "color": "#2d5a3d",
-      "anchor": "start"
     }
   }
 }
