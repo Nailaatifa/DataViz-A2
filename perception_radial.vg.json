@@ -12,6 +12,13 @@
     "data": {
         "url": "perception.csv"
     },
+    "params": [
+        {
+            "name": "perceptionSel",
+            "select": {"type": "point", "fields": ["Perception"]},
+            "bind": "legend"
+        }
+    ],
     "layer": [
         {
             "mark": {
@@ -75,6 +82,10 @@
                     "#b7e4c7"
                 ]
             }
+        },
+        "opacity": {
+            "condition": {"param": "perceptionSel", "value": 1},
+            "value": 0.2
         }
     }
 }

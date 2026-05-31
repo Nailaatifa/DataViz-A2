@@ -5,11 +5,21 @@
   "width": 250,
   "height": 250,
   "data": {"url": "population_yearly.csv"},
+  "params": [
+    {"name": "speciesFilter", "value": "all"},
+    {"name": "yearMin", "value": 2010},
+    {"name": "yearMax", "value": 2024},
+    {"name": "t", "value": 0}
+  ],
   "transform": [
     {"calculate": "year(datum.date)", "as": "year"},
     {"filter": "indexof([2020, 2021, 2022, 2023, 2024], datum.year) >= 0"},
+    {"filter": "datum.year >= yearMin && datum.year <= yearMax"},
     {"joinaggregate": [{"op": "sum", "field": "count", "as": "year_total"}], "groupby": ["year"]},
-    {"calculate": "datum.count / datum.year_total", "as": "pct"}
+    {"calculate": "datum.count / datum.year_total", "as": "pct"},
+    {"calculate": "datum.year - 2020", "as": "ringIdx"},
+    {"calculate": "max(0, min(1, t - datum.ringIdx))", "as": "ringProgress"},
+    {"calculate": "(speciesFilter == 'all' || datum.series == speciesFilter ? 1 : 0.18) * datum.ringProgress", "as": "drawnOpacity"}
   ],
   "layer": [
     {
@@ -19,6 +29,13 @@
         "strokeWidth": 1.5,
         "padAngle": 0.004
       },
+      "params": [
+        {
+          "name": "speciesSel",
+          "select": {"type": "point", "fields": ["series"]},
+          "bind": "legend"
+        }
+      ],
       "encoding": {
         "theta": {
           "field": "count",
@@ -61,6 +78,12 @@
             "offset": 18
           }
         },
+        "opacity": {
+          "field": "drawnOpacity",
+          "type": "quantitative",
+          "scale": null,
+          "legend": null
+        },
         "tooltip": [
           {"field": "year", "type": "ordinal", "title": "Year"},
           {"field": "series", "type": "nominal", "title": "Species"},
@@ -72,13 +95,16 @@
     {
       "data": {
         "values": [
-          {"year": 2020, "r": 39},
-          {"year": 2021, "r": 56},
-          {"year": 2022, "r": 73},
-          {"year": 2023, "r": 90},
-          {"year": 2024, "r": 107}
+          {"year": 2020, "r": 39, "ringIdx": 0},
+          {"year": 2021, "r": 56, "ringIdx": 1},
+          {"year": 2022, "r": 73, "ringIdx": 2},
+          {"year": 2023, "r": 90, "ringIdx": 3},
+          {"year": 2024, "r": 107, "ringIdx": 4}
         ]
       },
+      "transform": [
+        {"calculate": "max(0, min(1, t - datum.ringIdx))", "as": "ringProgress"}
+      ],
       "mark": {
         "type": "text",
         "align": "center",
@@ -90,7 +116,11 @@
       "encoding": {
         "theta": {"value": 0},
         "radius": {"field": "r", "type": "quantitative", "scale": null},
-        "text": {"field": "year"}
+        "text": {"field": "year"},
+        "opacity": {
+          "condition": {"test": "datum.ringProgress >= 0.9", "value": 1},
+          "value": 0
+        }
       }
     }
   ]

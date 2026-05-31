@@ -1,23 +1,19 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Species by State",
-    "anchor": "middle",
-    "fontSize": 22,
-    "color": "#2d5a3d",
-    "fontWeight": 700,
-    "font": "Lora, Times New Roman, serif",
-    "offset": 18
-  },
+
   "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
   "description": "Kangaroo population by species per state, grouped by year",
   "background": "#fffaf0",
-  "width": 400,
-  "height": 300,
-  "data": {
-    "url": "population_state.csv"
-  },
+  "width": 360,
+  "height": 320,
+  "data": {"url": "population_state.csv"},
+  "params": [
+    {"name": "speciesFilter", "value": "all"},
+    {"name": "yearMin", "value": 2010},
+    {"name": "yearMax", "value": 2024}
+  ],
   "transform": [
+    {"filter": "datum.Year >= yearMin && datum.Year <= yearMax"},
     {
       "calculate": "datum.State == 'NSW' ? 'New South Wales' : datum.State == 'QLD' ? 'Queensland' : datum.State == 'SA' ? 'South Australia' : datum.State == 'VIC' ? 'Victoria' : datum.State == 'WA' ? 'Western Australia' : datum.State",
       "as": "StateName"
@@ -44,6 +40,13 @@
         "scheme": "browns"
       }
     },
+    "opacity": {
+      "condition": {
+        "test": "speciesFilter == 'all' || datum.Species == speciesFilter",
+        "value": 1
+      },
+      "value": 0.18
+    },
     "tooltip": [
       {"field": "State", "type": "nominal"},
       {"field": "StateName", "type": "nominal", "title": "State name"},
@@ -51,7 +54,8 @@
       {
         "aggregate": "sum",
         "field": "Population",
-        "title": "Total Population"
+        "title": "Total Population",
+        "format": ","
       }
     ]
   },

@@ -5,10 +5,15 @@
     "data": {
         "url": "population_yearly.csv"
     },
+    "params": [
+        {"name": "speciesFilter", "value": "all"},
+        {"name": "yearMin", "value": 2010},
+        {"name": "yearMax", "value": 2024}
+    ],
     "vconcat": [
         {
             "width": 700,
-            "height": 360,
+            "height": 380,
             "encoding": {
                 "x": {
                     "timeUnit": "year",
@@ -86,10 +91,16 @@
                             }
                         },
                         "opacity": {
-                            "condition": {
-                                "param": "species",
-                                "value": 1
-                            },
+                            "condition": [
+                                {
+                                    "test": "speciesFilter != 'all' && datum.series != speciesFilter",
+                                    "value": 0.15
+                                },
+                                {
+                                    "param": "species",
+                                    "value": 1
+                                }
+                            ],
                             "value": 0.2
                         }
                     }
@@ -119,10 +130,7 @@
                             "mark": {
                                 "type": "rule",
                                 "color": "#5a3a1e",
-                                "strokeDash": [
-                                    3,
-                                    3
-                                ],
+                                "strokeDash": [3, 3],
                                 "opacity": 0.55
                             },
                             "encoding": {
@@ -218,9 +226,7 @@
                     "name": "brush",
                     "select": {
                         "type": "interval",
-                        "encodings": [
-                            "x"
-                        ]
+                        "encodings": ["x"]
                     }
                 }
             ],
