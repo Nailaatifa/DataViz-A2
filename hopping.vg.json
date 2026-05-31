@@ -5,18 +5,23 @@
   "width": 300,
   "height": 300,
   "data": {"url": "hopping.csv"},
+  "params": [
+    {"name": "unitParam", "value": "kg"},
+    {"name": "speciesFilter", "value": "all"}
+  ],
   "transform": [
-    {"calculate": "2", "as": "human_hop"},
-    {"calculate": "datum.max_hop_m - 2", "as": "gap_vs_human"}
+    {"calculate": "unitParam == 'lb' ? 6.56168 : 2", "as": "human_hop"},
+    {"calculate": "unitParam == 'lb' ? datum.max_hop_m * 3.28084 : datum.max_hop_m", "as": "max_hop"},
+    {"calculate": "datum.max_hop - datum.human_hop", "as": "gap_vs_human"}
   ],
   "layer": [
     {
-      "mark": {"type": "rule", "stroke": "#c9a96e", "strokeWidth": 3, "opacity": 0.75},
+      "mark": {"type": "rule", "stroke": "#c9a96e", "strokeWidth": 3},
       "encoding": {
         "y": {
           "field": "species",
           "type": "nominal",
-          "sort": {"field": "max_hop_m", "order": "descending"},
+          "sort": {"field": "max_hop", "order": "descending"},
           "title": null,
           "axis": {
             "labelFontSize": 11,
@@ -29,42 +34,62 @@
         "x": {
           "field": "human_hop",
           "type": "quantitative",
-          "title": "Horizontal hop (m)",
-          "scale": {"domain": [0, 10]},
+          "title": {"signal": "unitParam == 'lb' ? 'Horizontal hop (ft)' : 'Horizontal hop (m)'"},
+          "scale": {"domain": [0, {"signal": "unitParam == 'lb' ? 33 : 10"}]},
           "axis": {"grid": true, "gridColor": "#efe3c8", "gridDash": [2, 4]}
         },
-        "x2": {"field": "max_hop_m"}
+        "x2": {"field": "max_hop"},
+        "opacity": {"condition": {"test": "speciesFilter == 'all' || datum.species == speciesFilter", "value": 1}, "value": 0.18}
       }
     },
     {
       "mark": {"type": "circle", "size": 220, "color": "#b54e1f", "stroke": "#fffaf0", "strokeWidth": 2},
       "encoding": {
-        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
-        "x": {"field": "max_hop_m", "type": "quantitative"},
+        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop", "order": "descending"}},
+        "x": {"field": "max_hop", "type": "quantitative"},
+        "opacity": {"condition": {"test": "speciesFilter == 'all' || datum.species == speciesFilter", "value": 1}, "value": 0.18},
         "tooltip": [
           {"field": "species", "type": "nominal", "title": "Species"},
-          {"field": "max_hop_m", "type": "quantitative", "title": "Horizontal hop (m)"},
-          {"field": "gap_vs_human", "type": "quantitative", "title": "Gap vs human (m)"}
+          {
+            "field": "max_hop",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": {"signal": "unitParam == 'lb' ? 'Hop distance (ft)' : 'Hop distance (m)'"}
+          },
+          {
+            "field": "gap_vs_human",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": {"signal": "unitParam == 'lb' ? 'Gap vs human (ft)' : 'Gap vs human (m)'"}
+          }
         ]
       }
     },
     {
       "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 10, "fontSize": 10, "fontWeight": 600, "color": "#b54e1f"},
       "encoding": {
-        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop_m", "order": "descending"}},
-        "x": {"field": "max_hop_m", "type": "quantitative"},
-        "text": {"field": "max_hop_m", "type": "quantitative", "format": ".1f"}
+        "y": {"field": "species", "type": "nominal", "sort": {"field": "max_hop", "order": "descending"}},
+        "x": {"field": "max_hop", "type": "quantitative"},
+        "text": {"field": "max_hop", "type": "quantitative", "format": ".1f"},
+        "opacity": {"condition": {"test": "speciesFilter == 'all' || datum.species == speciesFilter", "value": 1}, "value": 0.18}
       }
     },
     {
-      "data": {"values": [{"x": 2}]},
+      "data": {"values": [{"x_m": 2}]},
+      "transform": [
+        {"calculate": "unitParam == 'lb' ? datum.x_m * 3.28084 : datum.x_m", "as": "x"}
+      ],
       "mark": {"type": "rule", "stroke": "#3d2c1a", "strokeDash": [4, 4], "strokeWidth": 1.5, "opacity": 0.7},
       "encoding": {
         "x": {"field": "x", "type": "quantitative"}
       }
     },
     {
-      "data": {"values": [{"x": 2, "y_pos": -1, "label": "Human ~2 m"}]},
+      "data": {"values": [{"x_m": 2, "label_m": "Human ~2 m", "label_ft": "Human ~6.6 ft"}]},
+      "transform": [
+        {"calculate": "unitParam == 'lb' ? datum.x_m * 3.28084 : datum.x_m", "as": "x"},
+        {"calculate": "unitParam == 'lb' ? datum.label_ft : datum.label_m", "as": "label"}
+      ],
       "mark": {"type": "text", "color": "#3d2c1a", "fontSize": 10, "fontWeight": 700, "align": "left", "baseline": "bottom", "dx": 4, "dy": -2},
       "encoding": {
         "x": {"field": "x", "type": "quantitative"},

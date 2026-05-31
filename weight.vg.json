@@ -1,10 +1,24 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
     "data": {
         "url": "weight.csv"
     },
     "background": "#fffaf0",
+    "params": [
+        {"name": "unitParam", "value": "kg"},
+        {"name": "speciesFilter", "value": "all"}
+    ],
+    "transform": [
+        {
+            "calculate": "unitParam == 'lb' ? datum['Male Weight'] * 2.20462 : datum['Male Weight']",
+            "as": "Male Weight"
+        },
+        {
+            "calculate": "unitParam == 'lb' ? datum['Female Weight'] * 2.20462 : datum['Female Weight']",
+            "as": "Female Weight"
+        }
+    ],
     "repeat": {
         "layer": [
             "Male Weight",
@@ -19,6 +33,13 @@
             "x": {
                 "field": "species",
                 "type": "nominal",
+                "sort": [
+                    "Red Kangaroo",
+                    "Eastern Grey Kangaroo",
+                    "Western Grey Kangaroo",
+                    "Wallaroo",
+                    "Tammar Wallaby"
+                ],
                 "axis": {
                     "labelAngle": -30,
                     "labelAlign": "right",
@@ -27,16 +48,14 @@
             },
             "y": {
                 "aggregate": "sum",
-                "field": {
-                    "repeat": "layer"
-                },
+                "field": {"repeat": "layer"},
                 "type": "quantitative",
-                "title": "Weight (kg)"
+                "title": {
+                    "signal": "unitParam == 'lb' ? 'Weight (lb)' : 'Weight (kg)'"
+                }
             },
             "color": {
-                "datum": {
-                    "repeat": "layer"
-                },
+                "datum": {"repeat": "layer"},
                 "title": null,
                 "scale": {
                     "domain": ["Male Weight", "Female Weight"],
@@ -55,15 +74,29 @@
                 }
             },
             "xOffset": {
-                "datum": {
-                    "repeat": "layer"
+                "datum": {"repeat": "layer"}
+            },
+            "opacity": {
+                "condition": {
+                    "test": "speciesFilter == 'all' || datum.species == speciesFilter",
+                    "value": 1
+                },
+                "value": 0.18
+            },
+            "tooltip": [
+                {"field": "species", "type": "nominal", "title": "Species"},
+                {
+                    "field": {"repeat": "layer"},
+                    "type": "quantitative",
+                    "format": ".1f",
+                    "title": {
+                        "signal": "unitParam == 'lb' ? 'Weight (lb)' : 'Weight (kg)'"
+                    }
                 }
-            }
+            ]
         }
     },
     "config": {
-        "mark": {
-            "invalid": null
-        }
+        "mark": {"invalid": null}
     }
 }

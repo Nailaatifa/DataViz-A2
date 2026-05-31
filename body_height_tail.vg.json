@@ -5,25 +5,36 @@
   "width": 300,
   "height": 300,
   "data": {"url": "body_height_tail.csv"},
+  "params": [
+    {"name": "unitParam", "value": "kg"},
+    {"name": "speciesFilter", "value": "all"},
+    {
+      "name": "speciesSel",
+      "select": {"type": "point", "fields": ["species"]},
+      "bind": "legend"
+    }
+  ],
   "transform": [
     {
       "pivot": "metric",
       "value": "value_cm",
       "groupby": ["species", "sex"]
-    }
+    },
+    {"calculate": "unitParam == 'lb' ? datum.Height / 2.54 : datum.Height", "as": "Height"},
+    {"calculate": "unitParam == 'lb' ? datum.Tail / 2.54 : datum.Tail", "as": "Tail"}
   ],
-  "mark": {"type": "point", "filled": true, "size": 140, "opacity": 0.85},
+  "mark": {"type": "point", "filled": true, "size": 140},
   "encoding": {
     "x": {
       "field": "Height",
       "type": "quantitative",
-      "title": "Standing height (cm)",
+      "title": {"signal": "unitParam == 'lb' ? 'Standing height (in)' : 'Standing height (cm)'"},
       "scale": {"zero": false, "padding": 10}
     },
     "y": {
       "field": "Tail",
       "type": "quantitative",
-      "title": "Tail length (cm)",
+      "title": {"signal": "unitParam == 'lb' ? 'Tail length (in)' : 'Tail length (cm)'"},
       "scale": {"zero": false, "padding": 10}
     },
     "color": {
@@ -32,13 +43,19 @@
       "title": "Species",
       "scale": {
         "domain": [
-          "Red Kangaroo",
-          "Eastern Grey Kangaroo",
-          "Western Grey Kangaroo",
-          "Wallaroo",
-          "Tammar Wallaby"
-        ],
-        "range": ["#b54e1f", "#4a7c5e", "#d4a35c", "#3d2c1a", "#c2c43b"]
+                                    "Eastern Grey Kangaroo",
+                                    "Red Kangaroo",
+                                    "Tammar Wallaby",
+                                    "Wallaroo",
+                                    "Western Grey Kangaroo"
+                                ],
+                                "range": [
+                                    "#e3891f",
+                                    "#f2b705",
+                                    "#2e8b57",
+                                    "#d4d83b",
+                                    "#7fbf3f"
+                                ]
       },
       "legend": {
         "orient": "none",
@@ -72,11 +89,28 @@
         "labelFontSize": 10
       }
     },
+    "opacity": {
+      "condition": {
+        "test": "speciesFilter == 'all' || datum.species == speciesFilter",
+        "value": 0.9
+      },
+      "value": 0.18
+    },
     "tooltip": [
       {"field": "species", "type": "nominal", "title": "Species"},
       {"field": "sex", "type": "nominal", "title": "Sex"},
-      {"field": "Height", "type": "quantitative", "title": "Height (cm)"},
-      {"field": "Tail", "type": "quantitative", "title": "Tail (cm)"}
+      {
+        "field": "Height",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": {"signal": "unitParam == 'lb' ? 'Height (in)' : 'Height (cm)'"}
+      },
+      {
+        "field": "Tail",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": {"signal": "unitParam == 'lb' ? 'Tail (in)' : 'Tail (cm)'"}
+      }
     ]
   }
 }
