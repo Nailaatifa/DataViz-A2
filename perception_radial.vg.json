@@ -1,49 +1,17 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-   
     "padding": {
         "top": 16,
         "left": 0,
         "right": 12
     },
-    "description": "Kangaroo population by Australian state (millions)",
+    "description": "Australian perceptions of kangaroos (radial bar)",
     "background": "#fffaf0",
     "width": 250,
+    "height": 250,
     "data": {
         "url": "perception.csv"
     },
-    "params": [
-        {
-            "name": "perceptionSel",
-            "select": {"type": "point", "fields": ["Perception"]},
-            "bind": "legend"
-        }
-    ],
-    "layer": [
-        {
-            "mark": {
-                "type": "arc",
-                "innerRadius": 20,
-                "stroke": "#fff",
-                "strokeWidth": 2
-            }
-        },
-        {
-            "mark": {
-                "type": "text",
-                "radiusOffset": 14,
-                "fontSize": 12,
-                "fontWeight": "bold"
-            },
-            "encoding": {
-                "text": {
-                    "field": "Percentage",
-                    "type": "quantitative",
-                    "format": ".1f"
-                }
-            }
-        }
-    ],
     "encoding": {
         "theta": {
             "field": "Percentage",
@@ -56,7 +24,7 @@
             "scale": {
                 "type": "sqrt",
                 "zero": true,
-                "rangeMin": 20
+                "range": [20, 110]
             }
         },
         "color": {
@@ -82,10 +50,44 @@
                     "#b7e4c7"
                 ]
             }
-        },
-        "opacity": {
-            "condition": {"param": "perceptionSel", "value": 1},
-            "value": 0.2
         }
-    }
+    },
+    "layer": [
+        {
+            "params": [
+                {
+                    "name": "perceptionSel",
+                    "select": {"type": "point", "fields": ["Perception"]},
+                    "bind": "legend"
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 20,
+                "stroke": "#fff",
+                "strokeWidth": 2
+            },
+            "encoding": {
+                "opacity": {
+                    "condition": {"param": "perceptionSel", "value": 1},
+                    "value": 0.2
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "radiusOffset": 14,
+                "fontSize": 12,
+                "fontWeight": "bold"
+            },
+            "encoding": {
+                "text": {
+                    "field": "Percentage",
+                    "type": "quantitative",
+                    "format": ".1f"
+                }
+            }
+        }
+    ]
 }
