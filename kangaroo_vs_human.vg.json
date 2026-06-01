@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Kangaroo vs human population in Australia, 2010 – 2025",
+  "width": 340,
+  "height": 240,
+  "padding": { "top": 12, "bottom": 8, "left": 8, "right": 8 },
+  "background": "#fffaf0",
+  "data": { "url": "kangaroo_vs_human.csv" },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "temporal",
+      "timeUnit": "year",
+      "axis": { "format": "%Y", "title": "Year", "tickCount": 8 }
+    },
+    "y": {
+      "field": "population",
+      "type": "quantitative",
+      "stack": null,
+      "axis": { "title": "Population", "format": "~s" }
+    },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Kangaroos", "Humans"],
+        "range": ["#6b4423", "#2d5a3d"]
+      },
+      "legend": {
+        "title": null,
+        "orient": "none",
+        "legendX": 260,
+        "legendY": -6,
+        "direction": "vertical",
+        "labelFontSize": 12,
+        "symbolSize": 140,
+        "fillColor": "#fffaf0",
+        "strokeColor": "#e8d8b8",
+        "padding": 8,
+        "cornerRadius": 6
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": { "type": "area", "opacity": 0.18, "interpolate": "monotone" }
+    },
+    {
+      "mark": { "type": "line", "strokeWidth": 2.5, "interpolate": "monotone" }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 55 },
+      "encoding": {
+        "tooltip": [
+          { "field": "group", "title": "Population" },
+          {
+            "field": "year",
+            "type": "temporal",
+            "timeUnit": "year",
+            "title": "Year",
+            "format": "%Y"
+          },
+          {
+            "field": "population",
+            "type": "quantitative",
+            "format": ",",
+            "title": "Count"
+          }
+        ]
+      }
+    }
+  ]
+}
