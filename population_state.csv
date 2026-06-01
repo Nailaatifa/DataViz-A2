@@ -1,60 +1,193 @@
 State,Species,Population,Sustainable Quota,Special Quota,Year
-NSW,Red Kangaroo,2915853,489006,43738,2024
 NSW,Eastern Grey Kangaroo,5883251,870072,88248,2024
+NSW,Red Kangaroo,2915853,489006,43738,2024
+NSW,Wallaroo,365616,54842,5484,2024
 NSW,Western Grey Kangaroo,470180,70152,7053,2024
-QLD,Red Kangaroo,6371750,1151300,0,2024
 QLD,Eastern Grey Kangaroo,9592950,1117100,0,2024
-SA,Red Kangaroo,2019168,343200,30200,2024
-SA,Western Grey Kangaroo,954571,138200,14300,2024
+QLD,Red Kangaroo,6371750,1151300,0,2024
+QLD,Wallaroo,1763000,218000,0,2024
 SA,Eastern Grey Kangaroo,121539,18200,1800,2024
+SA,Euro,430872,,,2024
+SA,Red Kangaroo,2019168,343200,30200,2024
 SA,Tammar Wallaby,384671,19200,5700,2024
+SA,Western Grey Kangaroo,954571,138200,14300,2024
 VIC,Grey Kangaroo,2363850,155650,80700,2024
 WA,Red Kangaroo,609155,89330,0,2024
 WA,Western Grey Kangaroo,1086235,161100,0,2024
-NSW,Red Kangaroo,4229211,718967,63438,2023
 NSW,Eastern Grey Kangaroo,6567061,969112,98506,2023
+NSW,Red Kangaroo,4229211,718967,63438,2023
+NSW,Wallaroo,365616,54842,5484,2023
 NSW,Western Grey Kangaroo,720327,107307,10805,2023
-QLD,Red Kangaroo,6031700,1071600,0,2023
 QLD,Eastern Grey Kangaroo,8267050,909100,0,2023
-SA,Red Kangaroo,1626425,313800,24300,2023
-SA,Western Grey Kangaroo,1405091,200200,21000,2023
+QLD,Red Kangaroo,6031700,1071600,0,2023
+QLD,Wallaroo,1968450,218000,0,2023
 SA,Eastern Grey Kangaroo,92317,13800,1300,2023
+SA,Euro,375921,,,2023
+SA,Red Kangaroo,1626425,313800,24300,2023
 SA,Tammar Wallaby,384671,19200,5700,2023
+SA,Western Grey Kangaroo,1405091,200200,21000,2023
 VIC,Grey Kangaroo,2363850,166750,0,2023
 WA,Red Kangaroo,736630,125225,0,2023
 WA,Western Grey Kangaroo,1419920,203240,0,2023
-NSW,Red Kangaroo,3646662,619932,54699,2022
 NSW,Eastern Grey Kangaroo,6330698,933037,94921,2022
+NSW,Red Kangaroo,3646662,619932,54699,2022
+NSW,Wallaroo,296555,54842,5484,2022
 NSW,Western Grey Kangaroo,639428,94754,9544,2022
-QLD,Red Kangaroo,4595150,837150,0,2022
 QLD,Eastern Grey Kangaroo,6625550,734750,0,2022
-SA,Red Kangaroo,1387013,236200,20800,2022
-SA,Western Grey Kangaroo,1011909,143900,15100,2022
+QLD,Red Kangaroo,4595150,837150,0,2022
+QLD,Wallaroo,1738700,218000,0,2022
 SA,Eastern Grey Kangaroo,92317,6900,1300,2022
+SA,Euro,302821,,,2022
+SA,Red Kangaroo,1387013,236200,20800,2022
 SA,Tammar Wallaby,42221,2900,600,2022
+SA,Western Grey Kangaroo,1011909,143900,15100,2022
 VIC,Grey Kangaroo,1858150,118980,0,2022
 WA,Red Kangaroo,1219645,207340,0,2022
 WA,Western Grey Kangaroo,1179545,168070,0,2022
-NSW,Red Kangaroo,3540644,564137,53110,2020
+NSW,Eastern Grey Kangaroo,6611322,,,2021
+NSW,Red Kangaroo,2924368,,,2021
+NSW,Wallaroo,296555,,,2021
+NSW,Western Grey Kangaroo,620281,,,2021
+QLD,Eastern Grey Kangaroo,10043400,,,2021
+QLD,Red Kangaroo,4135700,,,2021
+QLD,Wallaroo,2484750,,,2021
+SA,Eastern Grey Kangaroo,34883,,,2021
+SA,Euro,517108,,,2021
+SA,Red Kangaroo,1178888,,,2021
+SA,Western Grey Kangaroo,1054937,,,2021
+VIC,Grey Kangaroo,1911626,,,2021
+WA,Red Kangaroo,1003890,,,2021
+WA,Western Grey Kangaroo,1408160,,,2021
 NSW,Eastern Grey Kangaroo,9437361,1408964,141560,2020
+NSW,Red Kangaroo,3540644,564137,53110,2020
+NSW,Wallaroo,160300,80000,8000,2020
 NSW,Western Grey Kangaroo,883845,129030,13258,2020
-QLD,Red Kangaroo,4987200,874900,0,2020
 QLD,Eastern Grey Kangaroo,14553200,1696550,0,2020
+QLD,Red Kangaroo,4987200,874900,0,2020
+QLD,Wallaroo,2746700,260000,0,2020
+SA,Eastern Grey Kangaroo,61826,7400,300,2020
+SA,Euro,570021,,,2020
 SA,Red Kangaroo,1552679,269800,7700,2020
 SA,Western Grey Kangaroo,1085193,170400,6800,2020
-SA,Eastern Grey Kangaroo,61826,7400,300,2020
-SA,Tammar Wallaby,87043,8700,400,2020
 WA,Red Kangaroo,1278620,217360,0,2020
 WA,Western Grey Kangaroo,1811985,271770,0,2020
-NSW,Wallaroo,365616,54842,5484,2024
-QLD,Wallaroo,1763000,218000,0,2024
-WA,Wallaroo,156800,0,0,2024
-NSW,Wallaroo,365616,54842,5484,2023
-QLD,Wallaroo,1811985,218000,0,2023
-WA,Wallaroo,158400,0,0,2023
-NSW,Wallaroo,365616,54842,5484,2022
-QLD,Wallaroo,1626425,218000,0,2022
-WA,Wallaroo,142100,0,0,2022
-NSW,Wallaroo,540000,80000,8000,2020
-QLD,Wallaroo,2200000,260000,0,2020
-WA,Wallaroo,167000,0,0,2020
+NSW,Eastern Grey Kangaroo,8863305,,,2019
+NSW,Red Kangaroo,2931693,,,2019
+NSW,Wallaroo,200900,,,2019
+NSW,Western Grey Kangaroo,836496,,,2019
+QLD,Eastern Grey Kangaroo,12478650,,,2019
+QLD,Red Kangaroo,5291450,,,2019
+QLD,Wallaroo,3301800,,,2019
+SA,Euro,615675,,,2019
+SA,Red Kangaroo,2550094,,,2019
+SA,Western Grey Kangaroo,1241347,,,2019
+WA,Red Kangaroo,1825760,,,2019
+WA,Western Grey Kangaroo,2423800,,,2019
+NSW,Eastern Grey Kangaroo,8153725,,,2018
+NSW,Red Kangaroo,5132654,,,2018
+NSW,Wallaroo,200900,,,2018
+NSW,Western Grey Kangaroo,916583,,,2018
+QLD,Eastern Grey Kangaroo,12992150,,,2018
+QLD,Red Kangaroo,6526700,,,2018
+QLD,Wallaroo,3417100,,,2018
+SA,Euro,662134,,,2018
+SA,Red Kangaroo,2758663,,,2018
+SA,Western Grey Kangaroo,1613880,,,2018
+WA,Red Kangaroo,1464330,,,2018
+WA,Western Grey Kangaroo,2270445,,,2018
+NSW,Eastern Grey Kangaroo,9298261,,,2017
+NSW,Red Kangaroo,6364234,,,2017
+NSW,Wallaroo,200900,,,2017
+NSW,Western Grey Kangaroo,1595023,,,2017
+QLD,Eastern Grey Kangaroo,13992950,,,2017
+QLD,Red Kangaroo,5768650,,,2017
+QLD,Wallaroo,2805150,,,2017
+SA,Euro,564802,,,2017
+SA,Red Kangaroo,2651212,,,2017
+SA,Western Grey Kangaroo,1495145,,,2017
+WA,Red Kangaroo,1132000,,,2017
+WA,Western Grey Kangaroo,1357700,,,2017
+NSW,Eastern Grey Kangaroo,8818588,,,2016
+NSW,Red Kangaroo,5889886,,,2016
+NSW,Wallaroo,100825,,,2016
+NSW,Western Grey Kangaroo,1488329,,,2016
+QLD,Eastern Grey Kangaroo,15406700,,,2016
+QLD,Red Kangaroo,7061200,,,2016
+QLD,Wallaroo,3694100,,,2016
+SA,Euro,485865,,,2016
+SA,Red Kangaroo,2148070,,,2016
+SA,Western Grey Kangaroo,1507072,,,2016
+WA,Red Kangaroo,827000,,,2016
+WA,Western Grey Kangaroo,1565800,,,2016
+NSW,Eastern Grey Kangaroo,9119613,,,2015
+NSW,Red Kangaroo,6423271,,,2015
+NSW,Wallaroo,100825,,,2015
+NSW,Western Grey Kangaroo,1525350,,,2015
+QLD,Eastern Grey Kangaroo,15427250,,,2015
+QLD,Red Kangaroo,7147850,,,2015
+QLD,Wallaroo,4584750,,,2015
+SA,Euro,490116,,,2015
+SA,Red Kangaroo,1727870,,,2015
+SA,Western Grey Kangaroo,1109840,,,2015
+WA,Red Kangaroo,409422,,,2015
+WA,Western Grey Kangaroo,1246870,,,2015
+NSW,Eastern Grey Kangaroo,8896284,,,2014
+NSW,Red Kangaroo,4480580,,,2014
+NSW,Wallaroo,100825,,,2014
+NSW,Western Grey Kangaroo,1852710,,,2014
+QLD,Eastern Grey Kangaroo,18252150,,,2014
+QLD,Red Kangaroo,8102000,,,2014
+QLD,Wallaroo,6449750,,,2014
+SA,Euro,487654,,,2014
+SA,Red Kangaroo,1673233,,,2014
+SA,Western Grey Kangaroo,1061830,,,2014
+WA,Red Kangaroo,504562,,,2014
+WA,Western Grey Kangaroo,1336939,,,2014
+NSW,Eastern Grey Kangaroo,6297955,,,2013
+NSW,Red Kangaroo,4148316,,,2013
+NSW,Wallaroo,88430,,,2013
+NSW,Western Grey Kangaroo,855892,,,2013
+QLD,Eastern Grey Kangaroo,14639800,,,2013
+QLD,Red Kangaroo,5698700,,,2013
+QLD,Wallaroo,3749650,,,2013
+SA,Euro,487654,,,2013
+SA,Red Kangaroo,1439393,,,2013
+SA,Western Grey Kangaroo,799891,,,2013
+WA,Red Kangaroo,455090,,,2013
+WA,Western Grey Kangaroo,749709,,,2013
+NSW,Eastern Grey Kangaroo,5258103,,,2012
+NSW,Red Kangaroo,3972523,,,2012
+NSW,Wallaroo,88430,,,2012
+NSW,Western Grey Kangaroo,496059,,,2012
+QLD,Eastern Grey Kangaroo,10799679,,,2012
+QLD,Red Kangaroo,5745591,,,2012
+QLD,Wallaroo,3799973,,,2012
+SA,Euro,494800,,,2012
+SA,Red Kangaroo,1158000,,,2012
+SA,Western Grey Kangaroo,674800,,,2012
+WA,Red Kangaroo,638185,,,2012
+WA,Western Grey Kangaroo,1177534,,,2012
+NSW,Eastern Grey Kangaroo,4756792,,,2011
+NSW,Red Kangaroo,3013908,,,2011
+NSW,Wallaroo,88430,,,2011
+NSW,Western Grey Kangaroo,662982,,,2011
+QLD,Eastern Grey Kangaroo,6652443,,,2011
+QLD,Red Kangaroo,3603509,,,2011
+QLD,Wallaroo,1916855,,,2011
+SA,Euro,411000,,,2011
+SA,Red Kangaroo,1074000,,,2011
+SA,Western Grey Kangaroo,720000,,,2011
+WA,Red Kangaroo,850731,,,2011
+WA,Western Grey Kangaroo,1407376,,,2011
+NSW,Eastern Grey Kangaroo,3909270,,,2010
+NSW,Red Kangaroo,2456795,,,2010
+NSW,Wallaroo,114966,,,2010
+NSW,Western Grey Kangaroo,722255,,,2010
+QLD,Eastern Grey Kangaroo,7714654,,,2010
+QLD,Red Kangaroo,5004684,,,2010
+QLD,Wallaroo,2405729,,,2010
+SA,Euro,465000,,,2010
+SA,Red Kangaroo,1031000,,,2010
+SA,Western Grey Kangaroo,658000,,,2010
+WA,Red Kangaroo,904506,,,2010
+WA,Western Grey Kangaroo,1653464,,,2010

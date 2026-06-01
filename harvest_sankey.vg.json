@@ -1,0 +1,362 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "3-stage Sankey: harvested kangaroos flow from year → state → species",
+  "width": 440,
+  "height": 440,
+  "padding": {"top": 0, "bottom": 5, "left": 5, "right": 5},
+  "autosize": {"type": "pad", "contains": "padding"},
+  "background": "#fffaf0",
+  "config": { "view": { "stroke": null } },
+
+  "signals": [
+    { "name": "nodeWidth", "value": 10 },
+    { "name": "leftX", "update": "0" },
+    { "name": "midX", "update": "(width - nodeWidth) / 2" },
+    { "name": "rightX", "update": "width - nodeWidth" }
+  ],
+
+  "data": [
+    {
+      "name": "raw",
+      "url": "harvested.csv",
+      "format": {
+        "type": "csv",
+        "parse": { "year": "number", "quota": "number", "harvested": "number" }
+      },
+      "transform": [
+        { "type": "filter", "expr": "datum.year >= 2019 && datum.year <= 2023" },
+        { "type": "filter", "expr": "datum.species != 'Euro'" }
+      ]
+    },
+
+    {
+      "name": "year_totals",
+      "source": "raw",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["year"],
+          "fields": ["harvested"],
+          "ops": ["sum"],
+          "as": ["total"]
+        },
+        { "type": "collect", "sort": { "field": "year" } },
+        { "type": "stack", "field": "total", "as": ["y0", "y1"] }
+      ]
+    },
+    {
+      "name": "state_totals",
+      "source": "raw",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["state"],
+          "fields": ["harvested"],
+          "ops": ["sum"],
+          "as": ["total"]
+        },
+        { "type": "collect", "sort": { "field": "state" } },
+        { "type": "stack", "field": "total", "as": ["y0", "y1"] }
+      ]
+    },
+    {
+      "name": "species_totals",
+      "source": "raw",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["species"],
+          "fields": ["harvested"],
+          "ops": ["sum"],
+          "as": ["total"]
+        },
+        { "type": "collect", "sort": { "field": "species" } },
+        { "type": "stack", "field": "total", "as": ["y0", "y1"] }
+      ]
+    },
+
+    {
+      "name": "links_ys",
+      "source": "raw",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["year", "state"],
+          "fields": ["harvested"],
+          "ops": ["sum"],
+          "as": ["harvested"]
+        },
+        { "type": "collect", "sort": { "field": ["year", "state"] } },
+        { "type": "stack", "field": "harvested", "as": ["yL0", "yL1"] },
+        { "type": "collect", "sort": { "field": ["state", "year"] } },
+        { "type": "stack", "field": "harvested", "as": ["yR0", "yR1"] }
+      ]
+    },
+
+    {
+      "name": "links_sp",
+      "source": "raw",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["state", "species"],
+          "fields": ["harvested"],
+          "ops": ["sum"],
+          "as": ["harvested"]
+        },
+        { "type": "collect", "sort": { "field": ["state", "species"] } },
+        { "type": "stack", "field": "harvested", "as": ["yL0", "yL1"] },
+        { "type": "collect", "sort": { "field": ["species", "state"] } },
+        { "type": "stack", "field": "harvested", "as": ["yR0", "yR1"] }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": { "data": "year_totals", "field": "y1" },
+      "range": [0, { "signal": "height" }]
+    },
+    {
+      "name": "stateColor",
+      "type": "ordinal",
+      "domain": ["NSW", "QLD", "SA", "VIC", "WA"],
+      "range": ["#b54e1f", "#e3891f", "#7fbf3f", "#2e8b57", "#a07c4e"]
+    },
+    {
+      "name": "yearColor",
+      "type": "ordinal",
+      "domain": [2019, 2020, 2021, 2022, 2023],
+      "range": ["#f4d5a6", "#e8b06b", "#d68838", "#b55a1f", "#7a3413"]
+    },
+    {
+      "name": "speciesColor",
+      "type": "ordinal",
+      "domain": [
+        "Eastern grey",
+        "Red kangaroo",
+        "Western grey",
+        "Wallaroo",
+        "Tammar wallaby",
+        "Grey kangaroo"
+      ],
+      "range": [
+        "#e3891f",
+        "#f2b705",
+        "#7fbf3f",
+        "#d4d83b",
+        "#2e8b57",
+        "#8a6d3b"
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "path",
+      "name": "ribbons_ys",
+      "from": { "data": "links_ys" },
+      "encode": {
+        "enter": {
+          "stroke": { "scale": "yearColor", "field": "year" },
+          "strokeOpacity": { "value": 0.45 },
+          "fill": { "value": "transparent" },
+          "tooltip": {
+            "signal": "{Year: datum.year, State: datum.state, 'Harvested': format(datum.harvested, ',') + ' kangaroos'}"
+          }
+        },
+        "update": {
+          "path": {
+            "signal": "'M' + (leftX + nodeWidth) + ',' + scale('y', (datum.yL0 + datum.yL1) / 2) + ' C' + ((leftX + nodeWidth + midX) / 2) + ',' + scale('y', (datum.yL0 + datum.yL1) / 2) + ' ' + ((leftX + nodeWidth + midX) / 2) + ',' + scale('y', (datum.yR0 + datum.yR1) / 2) + ' ' + midX + ',' + scale('y', (datum.yR0 + datum.yR1) / 2)"
+          },
+          "strokeWidth": {
+            "signal": "max(0.5, scale('y', datum.harvested) - scale('y', 0))"
+          }
+        },
+        "hover": { "strokeOpacity": { "value": 0.85 } }
+      }
+    },
+    {
+      "type": "path",
+      "name": "ribbons_sp",
+      "from": { "data": "links_sp" },
+      "encode": {
+        "enter": {
+          "stroke": { "scale": "stateColor", "field": "state" },
+          "strokeOpacity": { "value": 0.35 },
+          "fill": { "value": "transparent" },
+          "tooltip": {
+            "signal": "{State: datum.state, Species: datum.species, 'Harvested': format(datum.harvested, ',') + ' kangaroos'}"
+          }
+        },
+        "update": {
+          "path": {
+            "signal": "'M' + (midX + nodeWidth) + ',' + scale('y', (datum.yL0 + datum.yL1) / 2) + ' C' + ((midX + nodeWidth + rightX) / 2) + ',' + scale('y', (datum.yL0 + datum.yL1) / 2) + ' ' + ((midX + nodeWidth + rightX) / 2) + ',' + scale('y', (datum.yR0 + datum.yR1) / 2) + ' ' + rightX + ',' + scale('y', (datum.yR0 + datum.yR1) / 2)"
+          },
+          "strokeWidth": {
+            "signal": "max(0.5, scale('y', datum.harvested) - scale('y', 0))"
+          }
+        },
+        "hover": { "strokeOpacity": { "value": 0.85 } }
+      }
+    },
+
+    {
+      "type": "rect",
+      "from": { "data": "year_totals" },
+      "encode": {
+        "enter": {
+          "x": { "signal": "leftX" },
+          "width": { "signal": "nodeWidth" },
+          "tooltip": {
+            "signal": "{Year: datum.year, 'Total harvested': format(datum.total, ',') + ' kangaroos'}"
+          }
+        },
+        "update": {
+          "y": { "scale": "y", "field": "y0" },
+          "y2": { "scale": "y", "field": "y1" },
+          "fill": { "scale": "yearColor", "field": "year" }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": { "data": "state_totals" },
+      "encode": {
+        "enter": {
+          "x": { "signal": "midX" },
+          "width": { "signal": "nodeWidth" },
+          "tooltip": {
+            "signal": "{State: datum.state, 'Total harvested': format(datum.total, ',') + ' kangaroos'}"
+          }
+        },
+        "update": {
+          "y": { "scale": "y", "field": "y0" },
+          "y2": { "scale": "y", "field": "y1" },
+          "fill": { "scale": "stateColor", "field": "state" }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": { "data": "species_totals" },
+      "encode": {
+        "enter": {
+          "x": { "signal": "rightX" },
+          "width": { "signal": "nodeWidth" },
+          "tooltip": {
+            "signal": "{Species: datum.species, 'Total harvested': format(datum.total, ',') + ' kangaroos'}"
+          }
+        },
+        "update": {
+          "y": { "scale": "y", "field": "y0" },
+          "y2": { "scale": "y", "field": "y1" },
+          "fill": { "scale": "speciesColor", "field": "species" }
+        }
+      }
+    },
+
+    {
+      "type": "text",
+      "from": { "data": "year_totals" },
+      "encode": {
+        "enter": {
+          "align": { "value": "right" },
+          "baseline": { "value": "middle" },
+          "fontSize": { "value": 9 },
+          "fontWeight": { "value": 600 },
+          "fill": { "value": "#3d2c1a" },
+          "text": { "field": "year" }
+        },
+        "update": {
+          "x": { "signal": "leftX - 5" },
+          "y": { "signal": "scale('y', (datum.y0 + datum.y1) / 2)" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "state_totals" },
+      "encode": {
+        "enter": {
+          "align": { "value": "left" },
+          "baseline": { "value": "middle" },
+          "fontSize": { "value": 11 },
+          "fontWeight": { "value": 700 },
+          "text": { "field": "state" }
+        },
+        "update": {
+          "x": { "signal": "midX + nodeWidth + 5" },
+          "y": { "signal": "scale('y', (datum.y0 + datum.y1) / 2)" },
+          "fill": { "scale": "stateColor", "field": "state" }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "species_totals" },
+      "encode": {
+        "enter": {
+          "align": { "value": "left" },
+          "baseline": { "value": "middle" },
+          "fontSize": { "value": 10 },
+          "fontWeight": { "value": 600 },
+          "text": { "field": "species" }
+        },
+        "update": {
+          "x": { "signal": "rightX + nodeWidth + 5" },
+          "y": { "signal": "scale('y', (datum.y0 + datum.y1) / 2)" },
+          "fill": { "scale": "speciesColor", "field": "species" }
+        }
+      }
+    },
+
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": { "value": "right" },
+          "baseline": { "value": "top" },
+          "fontSize": { "value": 10 },
+          "fontStyle": { "value": "italic" },
+          "fill": { "value": "#8a6d3b" },
+          "text": { "value": "Year" },
+          "x": { "signal": "leftX - 5" },
+          "y": { "value": -22 }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": { "value": "center" },
+          "baseline": { "value": "top" },
+          "fontSize": { "value": 10 },
+          "fontStyle": { "value": "italic" },
+          "fill": { "value": "#8a6d3b" },
+          "text": { "value": "State" },
+          "x": { "signal": "midX + nodeWidth/2" },
+          "y": { "value": -22 }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": { "value": "left" },
+          "baseline": { "value": "top" },
+          "fontSize": { "value": 10 },
+          "fontStyle": { "value": "italic" },
+          "fill": { "value": "#8a6d3b" },
+          "text": { "value": "Species" },
+          "x": { "signal": "rightX + nodeWidth + 5" },
+          "y": { "value": -22 }
+        }
+      }
+    }
+  ]
+}

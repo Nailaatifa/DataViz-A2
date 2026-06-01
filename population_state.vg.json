@@ -10,10 +10,21 @@
   "params": [
     {"name": "speciesFilter", "value": "all"},
     {"name": "yearMin", "value": 2010},
-    {"name": "yearMax", "value": 2024}
+    {"name": "yearMax", "value": 2024},
+    {
+      "name": "selectedYear",
+      "value": 2024,
+      "bind": {
+        "input": "select",
+        "options": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+        "name": "Year: "
+      }
+    }
   ],
   "transform": [
+    {"filter": "datum.Species != 'Euro'"},
     {"filter": "datum.Year >= yearMin && datum.Year <= yearMax"},
+    {"filter": "datum.Year == selectedYear"},
     {
       "calculate": "datum.State == 'NSW' ? 'New South Wales' : datum.State == 'QLD' ? 'Queensland' : datum.State == 'SA' ? 'South Australia' : datum.State == 'VIC' ? 'Victoria' : datum.State == 'WA' ? 'Western Australia' : datum.State",
       "as": "StateName"
@@ -37,7 +48,8 @@
       "type": "quantitative",
       "title": "Population",
       "scale": {
-        "scheme": "browns"
+        "scheme": "browns",
+        "domain": [0, 18252150]
       }
     },
     "opacity": {
