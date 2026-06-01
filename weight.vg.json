@@ -30,7 +30,7 @@
         "height": 300,
         "mark": "bar",
         "encoding": {
-            "x": {
+            "y": {
                 "field": "species",
                 "type": "nominal",
                 "sort": [
@@ -40,13 +40,16 @@
                     "Wallaroo",
                     "Tammar Wallaby"
                 ],
+                "title": null,
                 "axis": {
-                    "labelAngle": -30,
-                    "labelAlign": "right",
-                    "labelBaseline": "middle"
+                    "labelFontSize": 11,
+                    "labelColor": "#3d2c1a",
+                    "labelPadding": 6,
+                    "labelLineHeight": 12,
+                    "labelExpr": "test(/ Kangaroo$/, datum.value) ? [replace(datum.value, ' Kangaroo', ''), 'Kangaroo'] : (test(/ Wallaby$/, datum.value) ? [replace(datum.value, ' Wallaby', ''), 'Wallaby'] : datum.value)"
                 }
             },
-            "y": {
+            "x": {
                 "aggregate": "sum",
                 "field": {"repeat": "layer"},
                 "type": "quantitative",
@@ -63,8 +66,8 @@
                 },
                 "legend": {
                     "orient": "none",
-                    "legendX": 180,
-                    "legendY": 5,
+                    "legendX": 210,
+                    "legendY": 240,
                     "direction": "vertical",
                     "fillColor": "#fffaf0",
                     "strokeColor": "#e8d8b8",
@@ -73,7 +76,7 @@
                     "labelFontSize": 10
                 }
             },
-            "xOffset": {
+            "yOffset": {
                 "datum": {"repeat": "layer"}
             },
             "opacity": {
