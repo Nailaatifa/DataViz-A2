@@ -692,52 +692,100 @@
         font-style: italic;
       }
 
-      /* ─── Key takeaway cards ─────────────────────────── */
+      /* ─── Key takeaway circles ────────────────────────── */
+      .takeaway-header {
+        text-align: center;
+      }
+      .takeaway-header .section-title-sm {
+        border-bottom: none;
+        padding-bottom: 0;
+        display: inline-block;
+      }
+      .takeaway-header .section-lead {
+        text-align: center;
+      }
       .takeaway-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        margin-top: 12px;
+        gap: 36px;
+        margin-top: 28px;
+        align-items: start;
       }
       .takeaway-card {
-        background: linear-gradient(160deg, var(--paper), var(--cream));
-        border: 1px solid var(--brown-light);
-        border-left: 4px solid var(--accent-soft);
-        border-radius: 14px;
-        padding: 22px 22px 20px;
-        transition:
-          transform 0.25s,
-          box-shadow 0.25s;
+        text-align: center;
+        transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
       .takeaway-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 24px rgba(90, 58, 30, 0.1);
+        transform: translateY(-6px);
       }
-      .takeaway-card .takeaway-num {
+      .takeaway-card.small {
+        transform: translateY(18px);
+      }
+      .takeaway-card.small:hover {
+        transform: translateY(12px);
+      }
+      .takeaway-visual {
+        background: linear-gradient(160deg, var(--cream), var(--brown-light));
+        border: 1px solid var(--brown-light);
+        border-radius: 50%;
+        width: 240px;
+        height: 240px;
+        margin: 0 auto 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 12px 30px rgba(90, 58, 30, 0.12);
+      }
+      .takeaway-card.small .takeaway-visual {
+        width: 170px;
+        height: 170px;
+      }
+      .takeaway-stat {
         font-family: var(--display-font);
         font-weight: 900;
-        font-size: 36px;
+        font-size: 72px;
         color: var(--accent-soft);
         line-height: 1;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
+      }
+      .takeaway-card.small .takeaway-stat {
+        font-size: 52px;
+      }
+      .takeaway-stat-sub {
+        font-family: var(--sans-font);
+        font-size: 10px;
+        color: var(--brown-mid);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        font-weight: 600;
+        max-width: 160px;
+        text-align: center;
+        line-height: 1.3;
       }
       .takeaway-card h3 {
         font-family: var(--display-font);
         font-weight: 700;
-        font-size: 19px;
+        font-size: 22px;
         color: var(--brown-dark);
-        margin: 10px 0 6px;
-        letter-spacing: -0.3px;
+        margin: 0 0 8px;
+        letter-spacing: -0.5px;
       }
       .takeaway-card p {
         font-size: 13px;
         color: var(--brown-mid);
-        margin: 0;
-        line-height: 1.5;
+        margin: 0 auto;
+        line-height: 1.55;
+        max-width: 280px;
       }
       @media (max-width: 900px) {
         .takeaway-row {
           grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .takeaway-card.small {
+          transform: none;
         }
       }
 
@@ -1445,8 +1493,8 @@
               </p>
               <p class="hint-text" style="margin-top: 2px">
                 <em
-                  >Note: Tammar wallaby and Grey kangaroo have limited
-                  reporting data.</em
+                  >Note: Tammar wallaby and Grey kangaroo have limited reporting
+                  data.</em
                 >
               </p>
             </div>
@@ -1487,40 +1535,44 @@
 
       <!-- ════════════ KEY TAKEAWAYS ════════════ -->
       <section class="section-block reveal" data-section="KEY TAKEAWAYS">
-        <h2 class="section-title section-title-sm">Key Takeaways</h2>
-        <p class="section-lead">
-          Three things to remember about kangaroos in Australia.
-        </p>
         <div class="takeaway-row">
           <div class="takeaway-card">
-            <div class="takeaway-num">01</div>
+            <div class="takeaway-visual">
+              <span class="takeaway-stat">35M</span>
+              <span class="takeaway-stat-sub">Kangaroos in 2024</span>
+            </div>
             <h3>Remarkably abundant</h3>
             <p>
-              About <strong>35 million</strong> kangaroos roam Australia in
-              2024 — more than one per person, and well up from 27 million in
-              2010. Unlike most native wildlife worldwide, they are not
+              More than one per Australian, and well up from 27 million in 2010.
+              Unlike most native wildlife worldwide, kangaroos are not
               endangered.
             </p>
           </div>
-          <div class="takeaway-card">
-            <div class="takeaway-num">02</div>
-            <h3>Each species, its corner</h3>
+          <div class="takeaway-card small">
+            <div class="takeaway-visual">
+              <span class="takeaway-stat">5</span>
+              <span class="takeaway-stat-sub">Main species</span>
+            </div>
+            <h3>Each its own corner</h3>
             <p>
-              <strong>Red</strong> dominates the arid interior,
+              <strong>Red Kangaroo</strong> rules the arid interior,
               <strong>Eastern Grey</strong> the east coast and Tasmania,
               <strong>Western Grey</strong> the south, while
-              <strong>Wallaroo</strong> and <strong>Tammar Wallaby</strong>
-              cling to rocky ridges and offshore islands.
+              <strong>Common Wallaroo</strong> and
+              <strong>Tammar Wallaby</strong> hold the rocky ridges and offshore
+              islands.
             </p>
           </div>
           <div class="takeaway-card">
-            <div class="takeaway-num">03</div>
+            <div class="takeaway-visual">
+              <span class="takeaway-stat">~25%</span>
+              <span class="takeaway-stat-sub">Of quota actually used</span>
+            </div>
             <h3>Managed, not endangered</h3>
             <p>
               Australia runs one of the world's largest regulated wildlife
-              harvests, yet the <strong>sustainable quota</strong> is rarely
-              met — held back by market demand, export bans, and supply
-              disruption — and overpopulation persists.
+              harvests, yet most of the cap goes unclaimed — held back by market
+              demand, export bans, and supply disruption.
             </p>
           </div>
         </div>
