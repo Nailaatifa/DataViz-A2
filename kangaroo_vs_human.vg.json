@@ -68,6 +68,32 @@
           }
         ]
       }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": "2017-01-01",
+            "population": 12000000,
+            "group": "Kangaroos",
+            "text": "Kangaroos fluctuating, humans slowly climb"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 11,
+        "fontWeight": 700,
+        "strokeWidth": 3,
+        "strokeOpacity": 0.9,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "text": { "field": "text" },
+        "color": { "value": "#5a3a1e" }
+      }
     }
   ]
 }
