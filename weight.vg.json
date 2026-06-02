@@ -1,10 +1,10 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
-    "data": {
-        "url": "weight.csv"
-    },
     "background": "#fffaf0",
+    "width": 300,
+    "height": 300,
+    "data": {"url": "weight.csv"},
     "params": [
         {"name": "unitParam", "value": "kg"},
         {"name": "speciesFilter", "value": "all"}
@@ -19,86 +19,159 @@
             "as": "Female Weight"
         }
     ],
-    "repeat": {
-        "layer": [
-            "Male Weight",
-            "Female Weight"
-        ]
+    "encoding": {
+        "y": {
+            "field": "species",
+            "type": "nominal",
+            "sort": [
+                "Red Kangaroo",
+                "Eastern Grey Kangaroo",
+                "Western Grey Kangaroo",
+                "Wallaroo",
+                "Tammar Wallaby"
+            ],
+            "title": null,
+            "axis": {
+                "labelFontSize": 11,
+                "labelColor": "#3d2c1a",
+                "labelPadding": 6,
+                "labelLineHeight": 12,
+                "labelExpr": "test(/ Kangaroo$/, datum.value) ? [replace(datum.value, ' Kangaroo', ''), 'Kangaroo'] : (test(/ Wallaby$/, datum.value) ? [replace(datum.value, ' Wallaby', ''), 'Wallaby'] : datum.value)"
+            }
+        }
     },
-    "spec": {
-        "width": 300,
-        "height": 300,
-        "mark": "bar",
-        "encoding": {
-            "y": {
-                "field": "species",
-                "type": "nominal",
-                "sort": [
-                    "Red Kangaroo",
-                    "Eastern Grey Kangaroo",
-                    "Western Grey Kangaroo",
-                    "Wallaroo",
-                    "Tammar Wallaby"
-                ],
-                "title": null,
-                "axis": {
-                    "labelFontSize": 11,
-                    "labelColor": "#3d2c1a",
-                    "labelPadding": 6,
-                    "labelLineHeight": 12,
-                    "labelExpr": "test(/ Kangaroo$/, datum.value) ? [replace(datum.value, ' Kangaroo', ''), 'Kangaroo'] : (test(/ Wallaby$/, datum.value) ? [replace(datum.value, ' Wallaby', ''), 'Wallaby'] : datum.value)"
-                }
-            },
-            "x": {
-                "aggregate": "sum",
-                "field": {"repeat": "layer"},
-                "type": "quantitative",
-                "title": {
-                    "signal": "unitParam == 'lb' ? 'Weight (lb)' : 'Weight (kg)'"
-                }
-            },
-            "color": {
-                "datum": {"repeat": "layer"},
-                "title": null,
-                "scale": {
-                    "domain": ["Male Weight", "Female Weight"],
-                    "range": ["#c56a1a", "#f2b705"]
-                },
-                "legend": {
-                    "orient": "none",
-                    "legendX": 210,
-                    "legendY": 240,
-                    "direction": "vertical",
-                    "fillColor": "#fffaf0",
-                    "strokeColor": "#e8d8b8",
-                    "padding": 6,
-                    "cornerRadius": 6,
-                    "labelFontSize": 10
-                }
-            },
-            "yOffset": {
-                "datum": {"repeat": "layer"}
-            },
-            "opacity": {
-                "condition": {
-                    "test": "speciesFilter == 'all' || datum.species == speciesFilter",
-                    "value": 1
-                },
-                "value": 0.18
-            },
-            "tooltip": [
-                {"field": "species", "type": "nominal", "title": "Species"},
-                {
-                    "field": {"repeat": "layer"},
+    "layer": [
+        {
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Male Weight",
                     "type": "quantitative",
-                    "format": ".1f",
                     "title": {
                         "signal": "unitParam == 'lb' ? 'Weight (lb)' : 'Weight (kg)'"
                     }
-                }
-            ]
+                },
+                "color": {
+                    "datum": "Male Weight",
+                    "title": null,
+                    "scale": {
+                        "domain": ["Male Weight", "Female Weight"],
+                        "range": ["#c56a1a", "#f2b705"]
+                    },
+                    "legend": {
+                        "orient": "none",
+                        "legendX": 210,
+                        "legendY": 240,
+                        "direction": "vertical",
+                        "fillColor": "#fffaf0",
+                        "strokeColor": "#e8d8b8",
+                        "padding": 6,
+                        "cornerRadius": 6,
+                        "labelFontSize": 10
+                    }
+                },
+                "yOffset": {"datum": "Male Weight"},
+                "opacity": {
+                    "condition": {
+                        "test": "speciesFilter == 'all' || datum.species == speciesFilter",
+                        "value": 1
+                    },
+                    "value": 0.18
+                },
+                "tooltip": [
+                    {"field": "species", "type": "nominal", "title": "Species"},
+                    {
+                        "field": "Male Weight",
+                        "type": "quantitative",
+                        "format": ".1f",
+                        "title": {
+                            "signal": "unitParam == 'lb' ? 'Male weight (lb)' : 'Male weight (kg)'"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Female Weight",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "datum": "Female Weight",
+                    "scale": {
+                        "domain": ["Male Weight", "Female Weight"],
+                        "range": ["#c56a1a", "#f2b705"]
+                    }
+                },
+                "yOffset": {"datum": "Female Weight"},
+                "opacity": {
+                    "condition": {
+                        "test": "speciesFilter == 'all' || datum.species == speciesFilter",
+                        "value": 1
+                    },
+                    "value": 0.18
+                },
+                "tooltip": [
+                    {"field": "species", "type": "nominal", "title": "Species"},
+                    {
+                        "field": "Female Weight",
+                        "type": "quantitative",
+                        "format": ".1f",
+                        "title": {
+                            "signal": "unitParam == 'lb' ? 'Female weight (lb)' : 'Female weight (kg)'"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "data": {"values": [{"species": "Tammar Wallaby"}]},
+            "mark": {
+                "type": "rect",
+                "fill": "#fffaf0",
+                "fillOpacity": 0.95,
+                "stroke": "#8a6d3b",
+                "strokeWidth": 1,
+                "cornerRadius": 4
+            },
+            "encoding": {
+                "x": {"datum": 25, "type": "quantitative"},
+                "x2": {"datum": 78},
+                "y": {"field": "species", "type": "nominal"}
+            }
+        },
+        {
+            "data": {"values": [{"species": "Tammar Wallaby", "text": "~8× smaller than the Wallaroo"}]},
+            "mark": {
+                "type": "text",
+                "align": "center",
+                "baseline": "middle",
+                "fontSize": 10,
+                "fontWeight": 700,
+                "color": "#5a3a1e"
+            },
+            "encoding": {
+                "x": {"datum": 51.5, "type": "quantitative"},
+                "y": {"field": "species", "type": "nominal"},
+                "text": {"field": "text"}
+            }
+        },
+        {
+            "data": {"values": [{"species": "Tammar Wallaby"}]},
+            "mark": {
+                "type": "rule",
+                "stroke": "#8a6d3b",
+                "strokeWidth": 1.5
+            },
+            "encoding": {
+                "x": {"datum": 25, "type": "quantitative"},
+                "x2": {"datum": 9},
+                "y": {"field": "species", "type": "nominal"}
+            }
         }
-    },
+    ],
     "config": {
         "mark": {"invalid": null}
     }

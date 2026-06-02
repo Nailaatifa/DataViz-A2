@@ -1,16 +1,16 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "padding": { "top": 16, "bottom": 12, "left": 12, "right": 12 },
   "background": "#fffaf0",
   "width": 300,
   "height": 300,
-  "data": {"url": "body_height_tail.csv"},
+  "data": { "url": "body_height_tail.csv" },
   "params": [
-    {"name": "unitParam", "value": "kg"},
-    {"name": "speciesFilter", "value": "all"},
+    { "name": "unitParam", "value": "kg" },
+    { "name": "speciesFilter", "value": "all" },
     {
       "name": "speciesSel",
-      "select": {"type": "point", "fields": ["species"]},
+      "select": { "type": "point", "fields": ["species"] },
       "bind": "legend"
     }
   ],
@@ -20,97 +20,173 @@
       "value": "value_cm",
       "groupby": ["species", "sex"]
     },
-    {"calculate": "unitParam == 'lb' ? datum.Height / 2.54 : datum.Height", "as": "Height"},
-    {"calculate": "unitParam == 'lb' ? datum.Tail / 2.54 : datum.Tail", "as": "Tail"}
+    {
+      "calculate": "unitParam == 'lb' ? datum.Height / 2.54 : datum.Height",
+      "as": "Height"
+    },
+    {
+      "calculate": "unitParam == 'lb' ? datum.Tail / 2.54 : datum.Tail",
+      "as": "Tail"
+    }
   ],
-  "mark": {"type": "point", "filled": true, "size": 140},
-  "encoding": {
-    "x": {
-      "field": "Height",
-      "type": "quantitative",
-      "title": {"signal": "unitParam == 'lb' ? 'Standing height (in)' : 'Standing height (cm)'"},
-      "scale": {"zero": false, "padding": 10}
-    },
-    "y": {
-      "field": "Tail",
-      "type": "quantitative",
-      "title": {"signal": "unitParam == 'lb' ? 'Tail length (in)' : 'Tail length (cm)'"},
-      "scale": {"zero": false, "padding": 10}
-    },
-    "color": {
-      "field": "species",
-      "type": "nominal",
-      "title": "Species",
-      "scale": {
-        "domain": [
-                                    "Eastern Grey Kangaroo",
-                                    "Red Kangaroo",
-                                    "Tammar Wallaby",
-                                    "Wallaroo",
-                                    "Western Grey Kangaroo"
-                                ],
-                                "range": [
-                                    "#e3891f",
-                                    "#f2b705",
-                                    "#2e8b57",
-                                    "#d4d83b",
-                                    "#7fbf3f"
-                                ]
-      },
-      "legend": {
-        "orient": "none",
-        "legendX": 10,
-        "legendY": 8,
-        "direction": "vertical",
-        "fillColor": "#fffaf0",
-        "strokeColor": "#e8d8b8",
-        "padding": 6,
-        "cornerRadius": 6,
-        "labelFontSize": 10
+  "layer": [
+    {
+      "mark": { "type": "point", "filled": true, "size": 140 },
+      "encoding": {
+        "x": {
+          "field": "Height",
+          "type": "quantitative",
+          "title": {
+            "signal": "unitParam == 'lb' ? 'Standing height (in)' : 'Standing height (cm)'"
+          },
+          "scale": { "zero": false, "padding": 10 }
+        },
+        "y": {
+          "field": "Tail",
+          "type": "quantitative",
+          "title": {
+            "signal": "unitParam == 'lb' ? 'Tail length (in)' : 'Tail length (cm)'"
+          },
+          "scale": { "zero": false, "padding": 10 }
+        },
+        "color": {
+          "field": "species",
+          "type": "nominal",
+          "title": "Species",
+          "scale": {
+            "domain": [
+              "Eastern Grey Kangaroo",
+              "Red Kangaroo",
+              "Tammar Wallaby",
+              "Wallaroo",
+              "Western Grey Kangaroo"
+            ],
+            "range": ["#e3891f", "#f2b705", "#2e8b57", "#d4d83b", "#7fbf3f"]
+          },
+          "legend": {
+            "orient": "none",
+            "legendX": 10,
+            "legendY": 8,
+            "direction": "vertical",
+            "fillColor": "#fffaf0",
+            "strokeColor": "#e8d8b8",
+            "padding": 6,
+            "cornerRadius": 6,
+            "labelFontSize": 10
+          }
+        },
+        "shape": {
+          "field": "sex",
+          "type": "nominal",
+          "title": "Sex",
+          "scale": {
+            "domain": ["Male", "Female"],
+            "range": ["circle", "triangle-up"]
+          },
+          "legend": {
+            "orient": "none",
+            "legendX": 10,
+            "legendY": 120,
+            "direction": "vertical",
+            "fillColor": "#fffaf0",
+            "strokeColor": "#e8d8b8",
+            "padding": 6,
+            "cornerRadius": 6,
+            "labelFontSize": 10
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "speciesFilter == 'all' || datum.species == speciesFilter",
+            "value": 0.9
+          },
+          "value": 0.18
+        },
+        "tooltip": [
+          { "field": "species", "type": "nominal", "title": "Species" },
+          { "field": "sex", "type": "nominal", "title": "Sex" },
+          {
+            "field": "Height",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": {
+              "signal": "unitParam == 'lb' ? 'Height (in)' : 'Height (cm)'"
+            }
+          },
+          {
+            "field": "Tail",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": {
+              "signal": "unitParam == 'lb' ? 'Tail (in)' : 'Tail (cm)'"
+            }
+          }
+        ]
       }
     },
-    "shape": {
-      "field": "sex",
-      "type": "nominal",
-      "title": "Sex",
-      "scale": {
-        "domain": ["Male", "Female"],
-        "range": ["circle", "triangle-up"]
+    {
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "rect",
+        "fill": "#fffaf0",
+        "fillOpacity": 0.95,
+        "stroke": "#b58200",
+        "strokeWidth": 1,
+        "cornerRadius": 4
       },
-      "legend": {
-        "orient": "none",
-        "legendX": 10,
-        "legendY": 120,
-        "direction": "vertical",
-        "fillColor": "#fffaf0",
-        "strokeColor": "#e8d8b8",
-        "padding": 6,
-        "cornerRadius": 6,
-        "labelFontSize": 10
+      "encoding": {
+        "x": { "datum": 58, "type": "quantitative" },
+        "x2": { "datum": 100 },
+        "y": { "datum": 105, "type": "quantitative" },
+        "y2": { "datum": 95 }
       }
     },
-    "opacity": {
-      "condition": {
-        "test": "speciesFilter == 'all' || datum.species == speciesFilter",
-        "value": 0.9
+    {
+      "data": {
+        "values": [{ "text": ["Biggest in", "both sexes"] }]
       },
-      "value": 0.18
-    },
-    "tooltip": [
-      {"field": "species", "type": "nominal", "title": "Species"},
-      {"field": "sex", "type": "nominal", "title": "Sex"},
-      {
-        "field": "Height",
-        "type": "quantitative",
-        "format": ".1f",
-        "title": {"signal": "unitParam == 'lb' ? 'Height (in)' : 'Height (cm)'"}
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "color": "#b58200",
+        "lineHeight": 12
       },
-      {
-        "field": "Tail",
-        "type": "quantitative",
-        "format": ".1f",
-        "title": {"signal": "unitParam == 'lb' ? 'Tail (in)' : 'Tail (cm)'"}
+      "encoding": {
+        "x": { "datum": 79, "type": "quantitative" },
+        "y": { "datum": 100, "type": "quantitative" },
+        "text": { "field": "text" }
       }
-    ]
-  }
+    },
+    {
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "rule",
+        "stroke": "#b58200",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": { "datum": 100, "type": "quantitative" },
+        "x2": { "datum": 147 },
+        "y": { "datum": 100, "type": "quantitative" },
+        "y2": { "datum": 100 }
+      }
+    },
+    {
+      "data": { "values": [{}] },
+      "mark": {
+        "type": "rule",
+        "stroke": "#b58200",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": { "datum": 90, "type": "quantitative" },
+        "x2": { "datum": 103 },
+        "y": { "datum": 95, "type": "quantitative" },
+        "y2": { "datum": 81 }
+      }
+    }
+  ]
 }

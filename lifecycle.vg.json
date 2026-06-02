@@ -1,98 +1,335 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "padding": { "top": 16, "bottom": 12, "left": 12, "right": 12 },
   "background": "#fffaf0",
-  "data": {"url": "lifecycle.csv"},
+  "data": { "url": "lifecycle.csv" },
   "columns": 2,
   "config": {
     "range": {
-      "category": ["#5a3a1e", "#a07c4e", "#2d5a3d", "#6b9b7d", "#8a6d3b", "#b4d4be"]
+      "category": [
+        "#5a3a1e",
+        "#a07c4e",
+        "#2d5a3d",
+        "#6b9b7d",
+        "#8a6d3b",
+        "#b4d4be"
+      ]
     }
   },
   "concat": [
     {
       "title": "Red Kangaroo",
       "width": 260,
-      "height": 120,
-      "mark": "bar",
+      "height": 130,
       "transform": [
-        {"filter": "indexof(datum.task, 'Red Kangaroo') >= 0"},
-        {"calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))", "as": "stage"}
+        { "filter": "indexof(datum.task, 'Red Kangaroo') >= 0" },
+        {
+          "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+          "as": "stage"
+        }
       ],
-      "encoding": {
-        "y": {"field": "stage", "type": "ordinal", "title": null, "axis": {"labelLimit": 200}},
-        "x": {"field": "start", "type": "quantitative", "title": "Age (months)"},
-        "x2": {"field": "end"},
-        "color": {"field": "stage", "type": "nominal", "title": "Stage", "legend": null},
-        "tooltip": [
-          {"field": "task", "title": "Stage"},
-          {"field": "start", "title": "Start (months)"},
-          {"field": "end", "title": "End (months)"}
-        ]
-      }
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "y": {
+              "field": "stage",
+              "type": "ordinal",
+              "title": null,
+              "axis": { "labelLimit": 200 }
+            },
+            "x": {
+              "field": "start",
+              "type": "quantitative",
+              "title": "Age (months)"
+            },
+            "x2": { "field": "end" },
+            "color": {
+              "field": "stage",
+              "type": "nominal",
+              "title": "Stage",
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "task", "title": "Stage" },
+              { "field": "start", "title": "Start (months)" },
+              { "field": "end", "title": "End (months)" }
+            ]
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rect",
+            "fill": "#fffaf0",
+            "fillOpacity": 0.95,
+            "stroke": "#2d5a3d",
+            "strokeWidth": 1,
+            "cornerRadius": 4
+          },
+          "encoding": {
+            "x": { "datum": 12, "type": "quantitative" },
+            "x2": { "datum": 21 },
+            "y": { "value": 10 },
+            "y2": { "value": 36 }
+          }
+        },
+        {
+          "data": {
+            "values": [{ "text": ["Earliest maturity", "for the joey"] }]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "top",
+            "fontSize": 9,
+            "fontWeight": 600,
+            "color": "#2d5a3d",
+            "lineHeight": 11
+          },
+          "encoding": {
+            "x": { "datum": 16.5, "type": "quantitative" },
+            "y": { "value": 14 },
+            "text": { "field": "text" }
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rule",
+            "stroke": "#2d5a3d",
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "x": { "datum": 12, "type": "quantitative" },
+            "x2": { "datum": 10 },
+            "y": { "value": 36 },
+            "y2": { "value": 65 }
+          }
+        }
+      ]
     },
     {
       "title": "Eastern Grey Kangaroo",
       "width": 260,
-      "height": 120,
+      "height": 130,
       "mark": "bar",
       "transform": [
-        {"filter": "indexof(datum.task, 'Eastern Grey') >= 0"},
-        {"calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))", "as": "stage"}
+        { "filter": "indexof(datum.task, 'Eastern Grey') >= 0" },
+        {
+          "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+          "as": "stage"
+        }
       ],
       "encoding": {
-        "y": {"field": "stage", "type": "ordinal", "title": null, "axis": {"labelLimit": 200}},
-        "x": {"field": "start", "type": "quantitative", "title": "Age (months)"},
-        "x2": {"field": "end"},
-        "color": {"field": "stage", "type": "nominal", "title": "Stage", "legend": null},
+        "y": {
+          "field": "stage",
+          "type": "ordinal",
+          "title": null,
+          "axis": { "labelLimit": 200 }
+        },
+        "x": {
+          "field": "start",
+          "type": "quantitative",
+          "title": "Age (months)"
+        },
+        "x2": { "field": "end" },
+        "color": {
+          "field": "stage",
+          "type": "nominal",
+          "title": "Stage",
+          "legend": null
+        },
         "tooltip": [
-          {"field": "task", "title": "Stage"},
-          {"field": "start", "title": "Start (months)"},
-          {"field": "end", "title": "End (months)"}
+          { "field": "task", "title": "Stage" },
+          { "field": "start", "title": "Start (months)" },
+          { "field": "end", "title": "End (months)" }
         ]
       }
     },
     {
       "title": "Western Grey Kangaroo",
       "width": 260,
-      "height": 120,
-      "mark": "bar",
+      "height": 130,
       "transform": [
-        {"filter": "indexof(datum.task, 'Western Grey') >= 0"},
-        {"calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))", "as": "stage"}
+        { "filter": "indexof(datum.task, 'Western Grey') >= 0" },
+        {
+          "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+          "as": "stage"
+        }
       ],
-      "encoding": {
-        "y": {"field": "stage", "type": "ordinal", "title": null, "axis": {"labelLimit": 200}},
-        "x": {"field": "start", "type": "quantitative", "title": "Age (months)"},
-        "x2": {"field": "end"},
-        "color": {"field": "stage", "type": "nominal", "title": "Stage", "legend": null},
-        "tooltip": [
-          {"field": "task", "title": "Stage"},
-          {"field": "start", "title": "Start (months)"},
-          {"field": "end", "title": "End (months)"}
-        ]
-      }
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "y": {
+              "field": "stage",
+              "type": "ordinal",
+              "title": null,
+              "axis": { "labelLimit": 200 }
+            },
+            "x": {
+              "field": "start",
+              "type": "quantitative",
+              "title": "Age (months)"
+            },
+            "x2": { "field": "end" },
+            "color": {
+              "field": "stage",
+              "type": "nominal",
+              "title": "Stage",
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "task", "title": "Stage" },
+              { "field": "start", "title": "Start (months)" },
+              { "field": "end", "title": "End (months)" }
+            ]
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rect",
+            "fill": "#fffaf0",
+            "fillOpacity": 0.95,
+            "stroke": "#a07c4e",
+            "strokeWidth": 1,
+            "cornerRadius": 4
+          },
+          "encoding": {
+            "x": { "datum": 12, "type": "quantitative" },
+            "x2": { "datum": 21 },
+            "y": { "value": 4 },
+            "y2": { "value": 30 }
+          }
+        },
+        {
+          "data": {
+            "values": [{ "text": ["Longest stay", "in the pouch"] }]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "top",
+            "fontSize": 9,
+            "fontWeight": 600,
+            "color": "#5a3a1e",
+            "lineHeight": 11
+          },
+          "encoding": {
+            "x": { "datum": 16.5, "type": "quantitative" },
+            "y": { "value": 7 },
+            "text": { "field": "text" }
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rule",
+            "stroke": "#a07c4e",
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "x": { "datum": 12, "type": "quantitative" },
+            "x2": { "datum": 7 },
+            "y": { "value": 25 },
+            "y2": { "value": 40 }
+          }
+        }
+      ]
     },
     {
       "title": "Wallaroo",
       "width": 260,
-      "height": 120,
-      "mark": "bar",
+      "height": 130,
       "transform": [
-        {"filter": "indexof(datum.task, 'Wallaroo') >= 0"},
-        {"calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))", "as": "stage"}
+        { "filter": "indexof(datum.task, 'Wallaroo') >= 0" },
+        {
+          "calculate": "trim(replace(datum.task, /\\s*\\(.*\\)/, ''))",
+          "as": "stage"
+        }
       ],
-      "encoding": {
-        "y": {"field": "stage", "type": "ordinal", "title": null, "axis": {"labelLimit": 200}},
-        "x": {"field": "start", "type": "quantitative", "title": "Age (months)"},
-        "x2": {"field": "end"},
-        "color": {"field": "stage", "type": "nominal", "title": "Stage", "legend": null},
-        "tooltip": [
-          {"field": "task", "title": "Stage"},
-          {"field": "start", "title": "Start (months)"},
-          {"field": "end", "title": "End (months)"}
-        ]
-      }
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "y": {
+              "field": "stage",
+              "type": "ordinal",
+              "title": null,
+              "axis": { "labelLimit": 200 }
+            },
+            "x": {
+              "field": "start",
+              "type": "quantitative",
+              "title": "Age (months)"
+            },
+            "x2": { "field": "end" },
+            "color": {
+              "field": "stage",
+              "type": "nominal",
+              "title": "Stage",
+              "legend": null
+            },
+            "tooltip": [
+              { "field": "task", "title": "Stage" },
+              { "field": "start", "title": "Start (months)" },
+              { "field": "end", "title": "End (months)" }
+            ]
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rect",
+            "fill": "#fffaf0",
+            "fillOpacity": 0.95,
+            "stroke": "#6b9b7d",
+            "strokeWidth": 1,
+            "cornerRadius": 4
+          },
+          "encoding": {
+            "x": { "datum": 12, "type": "quantitative" },
+            "x2": { "datum": 20 },
+            "y": { "value": 10 },
+            "y2": { "value": 36 }
+          }
+        },
+        {
+          "data": {
+            "values": [{ "text": ["Longest female", "maturity period"] }]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "top",
+            "fontSize": 9,
+            "fontWeight": 600,
+            "color": "#2d5a3d",
+            "lineHeight": 11
+          },
+          "encoding": {
+            "x": { "datum": 16, "type": "quantitative" },
+            "y": { "value": 14 },
+            "text": { "field": "text" }
+          }
+        },
+        {
+          "data": { "values": [{}] },
+          "mark": {
+            "type": "rule",
+            "stroke": "#6b9b7d",
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "x": { "datum": 13, "type": "quantitative" },
+            "x2": { "datum": 18 },
+            "y": { "value": 36 },
+            "y2": { "value": 90 }
+          }
+        }
+      ]
     }
   ]
 }
