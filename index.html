@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -40,20 +40,45 @@
         --green-mid: #4a7c5e;
         --green-soft: #6b9b7d;
         --green-light: #b4d4be;
+
+        --accent: #b54e1f;
+        --accent-soft: #e3891f;
       }
 
       * {
         font-family: var(--sans-font);
         line-height: 1.55;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--cream);
+        margin: 0;
+        background-image:
+          radial-gradient(
+            at 0% 0%,
+            rgba(227, 137, 31, 0.08) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 100% 100%,
+            rgba(45, 90, 61, 0.08) 0px,
+            transparent 50%
+          );
       }
 
       h1 {
         font-family: var(--display-font);
         font-weight: 900;
         color: var(--brown-dark);
-        font-size: 56px;
-        letter-spacing: -1px;
-        margin-bottom: 4px;
+        font-size: 88px;
+        letter-spacing: -2px;
+        margin: 0;
+        line-height: 1;
       }
 
       h2 {
@@ -62,12 +87,11 @@
         color: var(--green-dark);
         font-size: 22px;
         margin-bottom: 8px;
-        text-align: center;
       }
 
       h3 {
         font-family: var(--serif-font);
-        font-weight: 500;
+        font-weight: 600;
         color: var(--brown-mid);
         font-size: 17px;
         margin: 6px 0;
@@ -79,17 +103,103 @@
         color: #3d2c1a;
       }
 
-      body {
-        background-color: var(--cream);
+      /* ─── Hero ───────────────────────────────────────── */
+      .hero {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        padding: 30px 20px 70px;
+        overflow: hidden;
       }
 
+      .hero-inner {
+        max-width: 1100px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-kicker {
+        font-family: var(--serif-font);
+        font-style: italic;
+        font-size: 18px;
+        color: var(--brown-soft);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: rise 0.9s 0.1s forwards ease-out;
+      }
+
+      .hero h1 {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: rise 1.1s 0.3s forwards ease-out;
+      }
+
+      .hero-sub {
+        font-family: var(--serif-font);
+        font-style: italic;
+        font-size: 22px;
+        color: var(--brown-mid);
+        max-width: 760px;
+        margin: 24px auto 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: rise 1s 0.6s forwards ease-out;
+      }
+
+      .hero-scroll-hint {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--sans-font);
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--brown-soft);
+        text-transform: uppercase;
+        opacity: 0;
+        animation:
+          rise 0.9s 1.2s forwards ease-out,
+          pulse 2.4s 2s infinite;
+      }
+
+      .hero-scroll-hint::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 32px;
+        background: var(--brown-tan);
+        margin: 8px auto 0;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* ─── Page layout ────────────────────────────────── */
       .page {
-        width: 1200px;
-        background-color: var(--paper);
+        width: 1300px;
+        max-width: 100%;
         margin: auto;
-        padding: 60px;
-        padding-top: 30px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+        padding: 16px 24px 80px;
       }
 
       .vis-container {
@@ -115,6 +225,243 @@
         color: #777;
       }
 
+      .hint-text {
+        font-size: 11px;
+        color: var(--brown-soft);
+        font-style: italic;
+        text-align: center;
+        margin: 6px auto 0;
+        max-width: 460px;
+        letter-spacing: 0.2px;
+        line-height: 1.4;
+      }
+
+      .global-tip {
+        max-width: 720px;
+        margin: 0 auto 32px;
+        padding: 12px 22px;
+        background: var(--cream);
+        border: 1px solid var(--brown-light);
+        border-left: 3px solid var(--brown-tan);
+        border-radius: 10px;
+        font-family: var(--sans-font);
+        font-size: 13px;
+        color: var(--brown-mid);
+        text-align: center;
+        line-height: 1.5;
+      }
+      .global-tip strong {
+        color: var(--brown-dark);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 11px;
+        margin-right: 6px;
+      }
+
+      /* ─── Characteristics header (title + chips inline) ─ */
+      .chars-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 18px;
+        margin-bottom: 8px;
+        border-bottom: 2px solid var(--brown-tan);
+        padding-bottom: 8px;
+      }
+      .chars-header .section-title-sm {
+        margin: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      /* ─── Species picker (Characteristics) ────────────── */
+      .species-picker {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .species-picker .scrub-label {
+        margin-right: 8px;
+      }
+
+      .chip {
+        font-family: var(--sans-font);
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--brown-light);
+        background: var(--paper);
+        color: var(--brown-mid);
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+      }
+      .chip:hover {
+        border-color: var(--brown-tan);
+        color: var(--brown-dark);
+      }
+      .chip.active {
+        background: var(--brown-dark);
+        color: var(--paper);
+        border-color: var(--brown-dark);
+      }
+
+      /* ─── Year scrubber + play button ─────────────────── */
+      .year-scrubber {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 14px 22px;
+        margin: 24px 0 28px;
+        background: var(--cream);
+        border: 1px solid var(--brown-light);
+        border-radius: 12px;
+      }
+
+      .scrub-label {
+        font-family: var(--serif-font);
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--brown-dark);
+        white-space: nowrap;
+      }
+
+      .play-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: none;
+        background: var(--brown-dark);
+        color: var(--paper);
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.15s,
+          background 0.2s;
+        flex-shrink: 0;
+      }
+
+      .play-btn:hover {
+        background: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .play-btn .play-icon::before {
+        content: "\25B6";
+        margin-left: 2px;
+      }
+      .play-btn.playing .play-icon::before {
+        content: "\2759\2759";
+        letter-spacing: 1px;
+        margin-left: 0;
+      }
+
+      .scrub-track {
+        flex: 1;
+        position: relative;
+        min-width: 0;
+      }
+
+      .scrub-track input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        background: var(--brown-light);
+        border-radius: 4px;
+        outline: none;
+      }
+
+      .scrub-track input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        background: var(--brown-dark);
+        border: 2px solid var(--paper);
+        box-shadow: 0 1px 4px rgba(90, 58, 30, 0.3);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      .scrub-track input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+      }
+      .scrub-track input[type="range"]::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        background: var(--brown-dark);
+        border: 2px solid var(--paper);
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .scrub-ticks {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        font-family: var(--sans-font);
+        font-size: 10px;
+        color: var(--brown-soft);
+        letter-spacing: 0.5px;
+      }
+
+      .scrub-readout {
+        font-family: var(--display-font);
+        font-weight: 900;
+        font-size: 26px;
+        color: var(--brown-dark);
+        min-width: 92px;
+        text-align: center;
+        letter-spacing: -0.5px;
+        line-height: 1;
+      }
+
+      .scrub-readout.playing {
+        color: var(--accent);
+      }
+
+      .scrub-readout .scrub-year-mini {
+        display: block;
+        font-family: var(--sans-font);
+        font-weight: 500;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--brown-soft);
+        margin-top: 2px;
+      }
+
+      .scrub-all {
+        background: none;
+        border: 1px solid var(--brown-tan);
+        color: var(--brown-mid);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .scrub-all:hover {
+        background: var(--brown-light);
+        color: var(--brown-dark);
+      }
+      .scrub-all.active {
+        background: var(--brown-dark);
+        color: var(--paper);
+        border-color: var(--brown-dark);
+      }
+
       .subtitle {
         font-family: var(--serif-font);
         font-style: italic;
@@ -127,7 +474,6 @@
       .panel-text {
         padding: 8px 16px;
       }
-
       .panel-text.tight-top {
         padding-top: 0;
         margin-top: -4px;
@@ -135,7 +481,6 @@
       .panel-text.tight-top > *:first-child {
         margin-top: 0;
       }
-
       .panel-text.tight-bottom {
         padding-bottom: 0;
       }
@@ -146,7 +491,6 @@
       .stack-gap > .no-top-gap {
         margin-top: 0;
       }
-
       .stack-gap > * + * {
         margin-top: 14px;
       }
@@ -164,10 +508,6 @@
         align-items: center;
       }
 
-      .empty-space {
-        min-height: 20px;
-      }
-
       .divider {
         height: 1px;
         background: linear-gradient(
@@ -179,150 +519,73 @@
         margin: 6px 0 24px 0;
       }
 
-      /* .perception-box {
-        background-color: var(--cream);
-        border: 1px solid var(--brown-light);
-        border-radius: 10px;
-        padding: 18px 18px;
-        margin-bottom: 32px;
-      } */
-
-      .chart-card {
-        background-color: var(--cream);
-        border: 1px solid var(--brown-light);
-        border-radius: 10px;
-        padding: 10px 22px;
-        height: 100%;
-        box-sizing: border-box;
-      }
-
-      .chart-card > h3 {
-        margin: 4px 0 14px 0;
-        padding: 6px 10px;
-      }
-
-      .stats-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .fact-card {
-        background-color: var(--cream);
-        border: 1px solid var(--brown-light);
-        border-radius: 10px;
-        padding: 20px 22px;
-        text-align: center;
-      }
-
-      .fact-number {
-        font-family: var(--display-font);
-        font-weight: 900;
-        font-size: 42px;
-        color: var(--green-dark);
-        line-height: 1.05;
-        margin-bottom: 4px;
-        letter-spacing: -1px;
-      }
-
-      .fact-unit {
-        font-family: var(--display-font);
-        font-weight: 700;
-        font-size: 18px;
-        color: var(--green-mid);
-        margin-left: 4px;
-      }
-
-      .fact-label {
-        font-family: var(--serif-font);
-        font-weight: 700;
-        font-size: 14px;
-        color: var(--brown-dark);
-        margin-top: 8px;
-      }
-
-      .fact-sub {
-        font-family: var(--sans-font);
-        font-size: 12px;
-        color: var(--brown-mid);
-        margin-top: 4px;
-        font-style: italic;
-      }
-
-      .prowess-intro {
-        text-align: center;
-        margin-bottom: 12px;
-      }
-
-      .prowess-intro h2 {
-        margin-bottom: 4px;
-      }
-
-      .prowess-intro p {
-        color: var(--brown-mid);
-        font-style: italic;
-      }
-
-      .panel-offset {
-        margin-top: 60px;
-      }
-
-      .vis-indent {
-        margin-left: 60px;
-      }
-
-      .deco-card {
-        background-color: var(--cream);
-        border: 1px solid var(--brown-light);
-        border-radius: 10px;
-        padding: 20px 22px;
-        height: 100%;
-        box-sizing: border-box;
-      }
-
-      .deco-stat {
-        margin-bottom: 14px;
-        padding-bottom: 12px;
-        border-bottom: 1px dashed var(--brown-light);
-      }
-
-      .deco-stat:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .deco-number {
-        font-family: var(--display-font);
-        font-weight: 900;
-        font-size: 32px;
-        color: var(--green-dark);
-        line-height: 1.05;
-        letter-spacing: -0.5px;
-      }
-
-      .deco-label {
-        font-family: var(--serif-font);
-        font-weight: 700;
-        font-size: 13px;
-        color: var(--brown-dark);
-        margin-top: 4px;
-      }
-
-      .deco-sub {
-        font-family: var(--sans-font);
-        font-size: 12px;
-        color: var(--brown-mid);
-        font-style: italic;
-        margin-top: 2px;
-      }
-
+      /* ─── Section cards ──────────────────────────────── */
       .section-block {
-        margin: 56px 0;
+        position: relative;
+        margin: 0;
+        padding: 24px 40px;
+        background: var(--paper);
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(90, 58, 30, 0.06);
+        margin-bottom: 36px;
+        transition: box-shadow 0.4s;
       }
 
-      .section-block:first-of-type {
-        margin-top: 24px;
+      .section-block:hover {
+        box-shadow: 0 6px 32px rgba(90, 58, 30, 0.1);
+      }
+
+      .section-block::before {
+        content: attr(data-section);
+        position: absolute;
+        top: -12px;
+        left: 32px;
+        background: var(--brown-dark);
+        color: var(--paper);
+        font-family: var(--display-font);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 2px;
+        padding: 4px 12px;
+        border-radius: 999px;
+      }
+
+      /* Reveal-on-scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+          transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+        will-change: opacity, transform;
+      }
+
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+          transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .reveal-stagger.in-view > *:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .reveal-stagger.in-view > *:nth-child(2) {
+        transition-delay: 0.18s;
+      }
+      .reveal-stagger.in-view > *:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+
+      .reveal-stagger.in-view > * {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       h2.section-title {
@@ -339,7 +602,7 @@
       }
 
       h2.section-title-sm {
-        font-size: 26px;
+        font-size: 28px;
         letter-spacing: -0.5px;
         padding-bottom: 6px;
         margin: 0 0 10px 0;
@@ -357,203 +620,444 @@
         margin-top: 28px;
       }
 
-      .abundance-callout {
-        background: linear-gradient(135deg, var(--green-light), var(--cream));
-        border: 1px solid var(--brown-tan);
+      .chart-card {
+        background-color: var(--cream);
+        border: 1px solid var(--brown-light);
         border-radius: 10px;
-        padding: 28px 24px;
-        text-align: center;
-        margin: 28px 0;
+        padding: 10px 22px;
+        height: 100%;
       }
 
-      .callout-number {
+      .chart-card > h3 {
+        margin: 4px 0 14px 0;
+        padding: 6px 10px;
+      }
+
+      /* Stat / fact card */
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 32px 0;
+      }
+
+      .stat-card {
+        background: linear-gradient(160deg, var(--paper), var(--cream));
+        border: 1px solid var(--brown-light);
+        border-radius: 12px;
+        padding: 22px;
+        text-align: center;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(90, 58, 30, 0.12);
+      }
+
+      .stat-num {
         font-family: var(--display-font);
         font-weight: 900;
-        font-size: 60px;
+        font-size: 44px;
         color: var(--green-dark);
-        letter-spacing: -2px;
         line-height: 1;
+        letter-spacing: -1px;
       }
 
-      .callout-label {
-        font-family: var(--serif-font);
+      .stat-unit {
+        font-family: var(--display-font);
         font-weight: 700;
         font-size: 18px;
-        color: var(--brown-dark);
-        margin-top: 8px;
+        color: var(--green-mid);
+        margin-left: 3px;
       }
 
-      .callout-sub {
+      .stat-label {
+        font-family: var(--serif-font);
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--brown-dark);
+        margin-top: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .stat-sub {
         font-family: var(--sans-font);
-        font-size: 14px;
+        font-size: 12px;
         color: var(--brown-mid);
+        margin-top: 4px;
         font-style: italic;
-        margin-top: 6px;
+      }
+
+      /* Chart hover lift */
+      .chart-hover-lift {
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .chart-hover-lift:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Heatmap (vis7) — move the year bind on top of the chart */
+      #vis7 {
+        display: flex;
+        flex-direction: column;
+      }
+      #vis7 .vega-bindings {
+        order: -1;
+        margin: 0 0 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--serif-font);
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--brown-dark);
+      }
+      #vis7 .vega-bindings select {
+        font-family: var(--sans-font);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0;
+        text-transform: none;
+        border: 1px solid var(--brown-light);
+        border-radius: 6px;
+        padding: 4px 10px;
+        background: var(--paper);
+        color: var(--brown-dark);
+        cursor: pointer;
+      }
+      #vis7 .vega-bindings select:hover {
+        border-color: var(--brown-tan);
+      }
+
+      /* Loading shimmer for charts */
+      .vis-container:empty {
+        min-height: 240px;
+        background: linear-gradient(
+          90deg,
+          var(--cream) 25%,
+          var(--paper) 50%,
+          var(--cream) 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.6s infinite;
+        border-radius: 8px;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Section nav */
+      .section-nav {
+        position: fixed;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .section-nav a {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brown-light);
+        border: 1px solid var(--brown-tan);
+        transition: all 0.2s;
+        position: relative;
+      }
+
+      .section-nav a.active {
+        background: var(--brown-dark);
+        transform: scale(1.3);
+      }
+
+      .section-nav a::after {
+        content: attr(data-label);
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: var(--sans-font);
+        font-size: 11px;
+        color: var(--brown-dark);
+        background: var(--paper);
+        padding: 3px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--brown-light);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+
+      .section-nav a:hover::after {
+        opacity: 1;
+      }
+
+      @media (max-width: 900px) {
+        h1 {
+          font-size: 56px;
+        }
+        .section-nav {
+          display: none;
+        }
+        .page {
+          padding: 24px;
+        }
+        .section-block {
+          padding: 40px 20px;
+        }
+        .filter-bar {
+          padding: 10px 16px;
+          gap: 10px;
+        }
+        .stat-row {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
 
   <body>
+    <!-- ─── HERO ─────────────────────────────────────────── -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-kicker">An exploration · 2010 — 2024</div>
+        <h1>Kangaroos<br />in&nbsp;Australia</h1>
+        <p class="hero-sub">
+          Story about native animals who have adapted uniquely to the Australian
+          landscape, and can only be found in Australia in recent world.
+        </p>
+      </div>
+    </div>
+
+    <!-- ─── SECTION NAV ──────────────────────────────────── -->
+    <nav class="section-nav">
+      <a href="#sec1" data-label="01 · Perception"></a>
+      <a href="#sec2" data-label="02 · Taxonomy"></a>
+      <a href="#sec3" data-label="03 · Population"></a>
+      <a href="#sec4" data-label="04 · Habitat"></a>
+      <a href="#sec5" data-label="05 · Characteristics"></a>
+      <a href="#sec6" data-label="06 · Lifecycle"></a>
+      <a href="#sec7" data-label="07 · Management"></a>
+    </nav>
+
     <div class="page">
-      <!-- Title -->
-      <div class="pure-g">
-        <div class="pure-u-1-1">
-          <h1>Kangaroos in Australia</h1>
-          <p class="subtitle">
-            An exploration of the Australian authentic animal; it's populations,
-            distributions, and physical prowess.
-          </p>
-          <div class="divider"></div>
-        </div>
+      <!-- Page-wide interactivity tip -->
+      <div class="global-tip">
+        <strong>Tip:</strong> click a species in any chart's legend to highlight
+        specific domain.
       </div>
 
       <!-- ════════════ SECTION 1 · PERCEPTION ════════════ -->
-      <section class="section-block">
-        <div class="perception-box">
-          <div class="pure-g">
-            <div class="pure-u-2-3">
-              <div class="panel-text">
-                <h2 class="section-title section-title-sm">
-                  01 · Australian’s Perception of Kangaroo
-                </h2>
-                <p class="section-lead">
-                  Every story of the kangaroo begins by how the people
-                  who share its land see it.
-                </p>
-                <p>
-                  Australians most associate kangaroos with being “native,”
-                  “wildlife,” and a symbol of Australia. The chart also
-                  surfaces traits like “muscular” and “energetic,” reflecting
-                  their strength and agility — perceptions that set the stage
-                  for everything that follows: where they live, how many of
-                  them there are, and what makes them physically remarkable.
-                </p>
-              </div>
+      <section
+        id="sec1"
+        class="section-block reveal"
+        data-section="01 · PERCEPTION"
+      >
+        <div class="pure-g">
+          <div class="pure-u-2-3">
+            <div class="panel-text">
+              <h2 class="section-title section-title-sm">
+                Australian's Perception of Kangaroo
+              </h2>
+              <p class="section-lead">
+                The kangaroo is important to both Australian culture and the
+                national image.
+              </p>
+              <p>
+                Referring to the National Survey Report by Kangaroos Alive, 83%
+                of Australians associate kangaroos with being an "Australian
+                icon," with 77% identifying them as "native". The top responses
+                are all about national identity.
+              </p>
+
+              <p>
+                Another major thread in public perception is "wildlife",
+                kangaroos are found widely across Australia's natural landscape,
+                and as a uniquely native marsupial they exist in the wild almost
+                exclusively on this continent. That association with untouched
+                Australian nature is part of what cements their status as a
+                national symbol.
+              </p>
             </div>
-            <div class="pure-u-1-3">
-              <div class="col-pad-r stack-gap">
-                <div id="vis1" class="vis-container"></div>
-              </div>
+          </div>
+          <div class="pure-u-1-3">
+            <div class="col-pad-r stack-gap">
+              <div id="vis1" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ════════════ SECTION 2 · TAXONOMY (Genus Tree) ════════════ -->
-      <section class="section-block">
+      <!-- ════════════ SECTION 2 · TAXONOMY ════════════ -->
+      <section
+        id="sec2"
+        class="section-block reveal"
+        data-section="02 · TAXONOMY"
+      >
         <div class="pure-g subsection">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
               <div class="panel-text">
                 <h2 class="section-title section-title-sm">
-                  02 · One Family, Many Forms
+                  Unique Australian Marsupials
                 </h2>
                 <p class="section-lead">
-                  “Kangaroo” is a colloquial term, biologically there are
-                  many.
+                  Kangaroos belong to a lineage found almost nowhere else on
+                  Earth.
                 </p>
                 <p>
-                  Kangaroos, wallaroos and wallabies all belong to the family
-                  <em>Macropodidae</em> — “big foot,” for those famously
-                  oversized hind feet. The kangaroos sit in two genera: the
-                  Red Kangaroo and Common Wallaroo (genus
-                  <em>Osphranter</em>) and the Eastern and Western Greys
-                  (genus <em>Macropus</em>).
+                  Kangaroos sit in the infraclass <em>Marsupialia</em>,
+                  alongside koalas, wombats, and the Tasmanian devil, a lineage
+                  that ended up almost exclusively Australian for two reasons:
                 </p>
                 <p>
-                  The tree groups species by genus, with population scale and
-                  colloquial group encoded by size and colour.
+                  <strong>Drift &amp; isolation</strong> makes all these
+                  marsupials trapped inside Australia.
+                </p>
+                <p>
+                  <strong>No competition</strong> from placental mammals (bears,
+                  lions, deer) that never reached the continent.
                 </p>
               </div>
             </div>
           </div>
           <div class="pure-u-2-3">
             <div class="col-pad-r">
-              <div id="vis6" class="vis-container"></div>
+              <div id="vis6" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ════════════ SECTION 3 · POPULATION ════════════ -->
-      <section class="section-block">
-        <!-- Row 1: 1/3 title + text  |  2/3 yearly chart -->
+      <section
+        id="sec3"
+        class="section-block reveal"
+        data-section="03 · POPULATION"
+      >
         <div class="pure-g subsection">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
               <div class="panel-text">
                 <h2 class="section-title section-title-sm">
-                  03 · Population of Kangaroo
+                  Population of Kangaroo
                 </h2>
                 <p class="section-lead">
-                  Just how many kangaroos are there and how have their
-                  numbers shifted over time?
+                  Just how many kangaroos are there and how have their numbers
+                  shifted?
                 </p>
-                <h3>Population Over Time</h3>
-                <p>
-                  Click any species in the legend to isolate its trajectory,
-                  or drag across the strip below the chart to focus on a
-                  shorter window.
-                </p>
-              
-                <p>
-                  The line traces a rise from ~27 million in 2010 to a peak
-                  above 50 million in the mid-2010s, before settling near 35
-                  million by 2024 — a cycle of growth, disruption, and
-                  adaptation.
-                </p>
-               
 
+                <p>
+                  Figures tracked by the Australian Government's Department of
+                  Climate Change, Energy, the Environment and Water (DCCEEW)
+                  show a rise from 27 million in 2010 to a peak above 50 million
+                  in 2014.
+                </p>
+                <p>
+                  However, in the years since, the trend has shown a steady
+                  decline, with the most notable drop in 2021 from ~42 million
+                  to ~32 million. The number rose again in 2023, with the
+                  overall trend remaining higher than when kangaroos were first
+                  recorded.
+                </p>
+                <div style="padding-top: 26px">
+                  <div class="stat-card">
+                    <div
+                      class="stat-num"
+                      data-count-to="35"
+                      data-count-unit="M"
+                    ></div>
+                    <div class="stat-label">Kangaroos in 2024</div>
+                    <div class="stat-sub">Down from a 56 M peak in 2014</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="pure-u-2-3">
             <div class="col-pad-r">
-              <div id="vis3" class="vis-container"></div>
+              <div id="vis3" class="vis-container chart-hover-lift"></div>
+              <p class="hint-text">
+                Drag the scrubber below to step through 2010 – 2024
+              </p>
             </div>
           </div>
         </div>
 
-        <!-- Row 2: 1/3 donut  |  1/3 donut text  |  1/3 pictogram + text -->
         <div class="pure-g subsection">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
-              <div id="vis5" class="vis-container"></div>
+              <div id="vis5" class="vis-container chart-hover-lift"></div>
+              <p class="hint-text">
+                Drag the scrubber below to step through 2020 – 2024.
+              </p>
+              <div class="year-scrubber">
+                <div class="scrub-track">
+                  <input
+                    type="range"
+                    id="scrubSlider"
+                    min="2020"
+                    max="2024"
+                    step="1"
+                    value="2024"
+                  />
+                  <div class="scrub-ticks" aria-hidden="true">
+                    <span>2020</span><span>2021</span><span>2022</span
+                    ><span>2023</span><span>2024</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="pure-u-1-3">
             <div class="col-pad-m">
+              <div id="vis14" class="vis-container chart-hover-lift"></div>
               <div class="panel-text">
-                <h3>Species Share, 2020–2024</h3>
                 <p>
-                  Hover any slice to see its exact
-                  share.
+                  The <strong>donut</strong> and the <strong>bump chart</strong>
+                  together capturing the shape of the kangaroo's mix and how it
+                  shifts.
                 </p>
                 <p>
-                  Eastern Grey Kangaroos consistently hold the largest slice,
-                  but Red Kangaroos have widened their share through the
-                  recovery years. Western Greys hold a steady mid-sized presence,
-                  while Wallaroos and Tammar Wallabies barely take part of the population.
-                </p>
-                <p>
-                  Looking across the rings, the overall mix is remarkably
-                  stable from year to year. Major shifts in total
-                  population (see the line chart above) come from
-                  <em>all</em> species fluctuating together, not from one
-                  species replacing another.
+                  Two species appear only in recent years: the
+                  <strong>Tammar Wallaby</strong> from 2019 and the
+                  <strong>Grey Kangaroo</strong> from 2021. This is reflecting
+                  when local governments first began reporting them, not when
+                  the animals themselves arrived.
                 </p>
               </div>
             </div>
           </div>
           <div class="pure-u-1-3">
             <div class="col-pad-r stack-gap">
-              <div id="vis4" class="vis-container"></div>
+              <div id="vis4" class="vis-container chart-hover-lift"></div>
               <div class="panel-text tight-top">
-                <h3>They Outnumber Us</h3>
                 <p>
-                  In 2024, Australia is home to roughly <bold>23 million people</bold> 
-                  and around <bold>35 million kangaroos</bold>. Kangaroos outpace humans by
-                  almost 1.5 to 1. This trend has been persistent since 2010, despite lower difference of 22.3 million people and 30 million kangaroos.
+                  In <strong>2024</strong>, Australia was home to about 26.7
+                  million people and an estimated 34.9 million kangaroos roughly
+                  <strong>1.3 kangaroos per Australian</strong>. The gap has
+                  stayed in kangaroos' favour every year since 2010, and peaked
+                  in <strong>2014</strong> when there were over 54 million
+                  kangaroos against 23 million people more than
+                  <strong>2 kangaroos per person</strong>.
                 </p>
               </div>
             </div>
@@ -561,103 +1065,201 @@
         </div>
       </section>
 
-      <!-- ════════════ SECTION 4 · HABITAT & DISTRIBUTION ════════════ -->
-      <section class="section-block">
-        <!-- Sub: habitat map -->
-        <div class="pure-g subsection">
-          <div class="pure-u-1-3">
-            <div class="col-pad-l stack-gap">
-              <div class="panel-text">
-                <h2 class="section-title section-title-sm">
-                  04 · Habitat &amp; Distribution
-                </h2>
-                <p class="section-lead">
-                  Where do all those kangaroos actually live
-                </p>
-                <h3>Where the Kangaroos Live</h3>
-                <p>
-                  Kangaroos can only be found in Australia. The shaded area on
-                  the map shows known habitat zones — mostly forested regions
-                  of the eastern and southern states, plus pockets of the arid
-                  interior.
-                </p>
-                <p>
-                  Each circle represents an estimated population in a habitat
-                  zone.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="pure-u-2-3">
-            <div class="col-pad-r stack-gap">
-              <div id="vis2" class="vis-container"></div>
-            </div>
-          </div>
+      <!-- ════════════ SECTION 4 · HABITAT ════════════ -->
+      <section
+        id="sec4"
+        class="section-block reveal"
+        data-section="04 · HABITAT"
+      >
+        <!-- Title -->
+        <div class="panel-text">
+          <h2 class="section-title section-title-sm">
+            Habitat &amp; Distribution
+          </h2>
+          <p class="section-lead">
+            From the arid Red Centre to coastal scrub on Kangaroo Island, each
+            species claims its own corner of the continent.
+          </p>
         </div>
 
-        <!-- Sub: species by state -->
+        <!-- Row 1: Heatmap (left) + Map (right) side by side -->
         <div class="pure-g subsection">
-          <div class="pure-u-1-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-l">
-              <div class="panel-text">
-                <h3>Distribution by State</h3>
-                <p>
-                  Where species live varies dramatically by state. Reds
-                  dominate the arid interior of NSW, QLD, and SA, while
-                  Eastern Greys concentrate along the NSW and QLD seaboard.
-                </p>
-                <p>
-                  Common Wallaroos hold steady across NSW and QLD’s ranges,
-                  while the Tammar Wallaby is largely confined to southern
-                  states and offshore islands.
-                </p>
-              </div>
+              <div id="vis7" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
-          <div class="pure-u-2-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-r">
-              <div id="vis7" class="vis-container"></div>
+              <div id="vis2" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
         </div>
 
-      </section>
-
-      <!-- ════════════ SECTION 5 · BUILT FOR THE OUTBACK ════════════ -->
-      <section class="section-block">
-        <h2 class="section-title section-title-sm">05 · Characteristics</h2>
-        <p class="section-lead">
-          Bodies tuned for speed, distance, and endurance; they built for the
-          outback.
-        </p>
-
-        <!-- Row of charts: weight | height-tail | hopping -->
-        <div class="pure-g subsection no-row-gap">
+        <!-- Row 2: 3 balanced columns of habitat + species text -->
+        <div class="pure-g subsection">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
-              <div id="vis8" class="vis-container"></div>
+              <div class="panel-text">
+                <h3>The Australian Range</h3>
+                <p>
+                  Native only to Australia, kangaroos occupy a wide spread of
+                  environments, from open grasslands and arid deserts to
+                  eucalyptus woodlands and rocky hill country.
+                </p>
+                <p>
+                  Distribution skews sharply by state:
+                  <strong>NSW</strong> alone hosts almost
+                  <strong>15 million</strong> kangaroos, while
+                  <strong>Victoria</strong> is the only state where humans
+                  outnumber them.
+                </p>
+                <p>
+                  Notably, the
+                  <strong>central interior</strong> of the continent stays
+                  largely empty: the harshest deserts of the Red Centre support
+                  almost no kangaroos at all.
+                </p>
+                <p>
+                  <em>Note:</em> <strong>Darwin</strong> and the Northern
+                  Territory look sparse on this map because the NT government
+                  does not regularly update its population records.
+                </p>
+              </div>
             </div>
           </div>
           <div class="pure-u-1-3">
             <div class="col-pad-m">
-              <div id="vis10" class="vis-container"></div>
+              <div class="panel-text">
+                <p><strong>Red Kangaroo</strong></p>
+                <p>
+                  Most abundant in the arid and semi-arid interior rangelands
+                  across WA, SA, NT, QLD, and NSW. Dominates where the country
+                  runs driest.
+                </p>
+                <p>
+                  <strong>Common Wallaroo</strong>
+                </p>
+                <p>
+                  Widespread across every mainland state, hugging the steep
+                  escarpments, rocky hills, mountain ranges, and stony rises of
+                  rugged semi-arid country.
+                </p>
+                <p><strong>Tammar Wallaby</strong></p>
+                <p>
+                  Restricted to two pockets of coastal scrub and forest:
+                  south-western WA (and nearby islands) and SA's Kangaroo
+                  Island.
+                </p>
+              </div>
             </div>
           </div>
           <div class="pure-u-1-3">
             <div class="col-pad-r">
-              <div id="vis9" class="vis-container"></div>
+              <div class="panel-text">
+                <p>
+                  <strong>Eastern Grey Kangaroo</strong>
+                </p>
+                <p>
+                  Spans eastern Australia from the
+                  <strong>Cape York Peninsula</strong> in QLD through NSW, VIC,
+                  southeastern SA, and into <strong>Tasmania</strong>. Prefers
+                  grass-rich habitats: open woodlands, sclerophyll forests, and
+                  semi-arid mallee scrub
+                </p>
+                <p>
+                  <strong>Western Grey Kangaroo</strong>
+                </p>
+                <p>
+                  Exclusively southern, ranging from coastal WA across SA, VIC,
+                  NSW, and into southern QLD. Highly adaptable, thrives in
+                  woodlands, open forests, mallee scrubland, and even golf
+                  courses and suburban fringes.
+                </p>
+
+                <p>
+                  <em>Note:</em> VIC reports Eastern and Western Greys as a
+                  single <em>"Grey Kangaroo"</em> category.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ SECTION 5 · CHARACTERISTICS ════════════ -->
+      <section
+        id="sec5"
+        class="section-block reveal"
+        data-section="05 · CHARACTERISTICS"
+      >
+        <!-- Title + species chips on one row -->
+        <div class="chars-header">
+          <h2 class="section-title section-title-sm">Characteristics</h2>
+          <div class="species-picker" id="charsPicker">
+            <button class="chip active" data-species="all">All</button>
+            <button class="chip" data-species="Red Kangaroo">Red</button>
+            <button class="chip" data-species="Eastern Grey Kangaroo">
+              Eastern Grey
+            </button>
+            <button class="chip" data-species="Western Grey Kangaroo">
+              Western Grey
+            </button>
+            <button class="chip" data-species="Wallaroo">Wallaroo</button>
+            <button class="chip" data-species="Tammar Wallaby">Tammar</button>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+          "
+        >
+          <p class="section-lead" style="margin: 0; flex: 1;">
+            Widely known as "muscular", "energetic", and "powerful", Kangaroo
+            is build for wildlife.
+          </p>
+          <p
+            class="hint-text"
+            style="margin: 0; text-align: right; max-width: none;"
+          >
+            Click a species above to highlight it across all three charts.
+          </p>
+        </div>
+
+        <div class="pure-g subsection no-row-gap reveal-stagger">
+          <div class="pure-u-1-3">
+            <div class="col-pad-l">
+              <div id="vis8" class="vis-container chart-hover-lift"></div>
+            </div>
+          </div>
+          <div class="pure-u-1-3">
+            <div class="col-pad-m">
+              <div id="vis10" class="vis-container chart-hover-lift"></div>
+            </div>
+          </div>
+          <div class="pure-u-1-3">
+            <div class="col-pad-r">
+              <div id="vis9" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
         </div>
 
-        <!-- Row of texts: weight | height-tail | hopping -->
         <div class="pure-g no-row-gap-top">
           <div class="pure-u-1-3">
             <div class="col-pad-l">
               <div class="panel-text">
                 <h3>Body Weight</h3>
                 <p>
-                  Males are about twice the size of females for every species. The weight varies widely between Red Kangaroo, known as the biggest kangaroo, and wallaby, 
+                  Belong to the Macropodidae family that means 'big foot' in
+                  Latin,
+                  <strong>Kangaroos are the world's largest marsupials</strong>.
+                  Red Kangaroo as the biggest, can weight almost 90 kg. In
+                  general,
+                  <strong>males are about twice the size of females</strong>.
                 </p>
               </div>
             </div>
@@ -668,9 +1270,10 @@
                 <h3>Height &amp; Tail</h3>
                 <p>
                   Standing height and tail length scale tightly with body
-                  weight — bigger species need longer counter-weights to
-                  keep their hopping balanced. A Red Kangaroo male can stand
-                  1.5 m tall and trail a metre-long tail behind him.
+                  weight, where
+                  <strong>bigger species need longer counter-weights</strong> to
+                  keep their hopping balanced. A Red Kangaroo male can stand 1.5
+                  m tall with a metre-long tail.
                 </p>
               </div>
             </div>
@@ -680,7 +1283,14 @@
               <div class="panel-text">
                 <h3>Jumping &amp; Hopping</h3>
                 <p>
-                  Comparing Kangaroo's physical ability to human, especially their ability to hop around, even the smallest type Kangaroo, Tammar Wallaby, still hops 1.5 times better than human. While the biggest species of kangaroo hops 4 times further than human.
+                  Supported by their legs stretch and recoil, at higher speeds,
+                  <strong
+                    >kangaroo's hopping requires less energy than
+                    running</strong
+                  >. Even the smallest species, <strong>Tammar Wallaby</strong>,
+                  hop <strong>1.5x</strong> further than average human, while
+                  <strong>Red Kangaroo</strong> achieve until
+                  <strong>4x</strong> of human ability.
                 </p>
               </div>
             </div>
@@ -688,48 +1298,53 @@
         </div>
       </section>
 
-      <!-- ════════════ SECTION 6 · REPRODUCTION ════════════ -->
-      <section class="section-block">
-        <!-- Sub: lifecycle -->
+      <!-- ════════════ SECTION 6 · LIFECYCLE ════════════ -->
+      <section
+        id="sec6"
+        class="section-block reveal"
+        data-section="06 · LIFECYCLE"
+      >
         <div class="pure-g subsection">
           <div class="pure-u-1-3">
             <div class="col-pad-l stack-gap">
               <div class="panel-text">
                 <h2 class="section-title section-title-sm">
-                  06 · Lifecycle &amp; Survival
+                  Lifecycle &amp; Survival
                 </h2>
                 <p class="section-lead">
-                  An unique reproductive ability
+                  A reproductive strategy tuned for an unpredictable continent.
                 </p>
                 <p>
-                  A short, 30–36 day gestation produces a tiny, underdeveloped
-                  joey. It crawls into its mother’s pouch and continues to
-                  develop there for several months.
+                  1. <strong>Gestation</strong>: the mother carries a tiny,
+                  jelly-bean-sized joey for just a few weeks.
                 </p>
                 <p>
-                  A mother can have a joey in the pouch and another at-foot
-                  at the same time by pausing embryonic development entirely
-                  if drought strikes. It’s reproduction tuned for a harsh,
-                  unpredictable continent.
+                  2. <strong>Joey in the pouch</strong>: the newborn crawls
+                  unaided into the pouch and continues developing for months.
                 </p>
                 <p>
-                  [Joey is ....]
+                  3. <strong>Pouch exit to weaning</strong>: once mature, the
+                  joey leaves the pouch and joins the mob.
+                </p>
+                <p>
+                  Females can even <em>pause</em> the development of a second
+                  embryo while a joey is still in the pouch; resuming only once
+                  it leaves.
                 </p>
               </div>
             </div>
           </div>
           <div class="pure-u-2-3">
             <div class="col-pad-r stack-gap">
-              <div id="vis11" class="vis-container"></div>
+              <div id="vis11" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
         </div>
 
-        <!-- Sub: mortality -->
         <div class="pure-g subsection">
           <div class="pure-u-1-2">
             <div class="col-pad-l">
-              <div id="vis12" class="vis-container"></div>
+              <div id="vis12" class="vis-container chart-hover-lift"></div>
             </div>
           </div>
           <div class="pure-u-1-2">
@@ -737,15 +1352,19 @@
               <div class="panel-text">
                 <h3>Mortality by Life Stage</h3>
                 <p>
-                  The first six months in the pouch are the most dangerous —
-                  roughly half of all joeys don’t make it. Survival improves
-                  sharply once the joey is at-foot, and again as it reaches
-                  adulthood.
+                  The pouch is the <em>safer</em> part of kangaroo's lifecycle,
+                  the danger spikes the moment joeys emerge.
+                  <strong>Banks et al. (2000)</strong>
+                  found around half of newly at-foot young are taken by foxes,
+                  making the pouch-exit transition the deadliest window of a
+                  kangaroo's life.
                 </p>
                 <p>
-                  Old age pushes risk back up: senior kangaroos (10+ years)
-                  face higher mortality from injury, slowed reflexes, and
-                  habitat pressure.
+                  Survival climbs steeply once joeys are fully weaned and again
+                  as they reach adulthood, where annual mortality drops to
+                  roughly 5–10%. Senescence (10+ years) pushes risk back up —
+                  vehicle strikes are the dominant cause of adult deaths in
+                  studied populations.
                 </p>
               </div>
             </div>
@@ -753,41 +1372,52 @@
         </div>
       </section>
 
-      <!-- ════════════ SECTION 7 · ADDITIONAL · MANAGEMENT ════════════ -->
-      <section class="section-block">
-        <h2 class="section-title">07 · Kangaroo Management</h2>
-        <p class="section-lead">
-          Abundance doesn't mean carelessly hunted. Australia’s regulated harvest is
-          a balancing act between population control and animal welfare.
-        </p>
-
+      <!-- ════════════ SECTION 7 · MANAGEMENT ════════════ -->
+      <section
+        id="sec7"
+        class="section-block reveal"
+        data-section="07 · MANAGEMENT"
+      >
         <div class="pure-g">
-          <div class="pure-u-2-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-l">
-              <!-- <div id="vis13" class="vis-container"></div> -->
+              <div id="vis13" class="vis-container chart-hover-lift"></div>
+              <h3 style="margin-top: 16px">Harvest Over Time</h3>
+              <div id="vis15" class="vis-container chart-hover-lift"></div>
+              <p class="hint-text">
+                Stacked area by species, 2010 — 2023 — note the
+                <strong>2020 dip</strong> and the 2022–23 recovery.
+              </p>
             </div>
           </div>
-          <div class="pure-u-1-3">
+          <div class="pure-u-1-2">
             <div class="col-pad-r">
               <div class="panel-text">
-                <h3>Capacity vs Actual Harvest</h3>
+                <h2 class="section-title section-title-sm">
+                  Kangaroo Management
+                </h2>
+                <p class="section-lead">
+                  Their abundance is considered by some as a threat to
+                  biodiversity in conservation reserves, removing these as a
+                  haven.
+                </p>
+                <h3>Harvest Flow: Year → State → Species</h3>
                 <p>
-                  Each <strong>State</strong> bar on the left represents its
-                  full <em>sustainable quota</em> — the capacity to harvest.
-                  Coloured ribbons trace the portion actually used through
-                  <strong>Species</strong> and on to <strong>End-use</strong>.
-                  The pale ribbon peeling off each state is the
-                  <em>unused quota</em>: capacity that was permitted but
-                  never harvested.
+                  Each ribbon traces harvested kangaroos through three stages:
+                  the <strong>year</strong> on the left, the
+                  <strong>state</strong> it was harvested in, and the
+                  <strong>species</strong> on the right. Ribbon thickness is the
+                  number of animals taken.
                 </p>
                 <p>
-                  NSW and QLD have the largest quotas <em>and</em> the largest
-                  unused shares — only ~30–35% of what's permitted is
-                  taken. The Red and Eastern Grey carry most of the actual
-                  harvest, and the bulk of it flows into
-                  <strong>pet food</strong>, followed by meat and skins. A
-                  small share is harvested purely for damage mitigation.
+                  <strong>QLD</strong> and <strong>NSW</strong> dominate every
+                  year, with <strong>Eastern grey</strong> and
+                  <strong>Red kangaroo</strong> accounting for the vast majority
+                  of the take. <strong>VIC</strong> only enters the regulated
+                  harvest in 2021, and the 2020 dip reflects pandemic-era market
+                  disruption before the recovery through 2022 – 2023.
                 </p>
+                <p><em>Hover</em> any ribbon or node for exact counts.</p>
               </div>
             </div>
           </div>
@@ -799,19 +1429,60 @@
         <div class="pure-u-1-1 small-font">
           <div class="divider"></div>
           <p>
-            Source: Australian Government Department of Agriculture, Water and
-            the Environment, 2024.
+            <strong>Sources:</strong>
+            [1] Australian Government Department of Agriculture, Water and the
+            Environment, 2024,
+            <a href="https://www.dcceew.gov.au" target="_blank" rel="noopener"
+              >https://www.dcceew.gov.au</a
+            >. [2] Atlas of Living Australia,
+            <a href="https://www.ala.org.au" target="_blank" rel="noopener"
+              >https://www.ala.org.au</a
+            >. [3] Australian Museum,
+            <a href="https://australian.museum" target="_blank" rel="noopener"
+              >https://australian.museum</a
+            >. [4] Kangaroos Alive,
+            <a
+              href="https://www.kangaroosalive.org"
+              target="_blank"
+              rel="noopener"
+              >https://www.kangaroosalive.org</a
+            >. [5] Animal Diversity,
+            <a href="https://animaldiversity.org" target="_blank" rel="noopener"
+              >https://animaldiversity.org</a
+            >.[6] San Diego Zoo Wildlife Alliance,
+            <a
+              href="https://sandiegozoowildlifealliance.org"
+              target="_blank"
+              rel="noopener"
+              >https://sandiegozoowildlifealliance.org</a
+            >. [7] Animalia Bio,
+            <a href="https://animalia.bio" target="_blank" rel="noopener"
+              >https://animalia.bio</a
+            >.[8] Worldometers
+            <a
+              href="https://www.worldometers.info"
+              target="_blank"
+              rel="noopener"
+              >https://www.worldometers.info</a
+            >. [9] Kangaroos at Risk,
+            <a
+              href="https://www.kangaroosatrisk.net"
+              target="_blank"
+              rel="noopener"
+              >https://www.kangaroosatrisk.net</a
+            >.
           </p>
         </div>
       </div>
     </div>
 
     <script type="text/javascript">
+      // ─── Vega chart registry ────────────────────────────
       const specs = {
         vis1: "perception_radial.vg.json",
-        vis2: "population_map.vg.json",
+        vis2: "kangaroo_occurences_map.vg.json",
         vis3: "population_yearly.vg.json",
-        vis4: "pictogram.vg.json",
+        vis4: "kangaroo_vs_human.vg.json",
         vis5: "population_donut.vg.json",
         vis6: "genus_tree.vg.json",
         vis7: "population_state.vg.json",
@@ -820,12 +1491,302 @@
         vis10: "body_height_tail.vg.json",
         vis11: "lifecycle.vg.json",
         vis12: "mortality.vg.json",
-        vis13: "harvest_flow.vg.json",
+        vis13: "harvest_sankey.vg.json",
+        vis14: "population_bump.vg.json",
+        vis15: "harvest_stream.vg.json",
       };
 
-      Object.entries(specs).forEach(([id, url]) => {
-        vegaEmbed("#" + id, url, { actions: false }).catch(console.error);
-      });
+      // Embedded view handles keyed by container id
+      const views = {};
+
+      // ─── Lazy-load charts when their card enters viewport ─
+      const chartObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const containers =
+              entry.target.querySelectorAll(".vis-container[id]");
+            containers.forEach((c) => {
+              if (views[c.id] || !specs[c.id]) return;
+              vegaEmbed("#" + c.id, specs[c.id], {
+                actions: false,
+                tooltip: { theme: "light" },
+              })
+                .then((res) => {
+                  views[c.id] = res.view;
+                  applyFiltersTo(c.id);
+                  wireCrossFilters(c.id, res.view);
+                  playEntranceAnimation(c.id, res.view);
+                })
+                .catch(console.error);
+            });
+          });
+        },
+        { rootMargin: "200px 0px" },
+      );
+
+      document
+        .querySelectorAll(".section-block")
+        .forEach((el) => chartObserver.observe(el));
+
+      // ─── Reveal-on-scroll for sections + staggered children ─
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              // Trigger any counter animations inside
+              entry.target
+                .querySelectorAll("[data-count-to]")
+                .forEach(animateCount);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      document
+        .querySelectorAll(".reveal, .reveal-stagger")
+        .forEach((el) => revealObserver.observe(el));
+
+      // ─── Animated counters ──────────────────────────────
+      function animateCount(el) {
+        if (el.dataset.animated) return;
+        el.dataset.animated = "1";
+        const target = parseFloat(el.dataset.countTo);
+        const unit = el.dataset.countUnit || "";
+        const decimals = (el.dataset.countTo.split(".")[1] || "").length;
+        const duration = 1200;
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          const val = (target * eased).toFixed(decimals);
+          el.textContent = val + unit;
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // ─── Active section nav indicator ───────────────────
+      const navLinks = document.querySelectorAll(".section-nav a");
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
+            navLinks.forEach((a) => {
+              a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+            });
+          });
+        },
+        { rootMargin: "-40% 0px -50% 0px" },
+      );
+
+      document
+        .querySelectorAll(".section-block[id]")
+        .forEach((el) => navObserver.observe(el));
+
+      // ─── Filter state ───────────────────────────────────
+      // Characteristics filter (chip picker) and Population filter
+      // (donut/area-chart legend) are kept independent — selecting Red on
+      // the chip picker shouldn't change which species the donut highlights.
+      const state = {
+        charsSpecies: "all",
+        popSpecies: "all",
+        yearRange: [2010, 2024],
+        unit: "kg",
+      };
+      const POP_CHARTS = new Set(["vis3", "vis5", "vis14"]);
+      const CHARS_CHARTS = new Set(["vis8", "vis9", "vis10"]);
+
+      // ─── Donut year scrubber ───────────────────────────
+      // Slider sets "draw up to year X" for the donut (vis5).
+      // Moving it re-animates the donut from its current t to the target.
+      const scrubSlider = document.getElementById("scrubSlider");
+
+      const DONUT_BASE_YEAR = 2020; // innermost ring
+      const DONUT_MAX_YEAR = 2024;
+
+      let donutCurrentT = 0; // tracks the donut's current `t` value
+      let donutAnimFrame = null;
+
+      // Convert year → t target (year 2020 → 1, year 2024 → 5)
+      const yearToT = (y) => y - DONUT_BASE_YEAR + 1;
+
+      // Tween the donut's `t` signal from donutCurrentT → targetT
+      function tweenDonut(targetT, duration = 900) {
+        const view = views["vis5"];
+        if (!view) {
+          donutCurrentT = targetT;
+          return;
+        }
+        if (donutAnimFrame) cancelAnimationFrame(donutAnimFrame);
+        const startT = donutCurrentT;
+        const startTime = performance.now();
+        function step(now) {
+          const p = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 2);
+          donutCurrentT = startT + (targetT - startT) * eased;
+          try {
+            view.signal("t", donutCurrentT).runAsync();
+          } catch (e) {}
+          if (p < 1) {
+            donutAnimFrame = requestAnimationFrame(step);
+          } else {
+            donutAnimFrame = null;
+          }
+        }
+        donutAnimFrame = requestAnimationFrame(step);
+      }
+
+      // Apply slider value to both donut filter (yearMax) and animation target
+      function applyDonutYear(year) {
+        state.yearRange = [DONUT_BASE_YEAR, year];
+        const view = views["vis5"];
+        if (view) {
+          try {
+            view.signal("yearMin", DONUT_BASE_YEAR);
+            view.signal("yearMax", year);
+          } catch (e) {}
+        }
+        tweenDonut(yearToT(year));
+      }
+
+      if (scrubSlider) {
+        scrubSlider.addEventListener("input", () => {
+          applyDonutYear(+scrubSlider.value);
+        });
+      }
+
+      // ─── Species picker (Characteristics section) ──────
+      document
+        .querySelectorAll("#charsPicker .chip[data-species]")
+        .forEach((chip) => {
+          chip.addEventListener("click", () => {
+            document
+              .querySelectorAll("#charsPicker .chip[data-species]")
+              .forEach((c) => c.classList.remove("active"));
+            chip.classList.add("active");
+            state.charsSpecies = chip.dataset.species;
+            // Only push the species filter to the characteristics charts.
+            CHARS_CHARTS.forEach(applyFiltersTo);
+          });
+        });
+
+      // ─── Apply filters to all live views ────────────────
+      function applyFiltersAll() {
+        Object.keys(views).forEach(applyFiltersTo);
+      }
+
+      function applyFiltersTo(id) {
+        const view = views[id];
+        if (!view) return;
+        let changed = false;
+        // Route species filter per chart group — chars and pop are independent.
+        let species = "all";
+        if (POP_CHARTS.has(id)) species = state.popSpecies;
+        else if (CHARS_CHARTS.has(id)) species = state.charsSpecies;
+        changed = trySignal(view, "speciesFilter", species) || changed;
+        changed = trySignal(view, "yearMin", state.yearRange[0]) || changed;
+        changed = trySignal(view, "yearMax", state.yearRange[1]) || changed;
+        changed = trySignal(view, "unitParam", state.unit) || changed;
+        if (changed) view.runAsync();
+      }
+
+      function trySignal(view, name, value) {
+        try {
+          if (view.signal(name) === undefined) return false;
+          view.signal(name, value);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // ─── Cross-chart linking: clicks inside one chart ────
+      // ─── Per-chart entrance animations ──────────────────
+      function playEntranceAnimation(id, view) {
+        if (id === "vis5") {
+          // Donut entrance is driven by the scrubber slider's current year
+          donutCurrentT = 0;
+          tweenDonut(yearToT(+scrubSlider.value), 2200);
+          return;
+        }
+        const animatedCharts = {
+          vis1: { total: 9, duration: 2200 }, // perception radial (if t signal present)
+        };
+        const cfg = animatedCharts[id];
+        if (!cfg) return;
+        try {
+          if (view.signal("t") === undefined) return;
+        } catch (e) {
+          return;
+        }
+        const start = performance.now();
+        function step(now) {
+          const p = Math.min((now - start) / cfg.duration, 1);
+          const eased = 1 - Math.pow(1 - p, 2);
+          view.signal("t", eased * (cfg.total + 0.2)).runAsync();
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Hook a legend-bound point selection on `view` and route picks
+      // through setSpecies(). `field` is the column the selection uses.
+      function wireLegendSelection(view, signalName, field) {
+        try {
+          view.addSignalListener(signalName, (_name, value) => {
+            if (
+              value &&
+              Array.isArray(value[field]) &&
+              value[field].length > 0
+            ) {
+              setSpecies(value[field][0]);
+            } else {
+              setSpecies("all");
+            }
+          });
+        } catch (e) {}
+      }
+
+      function wireCrossFilters(id, view) {
+        // Donut: slice click + legend selection
+        if (id === "vis5") {
+          view.addEventListener("click", (event, item) => {
+            if (item && item.datum && item.datum.series) {
+              setSpecies(item.datum.series);
+            }
+          });
+          wireLegendSelection(view, "speciesSel", "series");
+        }
+        // Population yearly area chart: legend selection (param `species`)
+        if (id === "vis3") {
+          wireLegendSelection(view, "species", "series");
+        }
+        // Body height/tail scatter: legend selection on species
+        if (id === "vis10") {
+          wireLegendSelection(view, "speciesSel", "species");
+        }
+        // Habitat charts (vis2 map, vis7 heatmap) intentionally do NOT
+        // cross-filter — their species labels are exploratory, not selectors.
+      }
+
+      // Population-side species selector — only updates POP_CHARTS, never
+      // touches the characteristics chip picker.
+      function setSpecies(name) {
+        const known = [
+          "Red Kangaroo",
+          "Eastern Grey Kangaroo",
+          "Western Grey Kangaroo",
+          "Wallaroo",
+          "Tammar Wallaby",
+          "Grey Kangaroo",
+        ];
+        state.popSpecies = known.includes(name) ? name : "all";
+        POP_CHARTS.forEach(applyFiltersTo);
+      }
     </script>
   </body>
 </html>
