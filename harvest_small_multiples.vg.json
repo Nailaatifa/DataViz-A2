@@ -1,0 +1,141 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Small multiples per species — filled area = harvested, dashed line = allowed quota, 2010 – 2023.",
+  "padding": { "top": 12, "bottom": 8, "left": 8, "right": 8 },
+  "background": "#fffaf0",
+  "data": {
+    "url": "harvested.csv",
+    "format": {
+      "type": "csv",
+      "parse": { "year": "number", "quota": "number", "harvested": "number" }
+    }
+  },
+  "transform": [
+    { "filter": "datum.species != 'Euro'" },
+    {
+      "aggregate": [
+        { "op": "sum", "field": "harvested", "as": "harvested" },
+        { "op": "sum", "field": "quota", "as": "quota" }
+      ],
+      "groupby": ["year", "species"]
+    }
+  ],
+  "facet": {
+    "field": "species",
+    "type": "nominal",
+    "sort": [
+      "Eastern grey",
+      "Red kangaroo",
+      "Western grey",
+      "Wallaroo",
+      "Tammar wallaby",
+      "Grey kangaroo"
+    ],
+    "header": {
+      "title": null,
+      "labelFontSize": 12,
+      "labelFontWeight": 600,
+      "labelColor": "#5a3a1e",
+      "labelPadding": 4
+    }
+  },
+  "columns": 3,
+  "spacing": 16,
+  "spec": {
+    "width": 215,
+    "height": 160,
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "interpolate": "monotone",
+          "opacity": 0.85
+        },
+        "encoding": {
+          "x": {
+            "field": "year",
+            "type": "quantitative",
+            "axis": {
+              "format": "d",
+              "title": null,
+              "labelFontSize": 9,
+              "labelColor": "#8a6d3b",
+              "tickCount": 5,
+              "domainColor": "#a07c4e",
+              "tickColor": "#a07c4e"
+            }
+          },
+          "y": {
+            "field": "harvested",
+            "type": "quantitative",
+            "axis": {
+              "title": null,
+              "labelFontSize": 9,
+              "labelColor": "#8a6d3b",
+              "format": "~s",
+              "tickCount": 3,
+              "grid": false,
+              "domainColor": "#a07c4e",
+              "tickColor": "#a07c4e"
+            }
+          },
+          "color": {
+            "field": "species",
+            "type": "nominal",
+            "legend": null,
+            "scale": {
+              "domain": [
+                "Eastern grey",
+                "Red kangaroo",
+                "Western grey",
+                "Wallaroo",
+                "Tammar wallaby",
+                "Grey kangaroo"
+              ],
+              "range": [
+                "#e3891f",
+                "#f2b705",
+                "#7fbf3f",
+                "#d4d83b",
+                "#2e8b57",
+                "#8a6d3b"
+              ]
+            }
+          },
+          "tooltip": [
+            { "field": "species", "type": "nominal", "title": "Species" },
+            { "field": "year", "type": "quantitative", "title": "Year" },
+            {
+              "field": "harvested",
+              "type": "quantitative",
+              "format": ",",
+              "title": "Harvested"
+            },
+            {
+              "field": "quota",
+              "type": "quantitative",
+              "format": ",",
+              "title": "Allowed quota"
+            }
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "strokeDash": [4, 3],
+          "strokeWidth": 1.5,
+          "color": "#5a3a1e",
+          "interpolate": "monotone"
+        },
+        "encoding": {
+          "x": { "field": "year", "type": "quantitative" },
+          "y": { "field": "quota", "type": "quantitative" }
+        }
+      }
+    ]
+  },
+  "resolve": {
+    "scale": { "y": "independent" }
+  }
+}

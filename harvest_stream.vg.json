@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Streamgraph of regulated kangaroo harvest, 2010 – 2023, stacked by species.",
+  "padding": { "top": 16, "bottom": 12, "left": 12, "right": 12 },
+  "background": "#fffaf0",
+  "width": 460,
+  "height": 260,
+  "data": {
+    "url": "harvested.csv",
+    "format": {
+      "type": "csv",
+      "parse": { "year": "number", "harvested": "number" }
+    }
+  },
+  "transform": [
+    { "filter": "datum.species != 'Euro'" },
+    {
+      "aggregate": [{ "op": "sum", "field": "harvested", "as": "harvested" }],
+      "groupby": ["year", "species"]
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "interpolate": "monotone",
+    "opacity": 0.92,
+    "stroke": "#fffaf0",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "axis": {
+        "format": "d",
+        "title": null,
+        "labelFontSize": 11,
+        "labelColor": "#5a3a1e",
+        "tickCount": 14,
+        "domainColor": "#a07c4e",
+        "tickColor": "#a07c4e"
+      }
+    },
+    "y": {
+      "field": "harvested",
+      "type": "quantitative",
+      "stack": "center",
+      "axis": null
+    },
+    "color": {
+      "field": "species",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Eastern grey",
+          "Red kangaroo",
+          "Western grey",
+          "Wallaroo",
+          "Tammar wallaby",
+          "Grey kangaroo"
+        ],
+        "range": [
+          "#e3891f",
+          "#f2b705",
+          "#7fbf3f",
+          "#d4d83b",
+          "#2e8b57",
+          "#8a6d3b"
+        ]
+      },
+      "legend": {
+        "title": null,
+        "orient": "right",
+        "labelFontSize": 11,
+        "symbolSize": 120,
+        "padding": 8,
+        "labelColor": "#3d2c1a"
+      }
+    },
+    "tooltip": [
+      { "field": "year", "type": "quantitative", "title": "Year" },
+      { "field": "species", "type": "nominal", "title": "Species" },
+      {
+        "field": "harvested",
+        "type": "quantitative",
+        "format": ",",
+        "title": "Harvested"
+      }
+    ]
+  }
+}

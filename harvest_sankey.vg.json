@@ -1,10 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "3-stage Sankey: harvested kangaroos flow from year → state → species",
-  "width": 440,
-  "height": 440,
-  "padding": {"top": 0, "bottom": 5, "left": 5, "right": 5},
-  "autosize": {"type": "pad", "contains": "padding"},
+  "width": 360,
+  "height": 280,
+  "padding": { "top": 25, "bottom": 8, "left": 35, "right": 95 },
+  "autosize": { "type": "pad", "contains": "padding" },
   "background": "#fffaf0",
   "config": { "view": { "stroke": null } },
 
@@ -24,7 +24,10 @@
         "parse": { "year": "number", "quota": "number", "harvested": "number" }
       },
       "transform": [
-        { "type": "filter", "expr": "datum.year >= 2019 && datum.year <= 2023" },
+        {
+          "type": "filter",
+          "expr": "datum.year >= 2019 && datum.year <= 2023"
+        },
         { "type": "filter", "expr": "datum.species != 'Euro'" }
       ]
     },
