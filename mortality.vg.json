@@ -1,13 +1,16 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 12},
+  "padding": { "top": 16, "bottom": 12, "left": 12, "right": 12 },
   "background": "#fffaf0",
-  "width": 500,
+  "width": 450,
   "height": 130,
-  "data": {"url": "mortality.csv"},
+  "data": { "url": "mortality.csv" },
   "transform": [
-    {"calculate": "100 - datum.mortality_rate", "as": "survival_rate"},
-    {"fold": ["mortality_rate", "survival_rate"], "as": ["category_raw", "value"]},
+    { "calculate": "100 - datum.mortality_rate", "as": "survival_rate" },
+    {
+      "fold": ["mortality_rate", "survival_rate"],
+      "as": ["category_raw", "value"]
+    },
     {
       "calculate": "datum.category_raw === 'mortality_rate' ? 'Mortality' : 'Survival'",
       "as": "category"
@@ -15,20 +18,24 @@
   ],
   "layer": [
     {
-      "mark": {"type": "bar"},
+      "mark": { "type": "bar" },
       "encoding": {
         "y": {
           "field": "stage",
           "type": "ordinal",
           "title": null,
-          "axis": {"labelFontSize": 11, "labelColor": "#3d2c1a", "labelPadding": 6}
+          "axis": {
+            "labelFontSize": 11,
+            "labelColor": "#3d2c1a",
+            "labelPadding": 6
+          }
         },
         "x": {
           "field": "value",
           "type": "quantitative",
           "title": "Share (%)",
           "stack": "normalize",
-          "axis": {"format": ".0%"}
+          "axis": { "format": ".0%" }
         },
         "color": {
           "field": "category",
@@ -49,17 +56,20 @@
           "sort": "ascending"
         },
         "tooltip": [
-          {"field": "stage", "type": "nominal", "title": "Stage"},
-          {"field": "description", "type": "nominal", "title": "Period"},
-          {"field": "category", "type": "nominal", "title": "Outcome"},
-          {"field": "value", "type": "quantitative", "title": "Rate (%)", "format": ".0f"}
+          { "field": "stage", "type": "nominal", "title": "Stage" },
+          { "field": "description", "type": "nominal", "title": "Period" },
+          { "field": "category", "type": "nominal", "title": "Outcome" },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Rate (%)",
+            "format": ".0f"
+          }
         ]
       }
     },
     {
-      "transform": [
-        {"filter": "datum.category === 'Mortality'"}
-      ],
+      "transform": [{ "filter": "datum.category === 'Mortality'" }],
       "mark": {
         "type": "text",
         "align": "left",
@@ -70,7 +80,7 @@
         "dx": 6
       },
       "encoding": {
-        "y": {"field": "stage", "type": "ordinal"},
+        "y": { "field": "stage", "type": "ordinal" },
         "x": {
           "field": "value",
           "type": "quantitative",
