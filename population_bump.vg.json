@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "padding": {"top": 16, "bottom": 12, "left": 12, "right": 90},
+  "background": "#fffaf0",
+  "width": 290,
+  "height": 180,
+  "data": {
+    "url": "population_yearly.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"count": "number", "date": "date"}
+    }
+  },
+  "params": [
+    {"name": "speciesFilter", "value": "all"}
+  ],
+  "transform": [
+    {"calculate": "year(datum.date)", "as": "year"},
+    {"filter": "datum.year >= 2020 && datum.year <= 2024"},
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "count", "order": "descending"}],
+      "groupby": ["year"]
+    },
+    {
+      "calculate": "datum.series == 'Eastern Grey Kangaroo' ? 'Eastern Grey' : datum.series == 'Western Grey Kangaroo' ? 'Western Grey' : datum.series == 'Red Kangaroo' ? 'Red' : datum.series == 'Tammar Wallaby' ? 'Tammar' : datum.series == 'Grey Kangaroo' ? 'Grey (VIC)' : datum.series",
+      "as": "shortName"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 11,
+        "labelFontWeight": 500,
+        "labelColor": "#5a3a1e",
+        "domainColor": "#a07c4e",
+        "tickColor": "#a07c4e"
+      }
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "scale": {"reverse": true, "domain": [0.5, 6.5]},
+      "axis": {
+        "values": [1, 2, 3, 4, 5, 6],
+        "title": "Rank (by population)",
+        "titleFontSize": 11,
+        "titleColor": "#5a3a1e",
+        "titleFontWeight": 600,
+        "labelFontSize": 11,
+        "labelColor": "#5a3a1e",
+        "grid": false,
+        "domainColor": "#a07c4e",
+        "tickColor": "#a07c4e"
+      }
+    },
+    "color": {
+      "field": "series",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Eastern Grey Kangaroo",
+          "Grey Kangaroo",
+          "Red Kangaroo",
+          "Tammar Wallaby",
+          "Wallaroo",
+          "Western Grey Kangaroo"
+        ],
+        "range": ["#e3891f", "#c56a1a", "#f2b705", "#2e8b57", "#d4d83b", "#7fbf3f"]
+      },
+      "legend": null
+    },
+    "opacity": {
+      "condition": {
+        "test": "speciesFilter == 'all' || datum.series == speciesFilter",
+        "value": 1
+      },
+      "value": 0.18
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "detail": {"field": "series"}
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 130,
+        "stroke": "#fffaf0",
+        "strokeWidth": 2,
+        "filled": true
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "series", "type": "nominal", "title": "Species"},
+          {"field": "rank", "type": "ordinal", "title": "Rank"},
+          {"field": "count", "type": "quantitative", "title": "Population", "format": ","}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.year == 2024"}],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "fontSize": 11,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "text": {"field": "shortName"}
+      }
+    }
+  ]
+}
