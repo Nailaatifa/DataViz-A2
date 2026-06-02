@@ -692,6 +692,55 @@
         font-style: italic;
       }
 
+      /* ─── Key takeaway cards ─────────────────────────── */
+      .takeaway-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 12px;
+      }
+      .takeaway-card {
+        background: linear-gradient(160deg, var(--paper), var(--cream));
+        border: 1px solid var(--brown-light);
+        border-left: 4px solid var(--accent-soft);
+        border-radius: 14px;
+        padding: 22px 22px 20px;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .takeaway-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(90, 58, 30, 0.1);
+      }
+      .takeaway-card .takeaway-num {
+        font-family: var(--display-font);
+        font-weight: 900;
+        font-size: 36px;
+        color: var(--accent-soft);
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+      .takeaway-card h3 {
+        font-family: var(--display-font);
+        font-weight: 700;
+        font-size: 19px;
+        color: var(--brown-dark);
+        margin: 10px 0 6px;
+        letter-spacing: -0.3px;
+      }
+      .takeaway-card p {
+        font-size: 13px;
+        color: var(--brown-mid);
+        margin: 0;
+        line-height: 1.5;
+      }
+      @media (max-width: 900px) {
+        .takeaway-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
       /* Chart hover lift */
       .chart-hover-lift {
         transition:
@@ -838,7 +887,7 @@
     <!-- ─── HERO ─────────────────────────────────────────── -->
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-kicker">An exploration · 2010 — 2024</div>
+        <div class="hero-kicker">An exploration</div>
         <h1>Kangaroos<br />in&nbsp;Australia</h1>
         <p class="hero-sub">
           Story about native animals who have adapted uniquely to the Australian
@@ -1218,13 +1267,13 @@
             flex-wrap: wrap;
           "
         >
-          <p class="section-lead" style="margin: 0; flex: 1;">
-            Widely known as "muscular", "energetic", and "powerful", Kangaroo
-            is build for wildlife.
+          <p class="section-lead" style="margin: 0; flex: 1">
+            Widely known as "muscular", "energetic", and "powerful", Kangaroo is
+            build for wildlife.
           </p>
           <p
             class="hint-text"
-            style="margin: 0; text-align: right; max-width: none;"
+            style="margin: 0; text-align: right; max-width: none"
           >
             Click a species above to highlight it across all three charts.
           </p>
@@ -1378,48 +1427,101 @@
         class="section-block reveal"
         data-section="07 · MANAGEMENT"
       >
+        <div class="panel-text">
+          <h2 class="section-title section-title-sm">Kangaroo Management</h2>
+          <p class="section-lead">
+            Managing an abundance most countries would envy — through one of the
+            world's largest regulated wildlife harvests.
+          </p>
+        </div>
+
         <div class="pure-g">
-          <div class="pure-u-1-2">
+          <div class="pure-u-2-3">
             <div class="col-pad-l">
               <div id="vis13" class="vis-container chart-hover-lift"></div>
-              <h3 style="margin-top: 16px">Harvest Over Time</h3>
-              <div id="vis15" class="vis-container chart-hover-lift"></div>
               <p class="hint-text">
-                Stacked area by species, 2010 — 2023 — note the
-                <strong>2020 dip</strong> and the 2022–23 recovery.
+                <strong>Filled area</strong> = animals actually harvested ·
+                <strong>dashed line</strong> = allowed quota.
+              </p>
+              <p class="hint-text" style="margin-top: 2px">
+                <em
+                  >Note: Tammar wallaby and Grey kangaroo have limited
+                  reporting data.</em
+                >
               </p>
             </div>
           </div>
-          <div class="pure-u-1-2">
+          <div class="pure-u-1-3">
             <div class="col-pad-r">
               <div class="panel-text">
-                <h2 class="section-title section-title-sm">
-                  Kangaroo Management
-                </h2>
-                <p class="section-lead">
+                <h3>Harvest vs Quota, 2010 — 2023</h3>
+                <p>
                   Their abundance is considered by some as a threat to
                   biodiversity in conservation reserves, removing these as a
                   haven.
                 </p>
-                <h3>Harvest Flow: Year → State → Species</h3>
                 <p>
-                  Each ribbon traces harvested kangaroos through three stages:
-                  the <strong>year</strong> on the left, the
-                  <strong>state</strong> it was harvested in, and the
-                  <strong>species</strong> on the right. Ribbon thickness is the
-                  number of animals taken.
+                  Unlike most native wildlife around the world (much of it
+                  sliding toward extinction) Australia's kangaroos remain
+                  <strong>remarkably abundant</strong>. Even the generous
+                  harvest quotas designed to keep numbers in balance are
+                  <strong>routinely undershot</strong>, and overpopulation
+                  persists to this day.
                 </p>
                 <p>
-                  <strong>QLD</strong> and <strong>NSW</strong> dominate every
-                  year, with <strong>Eastern grey</strong> and
-                  <strong>Red kangaroo</strong> accounting for the vast majority
-                  of the take. <strong>VIC</strong> only enters the regulated
-                  harvest in 2021, and the 2020 dip reflects pandemic-era market
-                  disruption before the recovery through 2022 – 2023.
+                  Each year the
+                  <strong
+                    >Department of Climate Change, Energy, the Environment and
+                    Water</strong
+                  >
+                  sets a national cap; typically <strong>15 – 20%</strong> of
+                  the surveyed population, calculated to keep numbers stable
+                  while permitting a regulated commercial take by licensed
+                  harvesters.
                 </p>
-                <p><em>Hover</em> any ribbon or node for exact counts.</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ KEY TAKEAWAYS ════════════ -->
+      <section class="section-block reveal" data-section="KEY TAKEAWAYS">
+        <h2 class="section-title section-title-sm">Key Takeaways</h2>
+        <p class="section-lead">
+          Three things to remember about kangaroos in Australia.
+        </p>
+        <div class="takeaway-row">
+          <div class="takeaway-card">
+            <div class="takeaway-num">01</div>
+            <h3>Remarkably abundant</h3>
+            <p>
+              About <strong>35 million</strong> kangaroos roam Australia in
+              2024 — more than one per person, and well up from 27 million in
+              2010. Unlike most native wildlife worldwide, they are not
+              endangered.
+            </p>
+          </div>
+          <div class="takeaway-card">
+            <div class="takeaway-num">02</div>
+            <h3>Each species, its corner</h3>
+            <p>
+              <strong>Red</strong> dominates the arid interior,
+              <strong>Eastern Grey</strong> the east coast and Tasmania,
+              <strong>Western Grey</strong> the south, while
+              <strong>Wallaroo</strong> and <strong>Tammar Wallaby</strong>
+              cling to rocky ridges and offshore islands.
+            </p>
+          </div>
+          <div class="takeaway-card">
+            <div class="takeaway-num">03</div>
+            <h3>Managed, not endangered</h3>
+            <p>
+              Australia runs one of the world's largest regulated wildlife
+              harvests, yet the <strong>sustainable quota</strong> is rarely
+              met — held back by market demand, export bans, and supply
+              disruption — and overpopulation persists.
+            </p>
           </div>
         </div>
       </section>
@@ -1491,9 +1593,8 @@
         vis10: "body_height_tail.vg.json",
         vis11: "lifecycle.vg.json",
         vis12: "mortality.vg.json",
-        vis13: "harvest_sankey.vg.json",
+        vis13: "harvest_small_multiples.vg.json",
         vis14: "population_bump.vg.json",
-        vis15: "harvest_stream.vg.json",
       };
 
       // Embedded view handles keyed by container id
