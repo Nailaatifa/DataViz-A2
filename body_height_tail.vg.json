@@ -7,12 +7,7 @@
   "data": { "url": "body_height_tail.csv" },
   "params": [
     { "name": "unitParam", "value": "kg" },
-    { "name": "speciesFilter", "value": "all" },
-    {
-      "name": "speciesSel",
-      "select": { "type": "point", "fields": ["species"] },
-      "bind": "legend"
-    }
+    { "name": "speciesFilter", "value": "all" }
   ],
   "transform": [
     {
@@ -135,10 +130,10 @@
         "cornerRadius": 4
       },
       "encoding": {
-        "x": { "datum": 58, "type": "quantitative" },
-        "x2": { "datum": 100 },
-        "y": { "datum": 105, "type": "quantitative" },
-        "y2": { "datum": 95 }
+        "x": { "datum": 112, "type": "quantitative" },
+        "x2": { "datum": 158 },
+        "y": { "datum": 36, "type": "quantitative" },
+        "y2": { "datum": 48 }
       }
     },
     {
@@ -155,8 +150,8 @@
         "lineHeight": 12
       },
       "encoding": {
-        "x": { "datum": 79, "type": "quantitative" },
-        "y": { "datum": 100, "type": "quantitative" },
+        "x": { "datum": 135, "type": "quantitative" },
+        "y": { "datum": 42, "type": "quantitative" },
         "text": { "field": "text" }
       }
     },
@@ -168,10 +163,10 @@
         "strokeWidth": 1.5
       },
       "encoding": {
-        "x": { "datum": 100, "type": "quantitative" },
-        "x2": { "datum": 147 },
-        "y": { "datum": 100, "type": "quantitative" },
-        "y2": { "datum": 100 }
+        "x": { "datum": 148, "type": "quantitative" },
+        "x2": { "datum": 150 },
+        "y": { "datum": 48, "type": "quantitative" },
+        "y2": { "datum": 98 }
       }
     },
     {
@@ -182,10 +177,10 @@
         "strokeWidth": 1.5
       },
       "encoding": {
-        "x": { "datum": 90, "type": "quantitative" },
-        "x2": { "datum": 103 },
-        "y": { "datum": 95, "type": "quantitative" },
-        "y2": { "datum": 81 }
+        "x": { "datum": 118, "type": "quantitative" },
+        "x2": { "datum": 107 },
+        "y": { "datum": 48, "type": "quantitative" },
+        "y2": { "datum": 79 }
       }
     }
   ]
