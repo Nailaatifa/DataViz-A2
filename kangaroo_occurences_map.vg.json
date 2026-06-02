@@ -1,20 +1,24 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "padding": {"top": 10, "bottom": 0, "left": 12, "right": 12},
+  "padding": { "top": 10, "bottom": 0, "left": 12, "right": 12 },
+  "title": {
+    "text": "Kangaroo Occurrences, 2024",
+    "fontSize": 14,
+    "font": "Lora",
+    "fontWeight": 700,
+    "color": "#5a3a1e",
+    "anchor": "start",
+    "offset": 8
+  },
   "height": 320,
   "width": 400,
   "background": "#fffaf0",
   "projection": {
     "type": "mercator",
-    "center": [
-      134,
-      -27
-    ],
+    "center": [134, -27],
     "scale": 520
   },
-  "params": [
-    {"name": "speciesFilter", "value": "all"}
-  ],
+  "params": [{ "name": "speciesFilter", "value": "all" }],
   "layer": [
     {
       "data": {
@@ -24,9 +28,7 @@
           "property": "features"
         }
       },
-      "transform": [
-        {"filter": "datum.properties.name != 'Tasmania'"}
-      ],
+      "transform": [{ "filter": "datum.properties.name != 'Tasmania'" }],
       "mark": {
         "type": "geoshape",
         "fill": "#5a3a1e",
@@ -37,7 +39,7 @@
     {
       "data": {
         "url": "kangaroo_occurrences.json",
-        "format": {"type": "json"}
+        "format": { "type": "json" }
       },
       "transform": [
         {
@@ -48,7 +50,7 @@
       "params": [
         {
           "name": "speciesSel",
-          "select": {"type": "point", "fields": ["speciesGroup"]},
+          "select": { "type": "point", "fields": ["speciesGroup"] },
           "bind": "legend"
         }
       ],
@@ -78,20 +80,14 @@
           "type": "nominal",
           "title": "Species",
           "scale": {
-           "domain": [
-                                    "Eastern Grey Kangaroo",
-                                    "Red Kangaroo",
-                                    "Tammar Wallaby",
-                                    "Wallaroo",
-                                    "Western Grey Kangaroo"
-                                ],
-                                "range": [
-                                    "#e3891f",
-                                    "#f2b705",
-                                    "#2e8b57",
-                                    "#d4d83b",
-                                    "#7fbf3f"
-                                ]
+            "domain": [
+              "Eastern Grey Kangaroo",
+              "Red Kangaroo",
+              "Tammar Wallaby",
+              "Wallaroo",
+              "Western Grey Kangaroo"
+            ],
+            "range": ["#e3891f", "#f2b705", "#2e8b57", "#d4d83b", "#7fbf3f"]
           },
           "legend": {
             "orient": "right",
